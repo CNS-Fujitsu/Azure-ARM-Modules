@@ -19,11 +19,7 @@
       },
       "subnetIPRange2": {
         "type": "string"
-      },
-      "vnetRequired": {
-        "type": "bool"
-      }
-  
+      } 
     },
     "variables": {
     },
