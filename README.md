@@ -5,9 +5,13 @@ A respository for the creation of Micorosoft Azure Arm Modules to be used in Nes
 ## Modules
 
 ### Module Name: azVnet-2a.json
-Description:
-Usage:
-Main Template Parameters:
+Description: Deploys an Azure Virtual Network with 2 subnets as a nested template in a master template when parameters are passed.
+Usage Enablement in Master Deploy template:
+
+User
+
+
+#### Main Template Parameters:
 
 `"requiredModuleAZVnet-2a" : {
       "type" : "string",
@@ -20,7 +24,7 @@ Main Template Parameters:
       "type" : "object"
     }`
 
-Main Template: Resource
+#### Main Template Resources:
 
 `{
       "apiVersion": "2017-05-10",
