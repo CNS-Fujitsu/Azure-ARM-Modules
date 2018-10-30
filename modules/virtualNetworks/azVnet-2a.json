@@ -33,9 +33,7 @@
         "location": "[resourceGroup().location]",
         "apiVersion": "2018-08-01",
         "dependsOn": [],
-        "tags":  {
-          "[parameters('customTages')]"
-        },
+        "tags": "[parameters('customTages')]",
         "properties": {
           "addressSpace": {
             "addressPrefixes": [
