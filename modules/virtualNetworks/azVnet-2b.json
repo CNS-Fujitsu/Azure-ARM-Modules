@@ -48,19 +48,19 @@
           },
           "subnets": [
             {
-              "id": "[parameters('subnetName1')]",
+              "name": "[parameters('subnetName1')]",
               "properties": {
                 "addressPrefix": "[parameters('subnetIPRange1')]"
               }
             },
             {
-              "id": "[parameters('subnetName2')]",
+              "name": "[parameters('subnetName2')]",
               "properties": {
                 "addressPrefix": "[parameters('subnetIPRange2')]"
               }
             },
             {
-                "id": "[variables('gatewaySubnetName')]",
+                "name": "[variables('gatewaySubnetName')]",
                 "properties": {
                   "addressPrefix": "[parameters('gatewaySubnetIPRange')]"
                 }
