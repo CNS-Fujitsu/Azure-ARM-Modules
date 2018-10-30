@@ -28,7 +28,7 @@
       }
     },
     "variables": {
-        "gatewaySubnetName" : "gatewaysubnet"
+        "gatewaySubnetName" : "GatewaySubnet"
     },
     "resources": [
       {
