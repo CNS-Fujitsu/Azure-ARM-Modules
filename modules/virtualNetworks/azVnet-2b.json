@@ -22,7 +22,10 @@
       },
       "gatewaySubnetIPRange": {
         "type": "string"
-      } 
+      },
+      "customTages": {
+        "type": "object"
+      }
     },
     "variables": {
         "gatewaySubnetName" : "gatewaysubnet"
@@ -34,8 +37,8 @@
         "location": "[resourceGroup().location]",
         "apiVersion": "2016-03-30",
         "dependsOn": [],
-        "tags": {
-          "displayName": "tempname1"
+        "tags":  {
+          "[parameters('customTages')]"
         },
         "properties": {
           "addressSpace": {
