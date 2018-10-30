@@ -19,6 +19,9 @@
       },
       "subnetIPRange2": {
         "type": "string"
+      },
+      "customTages": {
+        "type": "object"
       } 
     },
     "variables": {
@@ -30,8 +33,8 @@
         "location": "[resourceGroup().location]",
         "apiVersion": "2016-03-30",
         "dependsOn": [],
-        "tags": {
-          "displayName": "tempname1"
+        "tags":  {
+          "[parameters('customTages')]"
         },
         "properties": {
           "addressSpace": {
