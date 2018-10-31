@@ -1,0 +1,17 @@
+{
+    "parameters": {
+        "mysqldb1a": 
+        {
+            "mysqlDBName" : "Server Name Goes Here",
+            "" : "",
+            "sku": {
+                "name": "string",
+                "tier": "string",
+                "capacity": "integer",
+                "size": "string",
+                "family": "string"
+              },
+              "":""
+        }
+    }
+}

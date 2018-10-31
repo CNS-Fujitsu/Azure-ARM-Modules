@@ -2,33 +2,24 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.1",
     "parameters": {
-      "vnetName": {
-        "type": "string"
-      },
-      "vnetCIDR": {
-        "type": "string"
-      },
-      "subnetName1": {
-        "type": "string"
-      },
-      "subnetIPRange1": {
-        "type": "string"
-      },
-      "subnetName2": {
-        "type": "string"
-      },
-      "subnetIPRange2": {
-        "type": "string"
-      },
-      "customTages": {
+      "module-azVnet2a" : {
+        "type" : "object"
+    },
+    "customTages": {
         "type": "object"
-      } 
+    }
     },
     "variables": {
+      "vnetName": "[parameters('module-azVnet2a').vnetName]",
+      "vnetCIDR": "[parameters('module-azVnet2a').vnetCIDR]",
+      "subnetName1": "[parameters('module-azVnet2a').subnets[0].name]",
+      "subnetIPRange1": "[parameters('module-azVnet2a').subnets[0].addressPrefix]",
+      "subnetName2": "[parameters('module-azVnet2a').subnets[1].name]",
+      "subnetIPRange2": "[parameters('module-azVnet2a').subnets[1].addressPrefix]"
     },
     "resources": [
       {
-        "name": "[parameters('vnetName')]",
+        "name": "[variables('vnetName')]",
         "type": "Microsoft.Network/virtualNetworks",
         "location": "[resourceGroup().location]",
         "apiVersion": "2018-08-01",
@@ -37,20 +28,20 @@
         "properties": {
           "addressSpace": {
             "addressPrefixes": [
-              "[parameters('vnetCIDR')]"
+              "[variables('vnetCIDR')]"
             ]
           },
           "subnets": [
             {
-              "name": "[parameters('subnetName1')]",
+              "name": "[variables('subnetName1')]",
               "properties": {
-                "addressPrefix": "[parameters('subnetIPRange1')]"
+                "addressPrefix": "[variables('subnetIPRange1')]"
               }
             },
             {
-              "name": "[parameters('subnetName2')]",
+              "name": "[variables('subnetName2')]",
               "properties": {
-                "addressPrefix": "[parameters('subnetIPRange2')]"
+                "addressPrefix": "[variables('subnetIPRange2')]"
               }
             }
           ]
