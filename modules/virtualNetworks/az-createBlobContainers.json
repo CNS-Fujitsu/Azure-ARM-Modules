@@ -1,0 +1,40 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.1",
+    "parameters": {
+      "moduleCreateBlobContainers": {
+        "type": "object"
+      },
+      "customTages": {
+        "type": "object"
+      }
+    },
+    "variables": {
+        "defaultLocation": "[resourceGroup().location]"
+    },
+    "resources": [
+        {
+            "copy" : {
+                "name": "containers",
+                "count": "[length(parameters('moduleCreateBlobContainers').accounts)]"
+            },
+                    
+            "name": "[concat(tolower(parameters('moduleCreateBlobContainers').accounts[copyIndex('containers')].saName),'/default/test')]",
+            "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
+            "apiVersion": "2018-03-01-preview",
+            "condition": "[equals(parameters('moduleCreateBlobContainers').accounts[copyIndex('containers')].blob, 'Yes')]",
+            "dependsOn": [
+            ],
+            "properties": {
+                "publicAccess": "[parameters('moduleCreateBlobContainers').accounts[copyIndex('containers')].publicAccess]"
+                
+            }
+                
+        }      
+      ], 
+    "outputs": {
+    }
+}
+
+
+  
