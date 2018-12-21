@@ -1,0 +1,41 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.1",
+    "parameters": {
+      "moduleCreatePublicIPAddresses": {
+        "type": "object"
+      },
+      "customTages": {
+        "type": "object"
+      },
+      "suffixes" : {
+        "type": "object"
+      }
+    },
+    "variables": {
+      "defaultLocation": "[resourceGroup().location]"
+    },
+    "resources": [
+      {
+        "copy" : {
+          "name": "publicIPAddresses",
+          "count": "[length(parameters('moduleCreatePublicIPAddresses').pips)]"
+        },
+        "type": "Microsoft.Network/publicIPAddresses",
+        "name": "[concat(toLower(parameters('moduleCreatePublicIPAddresses').pips[copyIndex('publicIPAddresses')].pipName),parameters('suffixes').publicIPSuffix)]",
+        "apiVersion": "2018-06-01",
+        "dependsOn": [
+        ],
+        "tags": "[parameters('customTages')]",
+        "location": "[if(equals(parameters('moduleCreatePublicIPAddresses').location, json('null')), variables('defaultLocation'), parameters('moduleCreatePublicIPAddresses').location)]",
+        "properties": {
+          "publicIPAllocationMethod": "[parameters('moduleCreatePublicIPAddresses').pips[copyIndex('publicIPAddresses')].publicIPAllocationMethod]",
+          "dnsSettings": {
+            "domainNameLabel": "[toLower(parameters('moduleCreatePublicIPAddresses').pips[copyIndex('publicIPAddresses')].domainNameLabelprefix)]"
+          }
+        }    
+      }
+    ], 
+    "outputs": {
+    }
+}

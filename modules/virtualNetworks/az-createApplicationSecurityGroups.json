@@ -1,0 +1,37 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.1",
+    "parameters": {
+      "moduleCreateApplicationSecurityGroups": { 
+        "type": "object" 
+      },
+      "customTages": {
+        "type": "object"
+      },
+      "suffixes" : {
+        "type": "object"
+      }
+    },
+    "variables": {   
+      "defaultLocation": "[resourceGroup().location]"
+    },
+    "resources": [
+      {
+        "copy" : {
+          "name": "asgGroups",
+          "count": "[length(parameters('moduleCreateApplicationSecurityGroups').groupNames)]"
+        },
+        "name": "[concat(parameters('moduleCreateApplicationSecurityGroups').groupNames[copyIndex()].name,parameters('suffixes').asgSuffix)]",
+        "type": "Microsoft.Network/applicationSecurityGroups",
+        "apiVersion": "2018-08-01",
+        "comments": "module to create one or more application security groups from a passed in array of data",
+        "dependsOn": [
+        ],
+        "tags": "[parameters('customTages')]",
+        "location": "[if(equals(parameters('moduleCreateApplicationSecurityGroups').location, json('null')), variables('defaultLocation'), parameters('moduleCreateApplicationSecurityGroups').location)]",
+        "properties": {}  
+      }
+    ],
+    "outputs": {
+    }
+}

@@ -1,0 +1,54 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.1",
+    "parameters": {
+      "moduleSingleNSGMultiRules": {
+        "type": "object"
+      },
+      
+      "customTages": {
+        "type": "object"
+      }
+    },
+    "variables": {
+      "location": "[resourceGroup().location]",
+      "copy" : [
+        {
+            "name": "securityRules",
+            "count": "[length(parameters('moduleSingleNSGMultiRules').rules)]",
+            "input" : {   
+                "name": "[parameters('moduleSingleNSGMultiRules').rules[copyIndex('securityRules')].name]",
+                "properties": {
+                    "description": "[parameters('moduleSingleNSGMultiRules').rules[copyIndex('securityRules')].description]",
+                    "sourceAddressPrefix": "[parameters('moduleSingleNSGMultiRules').rules[copyIndex('securityRules')].sourceAddressPrefix]",
+                    "sourcePortRange": "[parameters('moduleSingleNSGMultiRules').rules[copyIndex('securityRules')].sourcePortRange]",
+                    "direction": "[parameters('moduleSingleNSGMultiRules').rules[copyIndex('securityRules')].direction]",
+                    "access": "[parameters('moduleSingleNSGMultiRules').rules[copyIndex('securityRules')].access]",
+                    "priority": "[parameters('moduleSingleNSGMultiRules').rules[copyIndex('securityRules')].priority]",
+                    "protocol": "[parameters('moduleSingleNSGMultiRules').rules[copyIndex('securityRules')].protocol]",
+                    "destinationAddressPrefix": "[parameters('moduleSingleNSGMultiRules').rules[copyIndex('securityRules')].destinationAddressPrefix]",
+                    "destinationPortRange": "[parameters('moduleSingleNSGMultiRules').rules[copyIndex('securityRules')].destinationPortRange]"
+                    
+                }
+            }
+        }
+      ]
+    },
+    "resources": [
+      {
+        "name": "[parameters('moduleSingleNSGMultiRules').nsgName]",
+        "type": "Microsoft.Network/networkSecurityGroups",
+        "comments": "Module to create a Network Security Group with multiple IP associated rules",
+        "apiVersion": "2018-08-01",
+        "tags": "[parameters('customTages')]",
+        "location": "[variables('location')]",
+        "properties": {
+            "securityRules": "[variables('securityRules')]"    
+        }
+      }
+    ],
+    "outputs": {
+    }
+}
+
+  
