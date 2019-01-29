@@ -1,0 +1,526 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.1",
+    "parameters": {
+
+        "requireCreateApplicationSecurityGroups" : {
+            "type" : "string",
+            "allowedValues": [
+                "Yes",
+                "No"
+            ]
+        },
+        "requireCreateNetworkSecurityGroupWithASGBasedRules" : {
+            "type" : "string",
+            "allowedValues": [
+                "Yes",
+                "No"
+            ]
+        },
+        "requireCreateStorageAccounts" : {
+            "type" : "string",
+            "allowedValues": [
+                "Yes",
+                "No"
+            ]
+        },
+        "requireCreateBlobContainers" : {
+            "type" : "string",
+            "allowedValues": [
+                "Yes",
+                "No"
+            ]
+        },
+        "requireCreatePublicIPAddresses" : {
+            "type" : "string",
+            "allowedValues": [
+                "Yes",
+                "No"
+            ]
+        },
+        "requireCreateVNetsAndSubnets" : {
+            "type" : "string",
+            "allowedValues": [
+                "Yes",
+                "No"
+            ]
+        },
+        "requireCreateNetworkInterfaces" : {
+            "type" : "string",
+            "allowedValues": [
+                "Yes",
+                "No"
+            ]
+        },
+        "requireCreateAvailabilitySets" : {
+            "type" : "string",
+            "allowedValues": [
+                "Yes",
+                "No"
+            ]
+        },
+        "requireCreateVirtualMachinesPerVNet" : {
+            "type" : "string",
+            "allowedValues": [
+                "Yes",
+                "No"
+            ]
+        },
+        "requireCreateApplicationGateway" : {
+            "type" : "string",
+            "allowedValues": [
+                "Yes",
+                "No"
+            ]
+        },
+        "requireCreateWAFApplicationGateway" : {
+            "type" : "string",
+            "allowedValues": [
+                "Yes",
+                "No"
+            ]
+        },
+        "requireCreateLoadBalancers" : {
+            "type" : "string",
+            "allowedValues": [
+                "Yes",
+                "No"
+            ]
+        },
+
+        "moduleCreateApplicationSecurityGroups" : {
+            "type" : "object"
+        },
+        "moduleCreateNetworkSecurityGroupWithASGBasedRules" : {
+            "type" : "object"
+        },
+        "moduleCreateStorageAccounts" : {
+            "type" : "object"
+        },
+        "moduleCreateBlobContainers" : {
+            "type" : "object"
+        },
+        "moduleCreatePublicIPAddresses" : {
+            "type" : "object"
+        },
+        "moduleCreateVNetsAndSubnets" : {
+            "type" : "object"
+        },
+        "moduleCreateNetworkInterfaces" : {
+            "type" : "object"
+        },
+        "moduleCreateAvailabilitySets" : {
+            "type" : "object"
+        },
+        "moduleCreateVirtualMachinesPerVNet" : {
+            "type" : "object"
+        },
+        "moduleCreateApplicationGateway" : {
+            "type" : "object"
+        },
+        "moduleCreateWAFApplicationGateway" : {
+            "type" : "object"
+        },
+        "moduleCreateLoadBalancers" : {
+            "type" : "object"
+        },
+        
+        "suffixes" : {
+            "type" : "object"
+        },
+        "customTages": {
+            "type": "object"
+        }
+    },
+    "variables": {
+        
+        "moduleStoreURLold": "https://raw.githubusercontent.com/fujitsuk5/Azure-ARM-Modules/master/modules/",
+        "moduleStoreURL": "https://privaterepofilefetcher.azurewebsites.net/api/GitHubPrivateRepoFileFecher?githuburi=https://raw.githubusercontent.com/ianpurvis1976/fujitsuk5/Azure-ARM-Modules/master/modules/",
+        
+        "moduleStoreFBURL": "https://raw.githubusercontent.com/fujitsuk5/Azure-ARM-Modules/TidyUp/modules/",
+        "module-CreateApplicationSecurityGroups-URL": "[concat(variables('moduleStoreURL'),'virtualNetworks/', 'az-createApplicationSecurityGroups.json','&githubaccesstoken=31b597ad5bfb113d76d83cdc7d7819bf5568805e')]",
+        "module-CreateNetworkSecurityGroupWithASGBasedRules-URL": "[concat(variables('moduleStoreURL'),'virtualNetworks/', 'az-createNetworkSecurityGroupWithASGBasedRules.json','&githubaccesstoken=31b597ad5bfb113d76d83cdc7d7819bf5568805e')]",
+        "module-CreateStorageAccounts-URL": "[concat(variables('moduleStoreURL'),'virtualNetworks/', 'az-createStorageAccounts.json','&githubaccesstoken=31b597ad5bfb113d76d83cdc7d7819bf5568805e')]",
+        "module-CreateBlobContainers-URL": "[concat(variables('moduleStoreURL'),'virtualNetworks/', 'az-createBlobContainers.json','&githubaccesstoken=31b597ad5bfb113d76d83cdc7d7819bf5568805e')]",
+        "module-CreatePublicIPAddresses-URL": "[concat(variables('moduleStoreURL'),'virtualNetworks/', 'az-createPublicIPAddresses.json','&githubaccesstoken=31b597ad5bfb113d76d83cdc7d7819bf5568805e')]",
+        "module-CreateAvailabilitySets-URL": "[concat(variables('moduleStoreURL'),'virtualMachines/', 'az-createAvailabilitySets.json','&githubaccesstoken=31b597ad5bfb113d76d83cdc7d7819bf5568805e')]",
+        "module-CreateVirtualNetworks-URL": "[concat(variables('moduleStoreURL'),'virtualNetworks/', 'az-createVNetsWithSubnets.json','&githubaccesstoken=31b597ad5bfb113d76d83cdc7d7819bf5568805e')]",
+        "module-CreateNetworkInterfaces-URL": "[concat(variables('moduleStoreURL'),'virtualNetworks/', 'az-createNetworkInterfaces.json','&githubaccesstoken=31b597ad5bfb113d76d83cdc7d7819bf5568805e')]",
+        "module-CreateVirtualMachines-URL": "[concat(variables('moduleStoreURL'),'virtualMachines/', 'az-createVirtualMachines.json','&githubaccesstoken=31b597ad5bfb113d76d83cdc7d7819bf5568805e')]",
+        "module-CreateApplicationGateway-URL": "[concat(variables('moduleStoreURL'),'virtualNetworks/', 'az-createApplicationGateways.json','&githubaccesstoken=31b597ad5bfb113d76d83cdc7d7819bf5568805e')]",
+        "module-CreateWAFApplicationGateway-URL": "[concat(variables('moduleStoreURL'),'virtualNetworks/', 'az-createWAFApplicationGateways.json','&githubaccesstoken=31b597ad5bfb113d76d83cdc7d7819bf5568805e')]",
+        "module-CreateLoadBalancers-URL": "[concat(variables('moduleStoreURL'),'virtualNetworks/', 'az-createLoadBalancers.json','&githubaccesstoken=31b597ad5bfb113d76d83cdc7d7819bf5568805e')]",
+        "module-CreateLoadBalancers-URL2": "[concat(variables('moduleStoreURL'),'virtualNetworks/', 'az-createLoadBalancers-probes.json','&githubaccesstoken=31b597ad5bfb113d76d83cdc7d7819bf5568805e')]",
+        "module-CreateLoadBalancers-URL3": "[concat(variables('moduleStoreURL'),'virtualNetworks/', 'az-createLoadBalancers-inbound.json','&githubaccesstoken=31b597ad5bfb113d76d83cdc7d7819bf5568805e')]"
+    },
+    "resources": [
+        {
+            "apiVersion": "2018-05-01",
+            "name": "AllASGSForResourceGroup",
+            "comments": "Calling Module to deploy multiple Application Security Groups-v1.00",
+            "type": "Microsoft.Resources/deployments",
+            "condition": "[equals(parameters('requireCreateApplicationSecurityGroups'), 'Yes')]",
+            "properties" : {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[variables('module-CreateApplicationSecurityGroups-URL')]",
+                    "contentVersion": "1.0.0.1"
+                },
+                "parameters": {
+                    "moduleCreateApplicationSecurityGroups": { "value": "[parameters('moduleCreateApplicationSecurityGroups')]"},
+                    "customTages": {
+                        "value": "[parameters('customTages')]"
+                    },
+                    "suffixes" : {
+                        "value": "[parameters('suffixes')]"
+                    }
+                }
+            }
+        },
+        {
+            "apiVersion": "2018-05-01",
+            "name": "AllASGBasedNSGForResourceGroup",
+            "comments": "Calling Module to deploy a multiple Application Security Group based Network Security Groups-v1.00",
+            "type": "Microsoft.Resources/deployments",
+            "condition": "[equals(parameters('requireCreateNetworkSecurityGroupWithASGBasedRules'), 'Yes')]",
+            "dependsOn": [
+                "AllASGSForResourceGroup"
+            ],
+            "properties" : {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[variables('module-CreateNetworkSecurityGroupWithASGBasedRules-URL')]",
+                    "contentVersion": "1.0.0.1"
+                },
+                "parameters": {
+                    "moduleCreateNetworkSecurityGroupWithASGBasedRules": { "value": "[parameters('moduleCreateNetworkSecurityGroupWithASGBasedRules')]"},
+                    "customTages": {
+                        "value": "[parameters('customTages')]"
+                    },
+                    "suffixes" : {
+                        "value": "[parameters('suffixes')]"
+                    }
+                }
+            }
+        },
+        {
+            "apiVersion": "2018-05-01",
+            "name": "AllStorageGroupsForResourceGroup",
+            "comments": "Calling Module to deploy one or more Storage Accounts",
+            "type": "Microsoft.Resources/deployments",
+            "condition": "[equals(parameters('requireCreateStorageAccounts'), 'Yes')]",
+            "properties" : {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[variables('module-CreateStorageAccounts-URL')]",
+                    "contentVersion": "1.0.0.1"
+                },
+                "parameters": {
+                    "moduleCreateStorageAccounts": { "value": "[parameters('moduleCreateStorageAccounts')]"},
+                    "customTages": {
+                        "value": "[parameters('customTages')]"
+                    },
+                    "suffixes" : {
+                        "value": "[parameters('suffixes')]"
+                    }
+                }
+            }
+        },
+        {
+            "apiVersion": "2018-05-01",
+            "name": "AllBlobContainerForResourceGroup",
+            "comments": "Calling Module to deploy one or more Blob Containers within a Storage Account",
+            "type": "Microsoft.Resources/deployments",
+            "condition": "[equals(parameters('requireCreateBlobContainers'), 'Yes')]",
+            "properties" : {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[variables('module-CreateBlobContainers-URL')]",
+                    "contentVersion": "1.0.0.1"
+                },
+                "parameters": {
+                    "moduleCreateBlobContainers": { "value": "[parameters('moduleCreateBlobContainers')]"},
+                    "customTages": {"value": "[parameters('customTages')]"}
+                }
+            }
+        },
+        {
+            "apiVersion": "2018-05-01",
+            "name": "AllPublicIPAddressesForResourceGroup",
+            "comments": "Calling Module to deploy one or more Public IPs",
+            "type": "Microsoft.Resources/deployments",
+            "condition": "[equals(parameters('requireCreatePublicIPAddresses'), 'Yes')]",
+            "dependsOn": [
+                "AllStorageGroupsForResourceGroup"],
+            "properties" : {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[variables('module-CreatePublicIPAddresses-URL')]",
+                    "contentVersion": "1.0.0.1"
+                },
+                "parameters": {
+                    "moduleCreatePublicIPAddresses": { "value": "[parameters('moduleCreatePublicIPAddresses')]"},
+                    "customTages": {
+                        "value": "[parameters('customTages')]"
+                    },
+                    "suffixes" : {
+                        "value": "[parameters('suffixes')]"
+                    }
+                }
+            }
+        },
+        {
+            "apiVersion": "2018-05-01",
+            "name": "AllVNetsAndSubnetsForResourceGroup",
+            "comments": "Calling Module to deploy a Vnets with subnets",
+            "type": "Microsoft.Resources/deployments",
+            "condition": "[equals(parameters('requireCreateVNetsAndSubnets'), 'Yes')]",
+            "dependsOn": [
+                "AllASGBasedNSGForResourceGroup"
+            ],
+            "properties" : {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[variables('Module-CreateVirtualNetworks-URL')]",
+                    "contentVersion": "1.0.0.1"
+                },
+                "parameters": {
+                    "moduleCreateVNetsAndSubnets": { "value": "[parameters('moduleCreateVNetsAndSubnets')]"},
+                    "customTages": {
+                        "value": "[parameters('customTages')]"
+                    },
+                    "suffixes" : {
+                        "value": "[parameters('suffixes')]"
+                    }
+                }
+            }
+        },
+        {
+            "apiVersion": "2018-05-01",
+            "name": "AllNetworkInterfacesForResourceGroup",
+            "comments": "Calling Module to deploy one or more Nics",
+            "type": "Microsoft.Resources/deployments",
+            "condition": "[equals(parameters('requireCreateNetworkInterfaces'), 'Yes')]",
+            "dependsOn": [
+                "AllASGSForResourceGroup",
+                "AllPublicIPAddressesForResourceGroup",
+                "AllVNetsAndSubnetsForResourceGroup",
+                "AllLoadBalancersForResourceGroup-inbound"
+
+            ],
+            "properties" : {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[variables('module-CreateNetworkInterfaces-URL')]",
+                    "contentVersion": "1.0.0.1"
+                },
+                "parameters": {
+                    "moduleCreateNetworkInterfaces": { "value": "[parameters('moduleCreateNetworkInterfaces')]"},
+                    "customTages": {
+                        "value": "[parameters('customTages')]"
+                    },
+                    "suffixes" : {
+                        "value": "[parameters('suffixes')]"
+                    }
+                }
+            }
+        },
+        {
+            "apiVersion": "2018-05-01",
+            "name": "AllAvailabilitySetsPerResourceGroup",
+            "comments": "Calling Module to deploy one or more availability sets per Resource Group",
+            "type": "Microsoft.Resources/deployments",
+            "condition": "[equals(parameters('requireCreateAvailabilitySets'), 'Yes')]",
+            "dependsOn": [
+
+            ],
+            "properties" : {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[variables('module-CreateAvailabilitySets-URL')]",
+                    "contentVersion": "1.0.0.1"
+                },
+                "parameters": {
+                    "moduleCreateAvailabilitySets": { "value": "[parameters('moduleCreateAvailabilitySets')]"},
+                    "customTages": {
+                        "value": "[parameters('customTages')]"
+                    },
+                    "suffixes" : {
+                        "value": "[parameters('suffixes')]"
+                    }
+                }
+            }
+        },
+        {
+            "apiVersion": "2018-05-01",
+            "name": "AllVirtualMachinesForVNetAndResourceGroup",
+            "comments": "Calling Module to deploy one or more VMs per VNet and Resource Group",
+            "type": "Microsoft.Resources/deployments",
+            "condition": "[equals(parameters('requireCreateVirtualMachinesPerVNet'), 'Yes')]",
+            "dependsOn": [
+                "AllASGSForResourceGroup",
+                "AllPublicIPAddressesForResourceGroup",
+                "AllNetworkInterfacesForResourceGroup",
+                "AllVNetsAndSubnetsForResourceGroup",
+                "AllAvailabilitySetsPerResourceGroup"
+
+            ],
+            "properties" : {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[variables('module-CreateVirtualMachines-URL')]",
+                    "contentVersion": "1.0.0.1"
+                },
+                "parameters": {
+                    "moduleCreateVirtualMachinesPerVNet": { "value": "[parameters('moduleCreateVirtualMachinesPerVNet')]"},
+                    "customTages": {
+                        "value": "[parameters('customTages')]"
+                    },
+                    "suffixes" : {
+                        "value": "[parameters('suffixes')]"
+                    }
+                }
+            }
+        },
+        {
+            "apiVersion": "2018-05-01",
+            "name": "AllApplicationGatewaysForResourceGroup",
+            "comments": "Calling Module to deploy one or more Application Gateway for the Resource Group",
+            "type": "Microsoft.Resources/deployments",
+            "condition": "[equals(parameters('requireCreateApplicationGateway'), 'Yes')]",
+            "dependsOn": [
+                "AllVNetsAndSubnetsForResourceGroup"
+            ],
+            "properties" : {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[variables('module-CreateApplicationGateway-URL')]",
+                    "contentVersion": "1.0.0.1"
+                },
+                "parameters": {
+                    "moduleCreateApplicationGateway": { "value": "[parameters('moduleCreateApplicationGateway')]"},
+                    "customTages": {
+                        "value": "[parameters('customTages')]"
+                    },
+                    "suffixes" : {
+                        "value": "[parameters('suffixes')]"
+                    }
+                }
+            }
+        },
+        {
+            "apiVersion": "2018-05-01",
+            "name": "AllWAFApplicationGatewaysForResourceGroup",
+            "comments": "Calling Module to deploy one or more WAF Application Gateway for the Resource Group",
+            "type": "Microsoft.Resources/deployments",
+            "condition": "[equals(parameters('requireCreateWAFApplicationGateway'), 'Yes')]",
+            "dependsOn": [
+                "AllVNetsAndSubnetsForResourceGroup"
+            ],
+            "properties" : {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[variables('module-CreateWAFApplicationGateway-URL')]",
+                    "contentVersion": "1.0.0.1"
+                },
+                "parameters": {
+                    "moduleCreateWAFApplicationGateway": { "value": "[parameters('moduleCreateWAFApplicationGateway')]"},
+                    "customTages": {
+                        "value": "[parameters('customTages')]"
+                    },
+                    "suffixes" : {
+                        "value": "[parameters('suffixes')]"
+                    }
+                }
+            }
+        },
+        {
+            "apiVersion": "2018-05-01",
+            "name": "AllLoadBalancersForResourceGroup",
+            "comments": "Calling Module to deploy one or more Loadbalancers for the Resource Group",
+            "type": "Microsoft.Resources/deployments",
+            "condition": "[equals(parameters('requireCreateLoadbalancers'), 'Yes')]",
+            "dependsOn": [
+                "AllVNetsAndSubnetsForResourceGroup",
+                "AllPublicIPAddressesForResourceGroup",
+                "AllLoadBalancersForResourceGroup-probes"
+            ],
+            "properties" : {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[variables('module-CreateLoadbalancers-URL')]",
+                    "contentVersion": "1.0.0.1"
+                },
+                "parameters": {
+                    "moduleCreateLoadBalancers": { "value": "[parameters('moduleCreateLoadBalancers')]"},
+                    "customTages": {
+                        "value": "[parameters('customTages')]"
+                    },
+                    "suffixes" : {
+                        "value": "[parameters('suffixes')]"
+                    }
+                }
+            }
+        },
+        {
+            "apiVersion": "2018-05-01",
+            "name": "AllLoadBalancersForResourceGroup-probes",
+            "comments": "Calling Module to deploy one or more Loadbalancers for the Resource Group",
+            "type": "Microsoft.Resources/deployments",
+            "condition": "[equals(parameters('requireCreateLoadbalancers'), 'Yes')]",
+            "dependsOn": [
+                "AllVNetsAndSubnetsForResourceGroup",
+                "AllPublicIPAddressesForResourceGroup"
+            ],
+            "properties" : {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[variables('module-CreateLoadbalancers-URL2')]",
+                    "contentVersion": "1.0.0.1"
+                },
+                "parameters": {
+                    "moduleCreateLoadBalancers": { "value": "[parameters('moduleCreateLoadBalancers')]"},
+                    "customTages": {
+                        "value": "[parameters('customTages')]"
+                    },
+                    "suffixes" : {
+                        "value": "[parameters('suffixes')]"
+                    }
+                }
+            }
+        },
+        {
+            "apiVersion": "2018-05-01",
+            "name": "AllLoadBalancersForResourceGroup-inbound",
+            "comments": "Calling Module to deploy one or more Loadbalancers for the Resource Group",
+            "type": "Microsoft.Resources/deployments",
+            "condition": "[equals(parameters('requireCreateLoadbalancers'), 'Yes')]",
+            "dependsOn": [
+                "AllVNetsAndSubnetsForResourceGroup",
+                "AllPublicIPAddressesForResourceGroup",
+                "AllLoadBalancersForResourceGroup-probes",
+                "AllLoadBalancersForResourceGroup"
+            ],
+            "properties" : {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[variables('module-CreateLoadbalancers-URL3')]",
+                    "contentVersion": "1.0.0.1"
+                },
+                "parameters": {
+                    "moduleCreateLoadBalancers": { "value": "[parameters('moduleCreateLoadBalancers')]"},
+                    "customTages": {
+                        "value": "[parameters('customTages')]"
+                    },
+                    "suffixes" : {
+                        "value": "[parameters('suffixes')]"
+                    }
+                }
+            }
+        }
+        
+        
+    ],
+    "outputs": {
+    }
+}
