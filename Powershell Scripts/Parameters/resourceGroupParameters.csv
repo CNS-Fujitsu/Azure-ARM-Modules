@@ -1,0 +1,5 @@
+"resourcegroupname","resourcegrouplocation"
+"virtualNetworkRg","UKSOUTH"
+"transitvirtualNetworkRg","UKSOUTH"
+"activeDirectoryDomainServicesRg","UKSOUTH"
+"baselineImagesRg","UKSOUTH"

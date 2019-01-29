@@ -1,0 +1,8 @@
+"managementgroupname","managementgroupparent"
+"customerRootMgroup",""
+"itMgroup","customerRootMgroup"
+"applicationMgroup","customerRootMgroup"
+"mgmtProductionMGroup","itMgroup"
+"mgmtNonProductionMGroup","itMgroup"
+"appxProductionMgroup","applicationMgroup"
+"appxNonProductionMgroup","applicationMgroup"
