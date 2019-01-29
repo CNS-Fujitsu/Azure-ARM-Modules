@@ -15,19 +15,16 @@ param(
     [array] $adusrgroups = @(
                                 "Azure-Global-Administrators-aadsecg",
                                 "Azure-Network-Administrators-aadsecg",
-                                "Azure-Billing-Adminstrators-aadsdecg",
+                                "Azure-Billing-Adminstrators-aadsecg",
                                 "Azure-Develeopers-aadsecg",
-                                "Azure-Auditors-aadsdecg"
+                                "Azure-Auditors-aadsdecg",
+                                "Azure-Ad-User-Administrators-aadsecg"
                             )
-
-
 )
 
     function createadgroup([string]$adusergroup) {
         # Create AzureAd User group
-        New-AzureADGroup -DisplayName ${1}
-    -MailEnabled false
-    -SecurityEnabled true
+        New-AzureRMADGroup -DisplayName $adusergroup -MailNickname $adusergroup
     }
 
     function main([array]$adusrgroups) {
