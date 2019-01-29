@@ -1,0 +1,621 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        
+        "requireCreateApplicationSecurityGroups": {
+            "value" : "Yes" 
+        },
+        "requireCreateNetworkSecurityGroupWithASGBasedRules": {
+            "value" : "Yes" 
+        },
+        "requireCreateStorageAccounts": {
+            "value" : "Yes" 
+        },
+        "requireCreateBlobContainers": {
+            "value" : "No" 
+        },
+        "requireCreatePublicIPAddresses": {
+            "value" : "Yes" 
+        },
+        "requireCreateVNetsAndSubnets": {
+            "value" : "Yes" 
+        },
+        "requireCreateNetworkInterfaces": {
+            "value" : "Yes" 
+        },
+        "requireCreateAvailabilitySets": {
+            "value" : "Yes" 
+        },
+        "requireCreateVirtualMachinesPerVNet": {
+            "value" : "Yes" 
+        },
+        "requireCreateApplicationGateway": {
+            "value" : "No" 
+        },
+        "requireCreateWAFApplicationGateway": {
+            "value" : "No" 
+        },
+        "requireCreateLoadBalancers": {
+            "value" : "Yes" 
+        },
+
+
+        "moduleCreateApplicationSecurityGroups": { 
+            "value" : {
+                "location" : null,
+                "groupNames" : [
+                    {
+                        "name": "tier1ASG"
+                    },
+                    {
+                        "name": "tier2ASG"
+                    },
+                    {
+                        "name": "tier3ASG"
+                    },
+                    {
+                        "name": "tier4ASG"
+                    }
+                ]
+            } 
+        },
+       
+        "moduleCreateNetworkSecurityGroupWithASGBasedRules": {
+            "value": {
+                "location" : null,
+                "nsgNames" : [
+                    {
+                        "nsgName": "inboundWebTrafficasg1",
+                        "rules": [
+                            {
+                                "name": "AllowHttpAll",
+                                "description": "Allow http traffic to web servers",
+                                "sourceAddressPrefix": "*",
+                                "sourcePortRange": "*",
+                                "direction": "Inbound",
+                                "access": "Allow",
+                                "priority": 100,
+                                "protocol": "Tcp",
+                                "destinationPortRange": "80",
+                                "destinationApplicationSecurityGroups" : "tier1ASG"
+                            },
+                            {
+                                "name": "AllowRDP",
+                                "description": "Allow RDP traffic to web servers",
+                                "sourceAddressPrefix": "192.168.1.1",
+                                "sourcePortRange": "*",
+                                "direction": "Inbound",
+                                "access": "Allow",
+                                "priority": 101,
+                                "protocol": "Tcp",
+                                "destinationPortRange": "3389",
+                                "destinationApplicationSecurityGroups" : "tier2ASG"
+                            },
+                            {
+                                "name": "AllowSSHl",
+                                "description": "Allow SSH traffic to web servers",
+                                "sourceAddressPrefix": "192.168.1.1",
+                                "sourcePortRange": "*",
+                                "direction": "Inbound",
+                                "access": "Allow",
+                                "priority": 102,
+                                "protocol": "Tcp",
+                                "destinationPortRange": "22",
+                                "destinationApplicationSecurityGroups" : "tier1ASG"
+                            }
+                        ]
+                    },
+                    {
+                        "nsgName": "inboundWebTrafficasg2",
+                        "rules": [
+                            {
+                                "name": "AllowHttpAll",
+                                "description": "Allow http traffic to web servers",
+                                "sourceAddressPrefix": "*",
+                                "sourcePortRange": "*",
+                                "direction": "Inbound",
+                                "access": "Allow",
+                                "priority": 100,
+                                "protocol": "Tcp",
+                                "destinationPortRange": "80",
+                                "destinationApplicationSecurityGroups" : "tier1ASG"
+                            },
+                            {
+                                "name": "AllowRDP",
+                                "description": "Allow RDP traffic to web servers",
+                                "sourceAddressPrefix": "192.168.1.1",
+                                "sourcePortRange": "*",
+                                "direction": "Inbound",
+                                "access": "Allow",
+                                "priority": 101,
+                                "protocol": "Tcp",
+                                "destinationPortRange": "3389",
+                                "destinationApplicationSecurityGroups" : "tier2ASG"
+                            },
+                            {
+                                "name": "AllowSSHl",
+                                "description": "Allow SSH traffic to web servers",
+                                "sourceAddressPrefix": "192.168.1.1",
+                                "sourcePortRange": "*",
+                                "direction": "Inbound",
+                                "access": "Allow",
+                                "priority": 102,
+                                "protocol": "Tcp",
+                                "destinationPortRange": "22",
+                                "destinationApplicationSecurityGroups" : "tier1ASG"
+                            }
+                        ]
+                    }
+
+                ]
+            }
+        },
+
+        
+        "moduleCreateStorageAccounts": {
+            "value": {
+                "location" : null,
+                "accounts": [
+                    {
+                        "saName": "mystoragegroupisp01",
+                        "description": "this is a storage group",
+                        "storageAccountType": "Standard_LRS",
+                        "storageAccountTier": "Standard",
+                        "kind": "StorageV2",
+                        "accessTier": "Cool"
+                    },
+                    {
+                        "saName": "mystoragegroupisp02",
+                        "description": "this is a storage group",
+                        "storageAccountType": "Standard_LRS",
+                        "storageAccountTier": "Standard",
+                        "kind": "StorageV2",
+                        "accessTier": "Cool"
+                    }
+                ]
+            }
+        },
+        "moduleCreateBlobContainers": {
+            "value": {
+                "location" : null,
+                "accounts": [
+                    {
+                        "saName": "myteststoragegroupisp001",
+                        "description": "this is a storage group",
+                        "storageAccountName": "mystorageaccount1",
+                        "storageAccountType": "Standard_LRS",
+                        "storageAccountTier": "Standard",
+                        "kind": "StorageV2",
+                        "accessTier": "Cool",
+                        "blob": "no",
+                        "publicAccess": "",
+                        "containerName": ""
+                    },
+                    {
+                        "saName": "myteststoragegroupisp002",
+                        "description": "this is a storage group",
+                        "storageAccountName": "mystorageaccount2",
+                        "storageAccountType": "Standard_LRS",
+                        "storageAccountTier": "Standard",
+                        "kind": "StorageV2",
+                        "accessTier": "Cool",
+                        "blob": "no",
+                        "publicAccess": "",
+                        "containerName": ""
+                    }
+                ]
+            }
+        },
+        "moduleCreatePublicIPAddresses": {
+            "value": {
+                "location" : null,
+                "pips": [
+                    {
+                        "vmName":  "myVM",
+                        "pipName": "myVM",
+                        "description": "this is a storage group",
+                        "publicIPAllocationMethod": "Dynamic",
+                        "domainNameLabelprefix": "myrdpserver"
+                    },
+                    {
+                        "vmName":  "myVM2",
+                        "pipName": "myVM2",
+                        "description": "this is a storage group",
+                        "publicIPAllocationMethod": "Dynamic",
+                        "domainNameLabelprefix": "myrdpserver2F"
+                    },
+                    {
+                        "vmName":  "myLB1",
+                        "pipName": "myLB1",
+                        "description": "this is a storage group",
+                        "publicIPAllocationMethod": "Dynamic",
+                        "domainNameLabelprefix": "myLoadBalancer1"
+                    },
+                    {
+                        "vmName":  "myLB2",
+                        "pipName": "myLB2",
+                        "description": "this is a storage group",
+                        "publicIPAllocationMethod": "Dynamic",
+                        "domainNameLabelprefix": "myLoadBalancer2"
+                    },
+                    {
+                        "vmName":  "myVM3",
+                        "pipName": "myVM3",
+                        "description": "this is a storage group",
+                        "publicIPAllocationMethod": "Dynamic",
+                        "domainNameLabelprefix": "myrdpserver2d"
+                    }
+                ]
+            }
+        },
+        "moduleCreateVNetsAndSubnets": {
+            "value": {
+                "location" : null,
+                "vNets" : [
+                    {
+                        "vnetName" : "myvnet",
+                        "vnetCIDR" : "10.0.0.0/16",
+                        "subnets": [
+                            {
+                                "name": "GatewaySubnet",
+                                "addressPrefix": "10.0.0.0/24",
+                                "nsgName": "inboundWebTrafficasg1"
+                            },
+                            {
+                                "name":"prod-ne1-vnet-subnet1",
+                                "addressPrefix":"10.0.1.0/24",
+                                "nsgName": "inboundWebTrafficasg1"
+                            },
+                            {
+                                "name":"prod-ne1-vnet-subnet2",
+                                "addressPrefix":"10.0.2.0/24",
+                                "nsgName": "inboundWebTrafficasg1"
+                            }
+                        ]
+                    },
+                    {
+                        "vnetName" : "myvnet2",
+                        "vnetCIDR" : "10.0.0.0/16",
+                        "subnets": [
+                            {
+                                "name": "GatewaySubnet",
+                                "addressPrefix": "10.0.0.0/24",
+                                "nsgName": "inboundWebTrafficasg1"
+                            },
+                            {
+                                "name":"prod-ne1-vnet-subnet1",
+                                "addressPrefix":"10.0.1.0/24",
+                                "nsgName": "inboundWebTrafficasg1"
+                            },
+                            {
+                                "name":"prod-ne1-vnet-subnet2",
+                                "addressPrefix":"10.0.2.0/24",
+                                "nsgName": "inboundWebTrafficasg1"
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        "moduleCreateNetworkInterfaces": {
+            "value": {
+                "location" : null,
+                "nics": [
+                    {
+                        "vmName":  "myVM",
+                        "nicName": "myNic",
+                        "ipConfigName": "ipconfigdmz",
+                        "privateIPAllocationMethod": "Dynamic",
+                        "pipName": "myVM",
+                        "vnetName": "myvnet",
+                        "subnetName": "prod-ne1-vnet-subnet1",
+                        "aSGName": "tier1ASG",
+                        "lbName": "appLB",
+                        "backendAddressPoolName": "backendpool",
+                        "inboundNatRulesname": "rdp-vm-one"
+                    },
+                    {
+                        "vmName":  "myVM2",
+                        "nicName": "myNic2",
+                        "ipConfigName": "ipconfigdmz",
+                        "privateIPAllocationMethod": "Dynamic",
+                        "pipName": "myVM2",
+                        "vnetName": "myvnet",
+                        "subnetName": "prod-ne1-vnet-subnet1",
+                        "aSGName": "tier1ASG",
+                        "lbName": "appLB",
+                        "backendAddressPoolName": "backendpool",
+                        "inboundNatRulesname": "rdp-vm-two"
+                    },
+                    {
+                        "vmName":  "myVM3",
+                        "nicName": "myNic3",
+                        "ipConfigName": "ipconfigdmz",
+                        "privateIPAllocationMethod": "Dynamic",
+                        "pipName": "myVM3",
+                        "vnetName": "myvnet",
+                        "subnetName": "prod-ne1-vnet-subnet1",
+                        "aSGName": null,
+                        "lbName": null,
+                        "backendAddressPoolName": null,
+                        "inboundNatRulesname": null
+                    }
+                ]
+            }
+        },
+        "moduleCreateVirtualMachinesPerVNet": {
+            "value": {
+                "location" : null,
+                "vms": [
+                    {
+                        "vmName":  "myVM1",
+                        "storageAccountName": "mystoragegroupisp01",
+                        "nicName": "myNic",
+                        "vmSize": "Standard_A1",
+                        "availabilitySetName" : "myAvSet01",
+                        "adminUsername": "ian",
+                        "adminPassword": "H7hdfdshbnfy",
+                        "publisher": "MicrosoftWindowsServer",
+                        "offer": "WindowsServer",
+                        "sku": "2016-Datacenter",
+                        "version": "latest",
+                        "osCreateOption": "FromImage",
+                        "otherDisks": [
+                            {
+                                "name": "myVM101",
+                                "diskSizeGB": 1023,
+                                "createOption": "Empty"
+                            },
+                            {
+                                "name": "myVM102",
+                                "diskSizeGB": 1023,
+                                "createOption": "Empty"
+                            }
+                        ]
+                    },
+                    {
+                        "vmName":  "myVM2",
+                        "storageAccountName": "mystoragegroupisp01",
+                        "nicName": "myNic2",
+                        "vmSize": "Standard_A1",
+                        "availabilitySetName" : "myAvSet01",
+                        "adminUsername": "ian",
+                        "adminPassword": "H7hdfdshbnfy",
+                        "publisher": "MicrosoftWindowsServer",
+                        "offer": "WindowsServer",
+                        "sku": "2016-Datacenter",
+                        "version": "latest",
+                        "osCreateOption": "FromImage",
+                        "otherDisks": [
+                            {
+                                "name": "myVM201",
+                                "diskSizeGB": 1023,
+                                "createOption": "Empty"
+                            },
+                            {
+                                "name": "myVM202",
+                                "diskSizeGB": 1023,
+                                "createOption": "Empty"
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        "moduleCreateWAFApplicationGateway": {
+            "value": {
+                "location" : null,
+                "appGWs": [
+                    {
+                        "applicationGatewayName" : "myfirstwafapplicationgatewayisp001",
+                        "vnetName": "myvnet",
+                        "subnetName": "GatewaySubnet",
+                        "tier": "WAF",
+                        "applicationGatewaySize":  "WAF_Medium",
+                        "applicationGatewayInstanceCount": 2,
+                        "frontendPort": "80",
+                        "backendPort": "80",
+                        "backendIPAddresses" : [
+                            {
+                                "IpAddress": "10.0.0.17"
+                            },
+                            {
+                                "IpAddress": "10.0.0.18"
+                            },
+                            {
+                                "IpAddress": "10.0.0.19"
+                            }
+                        ],
+                        "cookieBasedAffinity": "Disabled",
+                        "wafEnabled" : true,
+                        "wafMode" : "Detection",
+                        "wafRuleSetType" : "OWASP",
+                        "wafRuleSetVersion" : "3.0"
+                    }
+                ]
+            }
+        },
+        "moduleCreateApplicationGateway": {
+            "value": {
+                "location" : null,
+                "appGWs": [
+                    {
+                        "applicationGatewayName" : "myfirstapplicationgatewayisp001",
+                        "vnetName": "myvnet",
+                        "subnetName": "GatewaySubnet",
+                        "tier": "Standard",
+                        "applicationGatewaySize":  "Standard_small",
+                        "applicationGatewayInstanceCount": 1,
+                        "frontendPort": "80",
+                        "backendPort": "80",
+                        "backendIPAddresses" : [
+                            {
+                                "IpAddress": "10.0.0.7"
+                            },
+                            {
+                                "IpAddress": "10.0.0.8"
+                            },
+                            {
+                                "IpAddress": "10.0.0.9"
+                            }
+                        ],
+                        "cookieBasedAffinity": "Disabled",
+                        "wafEnabled" : false,
+                        "wafMode" : "Detection",
+                        "wafRuleSetType" : "OWASP",
+                        "wafRuleSetVersion" : "3.0"
+                    },
+                    {
+                        "applicationGatewayName" : "myfirstapplicationgatewayisp002",
+                        "vnetName": "myvnet2",
+                        "subnetName": "GatewaySubnet",
+                        "tier": "Standard",
+                        "applicationGatewaySize":  "Standard_small",
+                        "applicationGatewayInstanceCount": 1,
+                        "frontendPort": "80",
+                        "backendPort": "80",
+                        "backendIPAddresses" : [
+                            {
+                                "IpAddress": "10.0.0.7"
+                            },
+                            {
+                                "IpAddress": "10.0.0.8"
+                            },
+                            {
+                                "IpAddress": "10.0.0.9"
+                            }
+                        ],
+                        "cookieBasedAffinity": "Disabled",
+                        "wafEnabled" : false,
+                        "wafMode" : "Detection",
+                        "wafRuleSetType" : "OWASP",
+                        "wafRuleSetVersion" : "3.0"
+                        
+                    }
+                ]
+            }
+        },
+        "moduleCreateAvailabilitySets": {
+            "value": {
+                "location" : null,
+                "availabilitySets": [
+                    {
+                        "availabilitySetName" : "myAvSet01",
+                        "platformFaultDomainCount": "2",
+                        "platformUpdateDomainCount": "2",
+                        "skuName" : "Aligned"
+                    },
+                    {
+                        "availabilitySetName" : "myAvSet02",
+                        "platformFaultDomainCount": "2",
+                        "platformUpdateDomainCount": "2",
+                        "skuName" : "Aligned"
+                    }
+                ]
+            }
+        },
+        "moduleCreateLoadBalancers": {
+            "value": {
+                "location" : null,
+                "loadbalancers": [
+                    {
+                        "lbName": "appLB",
+                        "frontendIPConfigurationsName": "LoadBalancerFrontEnd",
+                        "nameOfExistingPublicIPAddress": "myLB1",
+                        "backendAddressPoolName": "backendpool",
+                        "probes": [
+                            {
+                                "probeName": "tcpProbe1",
+                                "protocol": "tcp",
+                                "port": 80,
+                                "intervalInSeconds": 5,
+                                "numberOfProbes": 2
+                                    
+                            },
+                            {
+                                "probeName": "tcpProbe2",
+                                "protocol": "tcp",
+                                "port": 80,
+                                "intervalInSeconds": 5,
+                                "numberOfProbes": 2
+                                    
+                            }
+                        ],
+                        "inboundNatRules": [
+                            {
+                                "inboundNatRulesname": "rdp-vm-one",
+                                "protocol": "tcp",
+                                "frontendPort": 50001,
+                                "backendPort": 3389,
+                                "enableFloatingIP": false
+                            },
+                            {
+                                "inboundNatRulesname": "rdp-vm-two",
+                                "protocol": "tcp",
+                                "frontendPort": 50002,
+                                "backendPort": 3388,
+                                "enableFloatingIP": false
+                            }
+                        ],
+                        "loadBalancingRules": [
+                            {
+                                "name": "LBRule",
+                                "protocol": "tcp",
+                                "frontendPort": 80,
+                                "backendPort": 80,
+                                "enableFloatingIP": false,
+                                "idleTimeoutInMinutes": 5,
+                                "probeName" : "tcpProbe1"
+                            },
+                            {
+                                "name": "LBRule2",
+                                "protocol": "tcp",
+                                "frontendPort": 81,
+                                "backendPort": 81,
+                                "enableFloatingIP": false,
+                                "idleTimeoutInMinutes": 5,
+                                "probeName" : "tcpProbe2"
+                            }
+                        ]
+                    }
+                ]   
+            }
+        },
+
+        "customTages": {
+            "value": {
+                "Application": "Finance",
+                "Environment": "Production",
+                "Version": "1.0.1",
+                "Creation Date": "30/10/2018",
+                "Creation By": "Ian Purvis",
+                "End Date": "01/11/2018",
+                "Owner": "Steve Owens",
+                "Cost Centre": "CNS",
+                "Customer": "MAB",
+                "Project": "Khamelon",
+                "Data Classificiation":"Secret"
+            }
+        },
+
+        "suffixes": {
+            "value": { 
+                "asgSuffix": "-asg",
+                "nsgSuffix": "-nsg",
+                "publicIPSuffix": "-pip",
+                "nicSuffix": "-nic",
+                "storageAccountSuffix": "stg",
+                "vnetSuffix": "-vnet",
+                "subnetSuffix": "-snet",
+                "vmSuffix": "-vm",
+                "osDiskSuffix": "-osdisk",
+                "osDataDiskSuffix": "-datadisk",
+                "applicationGatewaySuffix": "-agw",
+                "availabilitySetSuffix": "-avset",
+                "extLoadbalancerSuffix": "-extlb",
+                "intLoadbalancerSuffix": "-intlb"
+            }
+        }
+    }
+}
