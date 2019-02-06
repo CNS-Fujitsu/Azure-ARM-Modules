@@ -1,0 +1,57 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.1",
+    "parameters": {
+      "moduleCreateNetworkSecurityGroupRules": {
+        "type": "object"
+      },
+      "customTages": {
+        "type": "object"
+      },
+      "suffixes" : {
+        "type": "object"
+      }
+    },
+    "variables": {
+      "defaultLocation": "[resourceGroup().location]"
+    },
+    "resources": [
+      {
+        "copy" : {
+          "name": "NSGGroups",
+          "count": "[length(parameters('moduleCreateNetworkSecurityGroupRules').nsgNames)]"
+        },
+        "name": "[concat(parameters('moduleCreateNetworkSecurityGroupRules').nsgNames[copyIndex('NSGGroups')].nsgName,parameters('suffixes').nsgSuffix)]",
+        "type": "Microsoft.Network/networkSecurityGroups",
+        "comments": "Module to create a Network Security Group rules",
+        "apiVersion": "2018-08-01",
+        "tags": "[parameters('customTages')]",
+        "location": "[if(equals(parameters('moduleCreateNetworkSecurityGroupRules').location, json('null')), variables('defaultLocation'), parameters('moduleCreateNetworkSecurityGroupRules').location)]",
+        "properties": {    
+          "copy" : [
+            {
+              "name": "securityRules",
+              "count": "[length(parameters('moduleCreateNetworkSecurityGroupRules').nsgNames[copyIndex('NSGGroups')].rules)]",
+              "input": {
+                "name": "[parameters('moduleCreateNetworkSecurityGroupRules').nsgNames[copyIndex('NSGGroups')].rules[copyIndex('securityRules')].name]",
+                "properties": {
+                  "description": "[parameters('moduleCreateNetworkSecurityGroupRules').nsgNames[copyIndex('NSGGroups')].rules[copyIndex('securityRules')].description]",
+                  "sourceAddressPrefix": "[parameters('moduleCreateNetworkSecurityGroupRules').nsgNames[copyIndex('NSGGroups')].rules[copyIndex('securityRules')].sourceAddressPrefix]",
+                  "sourcePortRange": "[parameters('moduleCreateNetworkSecurityGroupRules').nsgNames[copyIndex('NSGGroups')].rules[copyIndex('securityRules')].sourcePortRange]",
+                  "direction": "[parameters('moduleCreateNetworkSecurityGroupRules').nsgNames[copyIndex('NSGGroups')].rules[copyIndex('securityRules')].direction]",
+                  "access": "[parameters('moduleCreateNetworkSecurityGroupRules').nsgNames[copyIndex('NSGGroups')].rules[copyIndex('securityRules')].access]",
+                  "priority": "[parameters('moduleCreateNetworkSecurityGroupRules').nsgNames[copyIndex('NSGGroups')].rules[copyIndex('securityRules')].priority]",
+                  "protocol": "[parameters('moduleCreateNetworkSecurityGroupRules').nsgNames[copyIndex('NSGGroups')].rules[copyIndex('securityRules')].protocol]",
+                  "destinationPortRange": "[parameters('moduleCreateNetworkSecurityGroupRules').nsgNames[copyIndex('NSGGroups')].rules[copyIndex('securityRules')].destinationPortRange]",
+                  "destinationAddressPrefix": "[parameters('moduleCreateNetworkSecurityGroupRules').nsgNames[copyIndex('NSGGroups')].rules[copyIndex('securityRules')].destinationAddressPrefix]",
+                  
+                }
+              }
+            }
+          ]
+        }               
+      }   
+    ],
+    "outputs": {
+    }
+}
