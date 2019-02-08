@@ -1,56 +1,56 @@
 {
-    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-    "contentVersion": "1.0.0.1",
-    "parameters": {
-      "moduleCreateNetworkSecurityGroupWithIPBasedRules": {
-        "type": "object"
-      },
-      "customTages": {
-        "type": "object"
-      },
-      "suffixes" : {
-        "type": "object"
-      }
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.1",
+  "parameters": {
+    "moduleCreateNetworkSecurityGroupWithIPBasedRules": {
+      "type": "object"
     },
-    "variables": {
-      "defaultLocation": "[resourceGroup().location]"
+    "customTages": {
+      "type": "object"
     },
-    "resources": [
-      {
-        "copy" : {
-          "name": "ipNSGGroups",
-          "count": "[length(parameters('moduleCreateNetworkSecurityGroupWithIPBasedRules').nsgNames)]"
-        },
-        "name": "[concat(parameters('moduleCreateNetworkSecurityGroupWithIPBasedRules').nsgNames[copyIndex('ipNSGGroups')].nsgName,parameters('suffixes').nsgSuffix)]",
-        "type": "Microsoft.Network/networkSecurityGroups",
-        "comments": "Module to create a Network Security Group with multiple IP associated rules",
-        "apiVersion": "2018-10-01",
-        "tags": "[parameters('customTages')]",
-        "location": "[if(equals(parameters('moduleCreateNetworkSecurityGroupWithIPBasedRules').location, json('null')), variables('defaultLocation'), parameters('moduleCreateNetworkSecurityGroupWithIPBasedRules').location)]",
-        "properties": {    
-          "copy" : [
-            {
-              "name": "securityRules",
-              "count": "[length(parameters('moduleCreateNetworkSecurityGroupWithIPBasedRules').nsgNames[copyIndex('ipNSGGroups')].rules)]",
-              "input": {
-                "name": "[parameters('moduleCreateNetworkSecurityGroupWithIPBasedRules').nsgNames[copyIndex('ipNSGGroups')].rules[copyIndex('securityRules')].name]",
-                "properties": {
-                  "description": "[parameters('moduleCreateNetworkSecurityGroupWithIPbasedRules').nsgNames[copyIndex('ipNSGGroups')].rules[copyIndex('securityRules')].description]",
-                  "protocol": "[parameters('moduleCreateNetworkSecurityGroupWithIPBasedRules').nsgNames[copyIndex('ipNSGGroups')].rules[copyIndex('securityRules')].protocol]",
-                  "sourcePortRange": "[parameters('moduleCreateNetworkSecurityGroupWithIPBasedRules').nsgNames[copyIndex('ipNSGGroups')].rules[copyIndex('securityRules')].sourcePortRange]",
-                  "destinationPortRange": "[parameters('moduleCreateNetworkSecurityGroupWithIPBasedRules').nsgNames[copyIndex('ipNSGGroups')].rules[copyIndex('securityRules')].destinationPortRange]",
-                  "sourceAddressPrefix": "[parameters('moduleCreateNetworkSecurityGroupWithIPBasedRules').nsgNames[copyIndex('ipNSGGroups')].rules[copyIndex('securityRules')].sourceAddressPrefix]"
-                },
+    "suffixes" : {
+      "type": "object"
+    }
+  },
+  "variables": {
+    "defaultLocation": "[resourceGroup().location]"
+  },
+  "resources": [
+    {
+      "copy" : {
+        "name": "ipNSGGroups",
+        "count": "[length(parameters('moduleCreateNetworkSecurityGroupWithIPBasedRules').nsgNames)]"
+      },
+      "name": "[concat(parameters('moduleCreateNetworkSecurityGroupWithIPBasedRules').nsgNames[copyIndex('ipNSGGroups')].nsgName,parameters('suffixes').nsgSuffix)]",
+      "type": "Microsoft.Network/networkSecurityGroups",
+      "comments": "Module to create a Network Security Group with multiple IP associated rules",
+      "apiVersion": "2018-10-01",
+      "tags": "[parameters('customTages')]",
+      "location": "[if(equals(parameters('moduleCreateNetworkSecurityGroupWithIPBasedRules').location, json('null')), variables('defaultLocation'), parameters('moduleCreateNetworkSecurityGroupWithIPBasedRules').location)]",
+      "properties": {    
+        "copy" : [
+          {
+            "name": "securityRules",
+            "count": "[length(parameters('moduleCreateNetworkSecurityGroupWithIPBasedRules').nsgNames[copyIndex('ipNSGGroups')].rules)]",
+            "input": {
+              "name": "[parameters('moduleCreateNetworkSecurityGroupWithIPBasedRules').nsgNames[copyIndex('ipNSGGroups')].rules[copyIndex('securityRules')].name]",
+              "properties": {
+                "description": "[parameters('moduleCreateNetworkSecurityGroupWithIPbasedRules').nsgNames[copyIndex('ipNSGGroups')].rules[copyIndex('securityRules')].description]",
+                "protocol": "[parameters('moduleCreateNetworkSecurityGroupWithIPBasedRules').nsgNames[copyIndex('ipNSGGroups')].rules[copyIndex('securityRules')].protocol]",
+                "sourcePortRange": "[parameters('moduleCreateNetworkSecurityGroupWithIPBasedRules').nsgNames[copyIndex('ipNSGGroups')].rules[copyIndex('securityRules')].sourcePortRange]",
+                "destinationPortRange": "[parameters('moduleCreateNetworkSecurityGroupWithIPBasedRules').nsgNames[copyIndex('ipNSGGroups')].rules[copyIndex('securityRules')].destinationPortRange]",
+                "sourceAddressPrefix": "[parameters('moduleCreateNetworkSecurityGroupWithIPBasedRules').nsgNames[copyIndex('ipNSGGroups')].rules[copyIndex('securityRules')].sourceAddressPrefix]",
                 "destinationAddressPrefix": "[parameters('moduleCreateNetworkSecurityGroupWithIPBasedRules').nsgNames[copyIndex('ipNSGGroups')].rules[copyIndex('securityRules')].destinationAddressPrefix]",
                 "access": "[parameters('moduleCreateNetworkSecurityGroupWithIPBasedRules').nsgNames[copyIndex('ipNSGGroups')].rules[copyIndex('securityRules')].access]",
                 "priority": "[parameters('moduleCreateNetworkSecurityGroupWithIPBasedRules').nsgNames[copyIndex('ipNSGGroups')].rules[copyIndex('securityRules')].priority]",
-                "direction": "[parameters('moduleCreateNetworkSecurityGroupWithIPBasedRules').nsgNames[copyIndex('ipNSGGroups')].rules[copyIndex('securityRules')].direction]"
+                "direction": "[parameters('moduleCreateNetworkSecurityGroupWithIPBasedRules').nsgNames[copyIndex('ipNSGGroups')].rules[copyIndex('securityRules')].direction]",
               }
             }
-          ]
-        }               
-      }   
-    ],
-    "outputs": {
-    }
+          }
+        ]
+      }               
+    }   
+  ],
+  "outputs": {
+  }
 }
