@@ -36,14 +36,14 @@
                 "name": "[parameters('moduleCreateNetworkSecurityGroupWithIPBasedRules').nsgNames[copyIndex('ipNSGGroups')].rules[copyIndex('securityRules')].name]",
                 "properties": {
                   "description": "[parameters('moduleCreateNetworkSecurityGroupWithIPbasedRules').nsgNames[copyIndex('ipNSGGroups')].rules[copyIndex('securityRules')].description]",
-                  "sourceAddressPrefix": "[parameters('moduleCreateNetworkSecurityGroupWithIPBasedRules').nsgNames[copyIndex('ipNSGGroups')].rules[copyIndex('securityRules')].sourceAddressPrefix]",
+                  "protocol": "[parameters('moduleCreateNetworkSecurityGroupWithIPBasedRules').nsgNames[copyIndex('ipNSGGroups')].rules[copyIndex('securityRules')].protocol]",
                   "sourcePortRange": "[parameters('moduleCreateNetworkSecurityGroupWithIPBasedRules').nsgNames[copyIndex('ipNSGGroups')].rules[copyIndex('securityRules')].sourcePortRange]",
+                  "destinationPortRange": "[parameters('moduleCreateNetworkSecurityGroupWithIPBasedRules').nsgNames[copyIndex('ipNSGGroups')].rules[copyIndex('securityRules')].destinationPortRange]",
+                  "sourceAddressPrefix": "[parameters('moduleCreateNetworkSecurityGroupWithIPBasedRules').nsgNames[copyIndex('ipNSGGroups')].rules[copyIndex('securityRules')].sourceAddressPrefix]",
+                  "destinationAddressPrefix": "[parameters('moduleCreateNetworkSecurityGroupWithIPBasedRules').nsgNames[copyIndex('ipNSGGroups')].rules[copyIndex('securityRules')].destinationAddressPrefix]",
                   "direction": "[parameters('moduleCreateNetworkSecurityGroupWithIPBasedRules').nsgNames[copyIndex('ipNSGGroups')].rules[copyIndex('securityRules')].direction]",
                   "access": "[parameters('moduleCreateNetworkSecurityGroupWithIPBasedRules').nsgNames[copyIndex('ipNSGGroups')].rules[copyIndex('securityRules')].access]",
-                  "priority": "[parameters('moduleCreateNetworkSecurityGroupWithIPBasedRules').nsgNames[copyIndex('ipNSGGroups')].rules[copyIndex('securityRules')].priority]",
-                  "protocol": "[parameters('moduleCreateNetworkSecurityGroupWithIPBasedRules').nsgNames[copyIndex('ipNSGGroups')].rules[copyIndex('securityRules')].protocol]",
-                  "destinationAddressPrefix": "[parameters('moduleCreateNetworkSecurityGroupWithIPBasedRules').nsgNames[copyIndex('ipNSGGroups')].rules[copyIndex('securityRules')].destinationAddressPrefix]",
-                  "destinationPortRange": "[parameters('moduleCreateNetworkSecurityGroupWithIPBasedRules').nsgNames[copyIndex('ipNSGGroups')].rules[copyIndex('securityRules')].destinationPortRange]"
+                  "priority": "[parameters('moduleCreateNetworkSecurityGroupWithIPBasedRules').nsgNames[copyIndex('ipNSGGroups')].rules[copyIndex('securityRules')].priority]"
                   
                 }
               }
