@@ -24,7 +24,7 @@
         "name": "[concat(parameters('moduleCreateNetworkSecurityGroupWithIPBasedRules').nsgNames[copyIndex('ipNSGGroups')].nsgName,parameters('suffixes').nsgSuffix)]",
         "type": "Microsoft.Network/networkSecurityGroups",
         "comments": "Module to create a Network Security Group with multiple IP associated rules",
-        "apiVersion": "2018-07-01",
+        "apiVersion": "2018-10-01",
         "tags": "[parameters('customTages')]",
         "location": "[if(equals(parameters('moduleCreateNetworkSecurityGroupWithIPBasedRules').location, json('null')), variables('defaultLocation'), parameters('moduleCreateNetworkSecurityGroupWithIPBasedRules').location)]",
         "properties": {    
