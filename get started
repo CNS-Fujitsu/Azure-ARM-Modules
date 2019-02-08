@@ -1,0 +1,18 @@
+# 
+
+#*****************************************************
+#CLI to create a resource group
+# sign into azure
+az login
+
+#set up variables
+rg=arm-templates-ip
+location=ukwest
+job=deploying-test-env
+
+#command to create resource group
+az group create --name $rg --location $location
+
+az group deployment create --parameters azuredeploy.parameters.json --template-file azuredeploy.json --resource-group $rg --name $job
+
+

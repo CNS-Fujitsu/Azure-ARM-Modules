@@ -4,31 +4,34 @@
     "parameters": {
         
         "requireCreateApplicationSecurityGroups": {
-            "value" : "Yes" 
+            "value" : "No" 
         },
         "requireCreateNetworkSecurityGroupWithASGBasedRules": {
+            "value" : "No" 
+        },
+        "requireCreateNetworkSecurityGroupWithIPBasedRules": {
             "value" : "Yes" 
         },
         "requireCreateStorageAccounts": {
-            "value" : "Yes" 
+            "value" : "No" 
         },
         "requireCreateBlobContainers": {
             "value" : "No" 
         },
         "requireCreatePublicIPAddresses": {
-            "value" : "Yes" 
+            "value" : "No" 
         },
         "requireCreateVNetsAndSubnets": {
             "value" : "Yes" 
         },
         "requireCreateNetworkInterfaces": {
-            "value" : "Yes" 
+            "value" : "No" 
         },
         "requireCreateAvailabilitySets": {
-            "value" : "Yes" 
+            "value" : "No" 
         },
         "requireCreateVirtualMachinesPerVNet": {
-            "value" : "Yes" 
+            "value" : "No" 
         },
         "requireCreateApplicationGateway": {
             "value" : "No" 
@@ -37,7 +40,7 @@
             "value" : "No" 
         },
         "requireCreateLoadBalancers": {
-            "value" : "Yes" 
+            "value" : "No" 
         },
 
 
@@ -144,6 +147,98 @@
                                 "protocol": "Tcp",
                                 "destinationPortRange": "22",
                                 "destinationApplicationSecurityGroups" : "tier1ASG"
+                            }
+                        ]
+                    }
+
+                ]
+            }
+        },
+
+        "moduleCreateNetworkSecurityGroupWithIPBasedRules": {
+            "value": {
+                "location" : null,
+                "nsgNames" : [
+                    {
+                        "nsgName": "inboundWebTrafficip1",
+                        "rules": [
+                            {
+                                "name": "AllowHttpAll",
+                                "description": "Allow http traffic to web servers",
+                                "sourceAddressPrefix": "*",
+                                "sourcePortRange": "*",
+                                "direction": "Inbound",
+                                "access": "Allow",
+                                "priority": 100,
+                                "protocol": "Tcp",
+                                "destinationPortRange": "80",
+                                "destinationAddressPrefix": "*"
+                                
+                            },
+                            {
+                                "name": "AllowRDP",
+                                "description": "Allow RDP traffic to web servers",
+                                "sourceAddressPrefix": "192.168.1.1",
+                                "sourcePortRange": "*",
+                                "direction": "Inbound",
+                                "access": "Allow",
+                                "priority": 101,
+                                "protocol": "Tcp",
+                                "destinationPortRange": "3389",
+                                "destinationAddressPrefix": "*"
+                            },
+                            {
+                                "name": "AllowSSHl",
+                                "description": "Allow SSH traffic to web servers",
+                                "sourceAddressPrefix": "192.168.1.1",
+                                "sourcePortRange": "*",
+                                "direction": "Inbound",
+                                "access": "Allow",
+                                "priority": 102,
+                                "protocol": "Tcp",
+                                "destinationPortRange": "22",
+                                "destinationAddressPrefix": "*"
+                            }
+                        ]
+                    },
+                    {
+                        "nsgName": "inboundWebTrafficip2",
+                        "rules": [
+                            {
+                                "name": "AllowHttpAll",
+                                "description": "Allow http traffic to web servers",
+                                "sourceAddressPrefix": "*",
+                                "sourcePortRange": "*",
+                                "direction": "Inbound",
+                                "access": "Allow",
+                                "priority": 100,
+                                "protocol": "Tcp",
+                                "destinationPortRange": "80",
+                                "destinationAddressPrefix": "*"
+                            },
+                            {
+                                "name": "AllowRDP",
+                                "description": "Allow RDP traffic to web servers",
+                                "sourceAddressPrefix": "192.168.1.1",
+                                "sourcePortRange": "*",
+                                "direction": "Inbound",
+                                "access": "Allow",
+                                "priority": 101,
+                                "protocol": "Tcp",
+                                "destinationPortRange": "3389",
+                                "destinationAddressPrefix": "*"
+                            },
+                            {
+                                "name": "AllowSSHl",
+                                "description": "Allow SSH traffic to web servers",
+                                "sourceAddressPrefix": "192.168.1.1",
+                                "sourcePortRange": "*",
+                                "direction": "Inbound",
+                                "access": "Allow",
+                                "priority": 102,
+                                "protocol": "Tcp",
+                                "destinationPortRange": "3389",
+                                "destinationAddressPrefix": "*"
                             }
                         ]
                     }
@@ -260,17 +355,17 @@
                             {
                                 "name": "GatewaySubnet",
                                 "addressPrefix": "10.0.0.0/24",
-                                "nsgName": "inboundWebTrafficasg1"
+                                "nsgName": "inboundWebTrafficip1"
                             },
                             {
                                 "name":"prod-ne1-vnet-subnet1",
                                 "addressPrefix":"10.0.1.0/24",
-                                "nsgName": "inboundWebTrafficasg1"
+                                "nsgName": "inboundWebTrafficip2"
                             },
                             {
                                 "name":"prod-ne1-vnet-subnet2",
                                 "addressPrefix":"10.0.2.0/24",
-                                "nsgName": "inboundWebTrafficasg1"
+                                "nsgName": "inboundWebTrafficip1"
                             }
                         ]
                     },
@@ -281,17 +376,17 @@
                             {
                                 "name": "GatewaySubnet",
                                 "addressPrefix": "10.0.0.0/24",
-                                "nsgName": "inboundWebTrafficasg1"
+                                "nsgName": "inboundWebTrafficip1"
                             },
                             {
                                 "name":"prod-ne1-vnet-subnet1",
                                 "addressPrefix":"10.0.1.0/24",
-                                "nsgName": "inboundWebTrafficasg1"
+                                "nsgName": "inboundWebTrafficip1"
                             },
                             {
                                 "name":"prod-ne1-vnet-subnet2",
                                 "addressPrefix":"10.0.2.0/24",
-                                "nsgName": "inboundWebTrafficasg1"
+                                "nsgName": "inboundWebTrafficip1"
                             }
                         ]
                     }

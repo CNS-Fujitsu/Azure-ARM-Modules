@@ -17,6 +17,13 @@
                 "No"
             ]
         },
+        "requireCreateNetworkSecurityGroupWithIPBasedRules" : {
+            "type" : "string",
+            "allowedValues": [
+                "Yes",
+                "No"
+            ]
+        },
         "requireCreateStorageAccounts" : {
             "type" : "string",
             "allowedValues": [
@@ -94,6 +101,9 @@
         "moduleCreateNetworkSecurityGroupWithASGBasedRules" : {
             "type" : "object"
         },
+        "moduleCreateNetworkSecurityGroupWithIPBasedRules" : {
+            "type" : "object"
+        },
         "moduleCreateStorageAccounts" : {
             "type" : "object"
         },
@@ -125,21 +135,23 @@
             "type" : "object"
         },
         
+        
         "suffixes" : {
             "type" : "object"
         },
         "customTages": {
             "type": "object"
         }
+        
     },
     "variables": {
         
-        "moduleStoreURLold": "https://raw.githubusercontent.com/fujitsuk5/Azure-ARM-Modules/master/modules/",
-        "moduleStoreURL": "https://privaterepofilefetcher.azurewebsites.net/api/GitHubPrivateRepoFileFecher?githuburi=https://raw.githubusercontent.com/ianpurvis1976/fujitsuk5/Azure-ARM-Modules/master/modules/",
+        "moduleStoreURL": "https://raw.githubusercontent.com/fujitsuk5/Azure-ARM-Modules/master/modules/",
         
         "moduleStoreFBURL": "https://raw.githubusercontent.com/fujitsuk5/Azure-ARM-Modules/TidyUp/modules/",
         "module-CreateApplicationSecurityGroups-URL": "[concat(variables('moduleStoreURL'),'virtualNetworks/', 'az-createApplicationSecurityGroups.json')]",
         "module-CreateNetworkSecurityGroupWithASGBasedRules-URL": "[concat(variables('moduleStoreURL'),'virtualNetworks/', 'az-createNetworkSecurityGroupWithASGBasedRules.json')]",
+        "module-CreateNetworkSecurityGroupWithIPBasedRules-URL": "[concat(variables('moduleStoreURL'),'virtualNetworks/', 'az-createNetworkSecurityGroupWithIPBasedRules.json')]",
         "module-CreateStorageAccounts-URL": "[concat(variables('moduleStoreURL'),'virtualNetworks/', 'az-createStorageAccounts.json')]",
         "module-CreateBlobContainers-URL": "[concat(variables('moduleStoreURL'),'virtualNetworks/', 'az-createBlobContainers.json')]",
         "module-CreatePublicIPAddresses-URL": "[concat(variables('moduleStoreURL'),'virtualNetworks/', 'az-createPublicIPAddresses.json')]",
@@ -152,6 +164,7 @@
         "module-CreateLoadBalancers-URL": "[concat(variables('moduleStoreURL'),'virtualNetworks/', 'az-createLoadBalancers.json')]",
         "module-CreateLoadBalancers-URL2": "[concat(variables('moduleStoreURL'),'virtualNetworks/', 'az-createLoadBalancers-probes.json')]",
         "module-CreateLoadBalancers-URL3": "[concat(variables('moduleStoreURL'),'virtualNetworks/', 'az-createLoadBalancers-inbound.json')]"
+        
     },
     "resources": [
         {
@@ -194,6 +207,31 @@
                 },
                 "parameters": {
                     "moduleCreateNetworkSecurityGroupWithASGBasedRules": { "value": "[parameters('moduleCreateNetworkSecurityGroupWithASGBasedRules')]"},
+                    "customTages": {
+                        "value": "[parameters('customTages')]"
+                    },
+                    "suffixes" : {
+                        "value": "[parameters('suffixes')]"
+                    }
+                }
+            }
+        },
+        {
+            "apiVersion": "2018-05-01",
+            "name": "AllIPBasedNSGForResourceGroup",
+            "comments": "Calling Module to deploy a multiple IP Security Group based Network Security Groups-v1.00",
+            "type": "Microsoft.Resources/deployments",
+            "condition": "[equals(parameters('requireCreateNetworkSecurityGroupWithIPBasedRules'), 'Yes')]",
+            "dependsOn": [
+            ],
+            "properties" : {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[variables('module-CreateNetworkSecurityGroupWithIPBasedRules-URL')]",
+                    "contentVersion": "1.0.0.1"
+                },
+                "parameters": {
+                    "moduleCreateNetworkSecurityGroupWithIPBasedRules": { "value": "[parameters('moduleCreateNetworkSecurityGroupWithIPBasedRules')]"},
                     "customTages": {
                         "value": "[parameters('customTages')]"
                     },
@@ -276,7 +314,8 @@
             "type": "Microsoft.Resources/deployments",
             "condition": "[equals(parameters('requireCreateVNetsAndSubnets'), 'Yes')]",
             "dependsOn": [
-                "AllASGBasedNSGForResourceGroup"
+                "AllASGBasedNSGForResourceGroup",
+                "AllIPBasedNSGForResourceGroup"
             ],
             "properties" : {
                 "mode": "Incremental",
@@ -295,6 +334,7 @@
                 }
             }
         },
+        
         {
             "apiVersion": "2018-05-01",
             "name": "AllNetworkInterfacesForResourceGroup",
@@ -325,6 +365,7 @@
                 }
             }
         },
+        
         {
             "apiVersion": "2018-05-01",
             "name": "AllAvailabilitySetsPerResourceGroup",
@@ -382,6 +423,7 @@
                 }
             }
         },
+        
         {
             "apiVersion": "2018-05-01",
             "name": "AllApplicationGatewaysForResourceGroup",
@@ -408,6 +450,7 @@
                 }
             }
         },
+       
         {
             "apiVersion": "2018-05-01",
             "name": "AllWAFApplicationGatewaysForResourceGroup",
@@ -434,6 +477,7 @@
                 }
             }
         },
+       
         {
             "apiVersion": "2018-05-01",
             "name": "AllLoadBalancersForResourceGroup",
@@ -462,6 +506,7 @@
                 }
             }
         },
+       
         {
             "apiVersion": "2018-05-01",
             "name": "AllLoadBalancersForResourceGroup-probes",
@@ -489,6 +534,7 @@
                 }
             }
         },
+        
         {
             "apiVersion": "2018-05-01",
             "name": "AllLoadBalancersForResourceGroup-inbound",
@@ -518,6 +564,7 @@
                 }
             }
         }
+       
         
         
     ],
