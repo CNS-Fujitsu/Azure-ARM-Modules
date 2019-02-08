@@ -2,53 +2,56 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.1",
     "parameters": {
-      "moduleSingleNSGMultiRules": {
+      "moduleCreateNetworkSecurityGroupWithIPBasedRules": {
         "type": "object"
       },
-      
       "customTages": {
+        "type": "object"
+      },
+      "suffixes" : {
         "type": "object"
       }
     },
     "variables": {
-      "location": "[resourceGroup().location]",
-      "copy" : [
-        {
-            "name": "securityRules",
-            "count": "[length(parameters('moduleSingleNSGMultiRules').rules)]",
-            "input" : {   
-                "name": "[parameters('moduleSingleNSGMultiRules').rules[copyIndex('securityRules')].name]",
-                "properties": {
-                    "description": "[parameters('moduleSingleNSGMultiRules').rules[copyIndex('securityRules')].description]",
-                    "sourceAddressPrefix": "[parameters('moduleSingleNSGMultiRules').rules[copyIndex('securityRules')].sourceAddressPrefix]",
-                    "sourcePortRange": "[parameters('moduleSingleNSGMultiRules').rules[copyIndex('securityRules')].sourcePortRange]",
-                    "direction": "[parameters('moduleSingleNSGMultiRules').rules[copyIndex('securityRules')].direction]",
-                    "access": "[parameters('moduleSingleNSGMultiRules').rules[copyIndex('securityRules')].access]",
-                    "priority": "[parameters('moduleSingleNSGMultiRules').rules[copyIndex('securityRules')].priority]",
-                    "protocol": "[parameters('moduleSingleNSGMultiRules').rules[copyIndex('securityRules')].protocol]",
-                    "destinationAddressPrefix": "[parameters('moduleSingleNSGMultiRules').rules[copyIndex('securityRules')].destinationAddressPrefix]",
-                    "destinationPortRange": "[parameters('moduleSingleNSGMultiRules').rules[copyIndex('securityRules')].destinationPortRange]"
-                    
-                }
-            }
-        }
-      ]
+      "defaultLocation": "[resourceGroup().location]"
     },
     "resources": [
       {
-        "name": "[parameters('moduleSingleNSGMultiRules').nsgName]",
+        "copy" : {
+          "name": "ipNSGGroups",
+          "count": "[length(parameters('moduleCreateNetworkSecurityGroupWithIPBasedRules').nsgNames)]"
+        },
+        "name": "[concat(parameters('moduleCreateNetworkSecurityGroupWithIPBasedRules').nsgNames[copyIndex('ipNSGGroups')].nsgName,parameters('suffixes').nsgSuffix)]",
         "type": "Microsoft.Network/networkSecurityGroups",
         "comments": "Module to create a Network Security Group with multiple IP associated rules",
         "apiVersion": "2018-08-01",
         "tags": "[parameters('customTages')]",
-        "location": "[variables('location')]",
-        "properties": {
-            "securityRules": "[variables('securityRules')]"    
-        }
-      }
+        "location": "[if(equals(parameters('moduleCreateNetworkSecurityGroupWithIPBasedRules').location, json('null')), variables('defaultLocation'), parameters('moduleCreateNetworkSecurityGroupWithIPBasedRules').location)]",
+        "properties": {    
+          "copy" : [
+            {
+              "name": "securityRules",
+              "count": "[length(parameters('moduleCreateNetworkSecurityGroupWithIPBasedRules').nsgNames[copyIndex('ipNSGGroups')].rules)]",
+              "input": {
+                "name": "[parameters('moduleCreateNetworkSecurityGroupWithIPBasedRules').nsgNames[copyIndex('ipNSGGroups')].rules[copyIndex('securityRules')].name]",
+                "properties": {
+                  "description": "[parameters('moduleCreateNetworkSecurityGroupWithIPbasedRules').nsgNames[copyIndex('ipNSGGroups')].rules[copyIndex('securityRules')].description]",
+                  "sourceAddressPrefix": "[parameters('moduleCreateNetworkSecurityGroupWithIPBasedRules').nsgNames[copyIndex('ipNSGGroups')].rules[copyIndex('securityRules')].sourceAddressPrefix]",
+                  "sourcePortRange": "[parameters('moduleCreateNetworkSecurityGroupWithIPBasedRules').nsgNames[copyIndex('ipNSGGroups')].rules[copyIndex('securityRules')].sourcePortRange]",
+                  "direction": "[parameters('moduleCreateNetworkSecurityGroupWithIPBasedRules').nsgNames[copyIndex('ipNSGGroups')].rules[copyIndex('securityRules')].direction]",
+                  "access": "[parameters('moduleCreateNetworkSecurityGroupWithIPBasedRules').nsgNames[copyIndex('ipNSGGroups')].rules[copyIndex('securityRules')].access]",
+                  "priority": "[parameters('moduleCreateNetworkSecurityGroupWithIPBasedRules').nsgNames[copyIndex('ipNSGGroups')].rules[copyIndex('securityRules')].priority]",
+                  "protocol": "[parameters('moduleCreateNetworkSecurityGroupWithIPBasedRules').nsgNames[copyIndex('ipNSGGroups')].rules[copyIndex('securityRules')].protocol]",
+                  "destinationPortRange": "[parameters('moduleCreateNetworkSecurityGroupWithIPBasedRules').nsgNames[copyIndex('ipNSGGroups')].rules[copyIndex('securityRules')].destinationPortRange]",
+                  "destinationAddressPrefix": "[parameters('moduleCreateNetworkSecurityGroupWithIPBasedRules').nsgNames[copyIndex('ipNSGGroups')].rules[copyIndex('securityRules')].destinationAddressPrefix]",
+                  "destinationAddressPrefixes": "[parameters('moduleCreateNetworkSecurityGroupWithIPBasedRules').nsgNames[copyIndex('ipNSGGroups')].rules[copyIndex('securityRules')].destinationAddressPrefixes]"                  
+                }
+              }
+            }
+          ]
+        }               
+      }   
     ],
     "outputs": {
     }
 }
-
-  
