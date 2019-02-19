@@ -74,11 +74,11 @@
                 "copy" : [
                     {
                         "name": "subnets",
-                        "count": "[length(parameters('moduleCreateVNetsAndSubnets').vNets[copyIndex('vNets')].subnets)]",
+                        "count": "[length(parameters('moduleCreateVNetsAndSubnets').vNets[copyIndex('vNets2')].subnets)]",
                         "input" : { 
-                            "name": "[concat(parameters('moduleCreateVNetsAndSubnets').vNets[copyIndex('vNets')].subnets[copyIndex('subnets')].name,parameters('suffixes').subnetSuffix)]",
+                            "name": "[concat(parameters('moduleCreateVNetsAndSubnets').vNets[copyIndex('vNets2')].subnets[copyIndex('subnets')].name,parameters('suffixes').subnetSuffix)]",
                             "properties": {
-                                "addressPrefix": "[parameters('moduleCreateVNetsAndSubnets').vNets[copyIndex('vNets')].subnets[copyIndex('subnets')].addressPrefix]"
+                                "addressPrefix": "[parameters('moduleCreateVNetsAndSubnets').vNets[copyIndex('vNets2')].subnets[copyIndex('subnets')].addressPrefix]"
                             }
                         }
                     }
