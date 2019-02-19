@@ -14,8 +14,9 @@
       }
     },
     "variables": {
-        "defaultLocation": "[resourceGroup().location]"
-    },
+        "defaultLocation": "[resourceGroup().location]",
+        "empty": "n/a"
+   },
     "resources": [
         {
             "copy" : {
@@ -26,6 +27,7 @@
             "type": "Microsoft.Network/virtualNetworks",
             "comments": "Module to create a vNET with multiple subnets",
             "apiVersion": "2018-08-01",
+            "condition": "[not(equals(parameters('moduleCreateVNetsAndSubnets').vNets[copyIndex('vNets')].subnets[copyIndex('subnets')].nsgName, json('null')))]",
             "tags": "[parameters('customTages')]",
             "location": "[if(equals(parameters('moduleCreateVNetsAndSubnets').location, json('null')), variables('defaultLocation'), parameters('moduleCreateVNetsAndSubnets').location)]",
             "properties": {
@@ -43,12 +45,45 @@
                             "properties": {
                                 "addressPrefix": "[parameters('moduleCreateVNetsAndSubnets').vNets[copyIndex('vNets')].subnets[copyIndex('subnets')].addressPrefix]",
                                 "networkSecurityGroup": {
+                                    
                                     "id": "[resourceId('Microsoft.Network/networkSecurityGroups',concat(parameters('moduleCreateVNetsAndSubnets').vNets[copyIndex('vNets')].subnets[copyIndex('subnets')].nsgName,parameters('suffixes').nsgSuffix))]"
                                 }    
                             }
                         }
                     }
                 ]
+                
+            },
+            "copy" : {
+                "name": "vNets2",
+                "count": "[length(parameters('moduleCreateVNetsAndSubnets').vNets)]"
+            },
+            "name": "[concat(parameters('moduleCreateVNetsAndSubnets').vNets[copyIndex('vNets2')].vnetName,parameters('suffixes').vnetSuffix)]",
+            "type": "Microsoft.Network/virtualNetworks",
+            "comments": "Module to create a vNET with multiple subnets",
+            "apiVersion": "2018-08-01",
+            "condition": "[equals(parameters('moduleCreateVNetsAndSubnets').vNets[copyIndex('vNets2')].subnets[copyIndex('subnets2')].nsgName, json('null'))]",
+            "tags": "[parameters('customTages')]",
+            "location": "[if(equals(parameters('moduleCreateVNetsAndSubnets').location, json('null')), variables('defaultLocation'), parameters('moduleCreateVNetsAndSubnets').location)]",
+            "properties": {
+                "addressSpace": {
+                    "addressPrefixes": [
+                        "[parameters('moduleCreateVNetsAndSubnets').vNets[copyIndex('vNets2')].vnetCIDR]"
+                    ]
+                },
+                "copy" : [
+                    {
+                        "name": "subnets2",
+                        "count": "[length(parameters('moduleCreateVNetsAndSubnets').vNets[copyIndex('vNets2')].subnets)]",
+                        "input" : { 
+                            "name": "[concat(parameters('moduleCreateVNetsAndSubnets').vNets[copyIndex('vNets2')].subnets[copyIndex('subnets2')].name,parameters('suffixes').subnetSuffix)]",
+                            "properties": {
+                                "addressPrefix": "[parameters('moduleCreateVNetsAndSubnets').vNets[copyIndex('vNets2')].subnets[copyIndex('subnets2')].addressPrefix]"
+                            }
+                        }
+                    }
+                ]
+                
             }
         } 
     ],
