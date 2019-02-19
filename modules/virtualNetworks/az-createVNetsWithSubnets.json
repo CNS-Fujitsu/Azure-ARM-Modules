@@ -42,7 +42,11 @@
                         "input" : { 
                             "name": "[concat(parameters('moduleCreateVNetsAndSubnets').vNets[copyIndex('vNets')].subnets[copyIndex('subnets')].name,parameters('suffixes').subnetSuffix)]",
                             "properties": {
-                                "addressPrefix": "[parameters('moduleCreateVNetsAndSubnets').vNets[copyIndex('vNets')].subnets[copyIndex('subnets')].addressPrefix]"    
+                                "addressPrefix": "[parameters('moduleCreateVNetsAndSubnets').vNets[copyIndex('vNets')].subnets[copyIndex('subnets')].addressPrefix]",
+                                "networkSecurityGroup": {
+                                    
+                                    "id": "[if(equals(parameters('moduleCreateVNetsAndSubnets').vNets[copyIndex('vNets')].subnets[copyIndex('subnets')].nsgName, json('null')), json('null'), resourceId('Microsoft.Network/networkSecurityGroups',concat(parameters('moduleCreateVNetsAndSubnets').vNets[copyIndex('vNets')].subnets[copyIndex('subnets')].nsgName,parameters('suffixes').nsgSuffix)))]"
+                                }    
                             }
                         }
                     }
