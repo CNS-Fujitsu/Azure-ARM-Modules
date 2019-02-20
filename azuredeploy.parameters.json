@@ -740,7 +740,7 @@
                         "gatewayType": "Vpn",
                         "vpnType": "RouteBased",
                         "enableBgp": "false",
-                        "localAddressPrefix": "10.0.1.0/24"
+                        "localAddressPrefix": "10.2.0.0/24"
 
                     }
                 ]
