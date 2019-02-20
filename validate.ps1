@@ -11,6 +11,8 @@
         VERSION: 1.0.0.1
 #>
 
+# Install JQ Plugin
+
 param(
     [string] [Parameter(Mandatory=$true)] $rgName,
     [string] $modules = "./modules/",
@@ -22,8 +24,10 @@ Function checkForParameterFile ($parameterFile) {
 }
 
 Function validatejson ($filename) {
+    $json = $(Get-Content -Raw -Path "$filename")
+    $($json | ConvertTo-Json)
+
     
-    Test-AzureRmResourceGroupDeployment
 }
 
 Function validateTemplate ($templateFileName, $parameterFileName, $modules, $parameters ) {
