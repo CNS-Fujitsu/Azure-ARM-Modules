@@ -48,8 +48,15 @@
           },
           "gatewayType": ["parameters('moduleCreateVirtualNetworkGateways').virtualNetworkGateways[copyIndex('virtualNetworkGateway')].gatewayType"],
           "vpnType": ["parameters('moduleCreateVirtualNetworkGateways').virtualNetworkGateways[copyIndex('virtualNetworkGateway')].vpnType"],
-          "enableBgp": ["parameters('moduleCreateVirtualNetworkGateways').virtualNetworkGateways[copyIndex('virtualNetworkGateway')].enableBgp"]
-        }  
+          "enableBgp": ["parameters('moduleCreateVirtualNetworkGateways').virtualNetworkGateways[copyIndex('virtualNetworkGateway')].enableBgp"],
+          "vpnClientConfiguration": {
+            "vpnClientAddressPool": {
+              "addressPrefixes": [
+                "parameters('moduleVirtualNetworkGateways').virtualNetworkGateways[copyIndex('virtualNetworkGateway')].localAddressPrefix"
+              ]
+            }
+          }
+        }
       }
   ], 
   "outputs": {
