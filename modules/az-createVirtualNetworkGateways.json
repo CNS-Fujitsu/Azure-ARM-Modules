@@ -36,7 +36,7 @@
                   "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets',concat(parameters('moduleVirtualNetworkGateways').virtualNetworkGateways[copyIndex('virtualNetworkGateway')].vnetName,parameters('suffixes').vnetSuffix),concat(parameters('moduleVirtualNetworkGateways').virtualNetworkGateways[copyIndex('virtualNetworkGateway')].subnetName,parameters('suffixes').subnetSuffix))]"
                 },
                 "publicIPAddress": {
-                  "id": "[resourceId('Microsoft.Network/publicIPAddresses',parameters('moduleVirtualNetworkGateways').virtualNetworkGateways[copyIndex('virtualNetworkGateway')].publicIPAddressName,parameters('suffixes').publicIPSuffix)]"
+                  "id": "[resourceId('Microsoft.Network/publicIPAddresses',concat(parameters('moduleVirtualNetworkGateways').virtualNetworkGateways[copyIndex('virtualNetworkGateway')].publicIPAddressName,parameters('suffixes').publicIPSuffix))]"
                 }
               },
               "name": ["parameters('moduleVirtualNetworkGateways').virtualNetworkGateways[copyIndex('virtualNetworkGateway')].configName"]
