@@ -1,0 +1,57 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.1",
+  "parameters": {
+    "moduleVirtualNetworkGateways": {
+      "type": "object"
+    },
+    "customTages": {
+      "type": "object"
+    },
+    "suffixes" : {
+      "type": "object"
+    }
+  },
+  "variables": {
+    "defaultLocation": "[resourceGroup().location]"
+  },
+  "resources": [
+
+      {   
+        "copy" : {
+          "name": "virtualNetworkGateway",
+          "count": "[length(parameters('moduleVirtualNetworkGateways').virtualNetworkGateways)]"
+        },
+        "type": "Microsoft.Network/virtualNetworks",
+        "name": "[concat(toLower(parameters('moduleVirtualNetworkGateways').virtualNetworkGateways[copyIndex('virtualNetworkGateway')].name),parameters('suffixes').networkGateway)]",
+        "apiVersion": "2018-07-01",
+        "tags": "[parameters('customTages')]",
+        "location": "[if(equals(parameters('moduleVirtualNetworkGateways').location, json('null')), variables('defaultLocation'), parameters('moduleVirtualNetworkGateways').location)]",
+        "properties": {
+          "ipConfigurations": [
+            {
+              "properties": {
+                "privateIPAllocationMethod": ["parameters('moduleVirtualNetworkGateways').virtualNetworkGateways[copyIndex('virtualNetworkGateway')].privateIPAllocationMethod"],
+                "subnet": {
+                  "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets',concat(parameters('moduleVirtualNetworkGateways').virtualNetworkGateways[copyIndex('virtualNetworkGateway')].vnetName,parameters('suffixes').vnetSuffix),concat(parameters('moduleVirtualNetworkGateways').virtualNetworkGateways[copyIndex('virtualNetworkGateway')].subnetName,parameters('suffixes').subnetSuffix))]"
+                },
+                "publicIPAddress": {
+                  "id": "[resourceId('Microsoft.Network/publicIPAddresses',parameters('moduleVirtualNetworkGateways').virtualNetworkGateways[copyIndex('virtualNetworkGateway')].publicIPAddressName,parameters('suffixes').publicIPSuffix)]"
+                }
+              },
+              "name": ["parameters('moduleVirtualNetworkGateways').virtualNetworkGateways[copyIndex('virtualNetworkGateway')].configName"]
+            }
+          ],
+          "sku": {
+            "name": ["parameters('moduleVirtualNetworkGateways').virtualNetworkGateways[copyIndex('virtualNetworkGateway')].skuName"],
+            "tier": ["parameters('moduleVirtualNetworkGateways').virtualNetworkGateways[copyIndex('virtualNetworkGateway')].skuTier"]
+          },
+          "gatewayType": ["parameters('moduleVirtualNetworkGateways').virtualNetworkGateways[copyIndex('virtualNetworkGateway')].gatewayType"],
+          "vpnType": ["parameters('moduleVirtualNetworkGateways').virtualNetworkGateways[copyIndex('virtualNetworkGateway')].vpnType"],
+          "enableBgp": ["parameters('moduleVirtualNetworkGateways').virtualNetworkGateways[copyIndex('virtualNetworkGateway')].enableBgp"]
+        }  
+      }
+  ], 
+  "outputs": {
+  }
+}

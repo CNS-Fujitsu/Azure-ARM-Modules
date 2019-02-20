@@ -196,9 +196,9 @@
         "module-CreateLoadBalancers-URL": "[concat(variables('moduleStoreURL'),'virtualNetworks/', 'az-createLoadBalancers.json')]",
         "module-CreateLoadBalancers-URL2": "[concat(variables('moduleStoreURL'),'virtualNetworks/', 'az-createLoadBalancers-probes.json')]",
         "module-CreateLoadBalancers-URL3": "[concat(variables('moduleStoreURL'),'virtualNetworks/', 'az-createLoadBalancers-inbound.json')]",
-        "module-CreateLocalNetworkGateway-URL": "https://github.com/CNS-Fujitsu/Azure-ARM-Modules/blob/fb-addingNSGwithIPBasedRules-module/modules/virtualNetworks/az-createLocalNetworkGateways.json",
-        "module-CreateNetworkConnection-URL": "https://github.com/CNS-Fujitsu/Azure-ARM-Modules/blob/fb-addingNSGwithIPBasedRules-module/modules/virtualNetworks/az-createNetworkConnection.json",
-        "module-CreateVirtualNetworkGateways-URL": "https://github.com/CNS-Fujitsu/Azure-ARM-Modules/blob/fb-addingNSGwithIPBasedRules-module/modules/virtualNetworks/az-createVirtualNetworkGateway.json"
+        "module-CreateLocalNetworkGateway-URL": "https://raw.githubusercontent.com/CNS-Fujitsu/Azure-ARM-Modules/fb-addingNSGwithIPBasedRules-module/modules/virtualNetworks/az-createLocalNetworkGateways.json",
+        "module-CreateNetworkConnection-URL": "https://raw.githubusercontent.com/CNS-Fujitsu/Azure-ARM-Modules/fb-addingNSGwithIPBasedRules-module/modules/virtualNetworks/az-createNetworkConnections.json",
+        "module-CreateVirtualNetworkGateways-URL": "https://raw.githubusercontent.com/CNS-Fujitsu/Azure-ARM-Modules/fb-addingNSGwithIPBasedRules-module/modules/virtualNetworks/az-createVirtualNetworkGateways.json"
         
     },
     "resources": [

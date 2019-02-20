@@ -694,7 +694,7 @@
             }
         },
 
-        "moduleCreateLocalNetworkGateway": { 
+        "moduleCreateLocalNetworkGateways": { 
             "value": {
                 "location" : null,
                 "localNetworkGateways": [
@@ -707,7 +707,7 @@
             }
         },
 
-        "moduleCreateNetworkConnection": {
+        "moduleCreateNetworkConnections": {
             "value": {
                 "location" : null,
                 "networkConnections": [
