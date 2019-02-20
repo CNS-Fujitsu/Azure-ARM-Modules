@@ -739,7 +739,8 @@
                         "skuTier": "Standard",
                         "gatewayType": "Vpn",
                         "vpnType": "RouteBased",
-                        "enableBgp": "false"
+                        "enableBgp": "false",
+                        "localAddressPrefix": "10.0.0.0/24"
 
                     }
                 ]
