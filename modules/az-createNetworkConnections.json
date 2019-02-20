@@ -23,7 +23,7 @@
             "count": "[length(parameters('moduleCreateNetworkConnections').networkConnections)]"
           },
           "type": "Microsoft.Network/connections",
-          "name": "[concat(toLower(parameters('moduleCreateNetworkConnections').networkConnection[copyIndex('networkConnection')].name),parameters('suffixes').networkConnection)]",
+          "name": "[concat(toLower(parameters('moduleCreateNetworkConnections').networkConnections[copyIndex('networkConnection')].name),parameters('suffixes').networkConnection)]",
           "apiVersion": "2018-07-01",
           "tags": "[parameters('customTages')]",
           "location": "[if(equals(parameters('moduleCreateNetworkConnections').location, json('null')), variables('defaultLocation'), parameters('moduleCreateNetworkConnections').location)]",
