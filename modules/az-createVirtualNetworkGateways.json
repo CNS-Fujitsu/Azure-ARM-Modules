@@ -52,7 +52,7 @@
           "vpnClientConfiguration": {
             "vpnClientAddressPool": {
               "addressPrefixes": [
-                "parameters('moduleVirtualNetworkGateways').virtualNetworkGateways[copyIndex('virtualNetworkGateway')].localAddressPrefix"
+                "parameters('moduleCreateVirtualNetworkGateways').virtualNetworkGateways[copyIndex('virtualNetworkGateway')].localAddressPrefix"
               ]
             }
           }
