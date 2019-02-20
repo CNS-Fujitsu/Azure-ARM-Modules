@@ -366,42 +366,42 @@
                 "vNets" : [
                     {
                         "vnetName" : "myvnet",
-                        "vnetCIDR" : "10.0.0.0/16",
+                        "vnetCIDR" : "10.1.0.0/16",
                         "subnets": [
                             {
                                 "name": "GatewaySubnet",
-                                "addressPrefix": "10.0.0.0/24",
+                                "addressPrefix": "10.1.0.0/24",
                                 "nsgName": "inboundWebTrafficip1"
                             },
                             {
                                 "name":"prod-ne1-vnet-subnet1",
-                                "addressPrefix":"10.0.1.0/24",
+                                "addressPrefix":"10.1.1.0/24",
                                 "nsgName": "inboundWebTrafficip1"
                             },
                             {
                                 "name":"prod-ne1-vnet-subnet2",
-                                "addressPrefix":"10.0.2.0/24",
+                                "addressPrefix":"10.1.2.0/24",
                                 "nsgName": "inboundWebTrafficip1"
                             }
                         ]
                     },
                     {
                         "vnetName" : "myvnet2",
-                        "vnetCIDR" : "10.0.0.0/16",
+                        "vnetCIDR" : "10.2.0.0/16",
                         "subnets": [
                             {
                                 "name": "GatewaySubnet",
-                                "addressPrefix": "10.0.0.0/24",
+                                "addressPrefix": "10.2.0.0/24",
                                 "nsgName": "inboundWebTrafficip1"
                             },
                             {
                                 "name":"prod-ne1-vnet-subnet1",
-                                "addressPrefix":"10.0.1.0/24",
+                                "addressPrefix":"10.2.1.0/24",
                                 "nsgName": "inboundWebTrafficip1"
                             },
                             {
                                 "name":"prod-ne1-vnet-subnet2",
-                                "addressPrefix":"10.0.2.0/24",
+                                "addressPrefix":"10.2.2.0/24",
                                 "nsgName": "inboundWebTrafficip1"
                             }
                         ]
