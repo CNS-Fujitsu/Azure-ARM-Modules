@@ -680,7 +680,7 @@
                     "contentVersion": "1.0.0.1"
                 },
                 "parameters": {
-                    "moduleVirtualNetworkGateways": { "value": "[parameters('moduleCreateVirtualNetworkGateways')]"},
+                    "moduleCreateVirtualNetworkGateways": { "value": "[parameters('moduleCreateVirtualNetworkGateways')]"},
                     "customTages": {
                         "value": "[parameters('customTages')]"
                     },

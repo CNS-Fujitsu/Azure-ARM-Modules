@@ -31,7 +31,7 @@
           "ipConfigurations": [
             {
               "properties": {
-                "privateIPAllocationMethod": ["parameters('moduleVirtualNetworkGateways').virtualNetworkGateways[copyIndex('virtualNetworkGateway')].privateIPAllocationMethod"],
+                "privateIPAllocationMethod": ["parameters('moduleCreateVirtualNetworkGateways').virtualNetworkGateways[copyIndex('virtualNetworkGateway')].privateIPAllocationMethod"],
                 "subnet": {
                   "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets',concat(parameters('moduleCreateVirtualNetworkGateways').virtualNetworkGateways[copyIndex('virtualNetworkGateway')].vnetName,parameters('suffixes').vnetSuffix),concat(parameters('moduleCreateVirtualNetworkGateways').virtualNetworkGateways[copyIndex('virtualNetworkGateway')].subnetName,parameters('suffixes').subnetSuffix))]"
                 },
@@ -39,16 +39,16 @@
                   "id": "[resourceId('Microsoft.Network/publicIPAddresses',concat(parameters('moduleCreateVirtualNetworkGateways').virtualNetworkGateways[copyIndex('virtualNetworkGateway')].publicIPAddressName,parameters('suffixes').publicIPSuffix))]"
                 }
               },
-              "name": ["parameters('moduleVirtualNetworkGateways').virtualNetworkGateways[copyIndex('virtualNetworkGateway')].configName"]
+              "name": ["parameters('moduleCreateVirtualNetworkGateways').virtualNetworkGateways[copyIndex('virtualNetworkGateway')].configName"]
             }
           ],
           "sku": {
-            "name": ["parameters('moduleVirtualNetworkGateways').virtualNetworkGateways[copyIndex('virtualNetworkGateway')].skuName"],
-            "tier": ["parameters('moduleVirtualNetworkGateways').virtualNetworkGateways[copyIndex('virtualNetworkGateway')].skuTier"]
+            "name": ["parameters('moduleCreateVirtualNetworkGateways').virtualNetworkGateways[copyIndex('virtualNetworkGateway')].skuName"],
+            "tier": ["parameters('moduleCreateVirtualNetworkGateways').virtualNetworkGateways[copyIndex('virtualNetworkGateway')].skuTier"]
           },
-          "gatewayType": ["parameters('moduleVirtualNetworkGateways').virtualNetworkGateways[copyIndex('virtualNetworkGateway')].gatewayType"],
-          "vpnType": ["parameters('moduleVirtualNetworkGateways').virtualNetworkGateways[copyIndex('virtualNetworkGateway')].vpnType"],
-          "enableBgp": ["parameters('moduleVirtualNetworkGateways').virtualNetworkGateways[copyIndex('virtualNetworkGateway')].enableBgp"]
+          "gatewayType": ["parameters('moduleCreateVirtualNetworkGateways').virtualNetworkGateways[copyIndex('virtualNetworkGateway')].gatewayType"],
+          "vpnType": ["parameters('moduleCreateVirtualNetworkGateways').virtualNetworkGateways[copyIndex('virtualNetworkGateway')].vpnType"],
+          "enableBgp": ["parameters('moduleCreateVirtualNetworkGateways').virtualNetworkGateways[copyIndex('virtualNetworkGateway')].enableBgp"]
         }  
       }
   ], 
