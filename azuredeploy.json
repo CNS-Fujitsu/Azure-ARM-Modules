@@ -156,10 +156,10 @@
         "moduleCreateLoadBalancers" : {
             "type" : "object"
         },
-        "moduleCreateLocalNetworkGateway" : {
+        "moduleCreateLocalNetworkGateways" : {
             "type" : "object"
         },
-        "moduleCreateNetworkConnection" : {
+        "moduleCreateNetworkConnections" : {
             "type" : "object"
         },
         "moduleCreateVirtualNetworkGateways" : {
@@ -196,9 +196,9 @@
         "module-CreateLoadBalancers-URL": "[concat(variables('moduleStoreURL'),'virtualNetworks/', 'az-createLoadBalancers.json')]",
         "module-CreateLoadBalancers-URL2": "[concat(variables('moduleStoreURL'),'virtualNetworks/', 'az-createLoadBalancers-probes.json')]",
         "module-CreateLoadBalancers-URL3": "[concat(variables('moduleStoreURL'),'virtualNetworks/', 'az-createLoadBalancers-inbound.json')]",
-        "module-CreateLocalNetworkGateway-URL": "[concat(variables('moduleStoreURL'),'virtualNetworks/', 'az-CreateLocalNetworkGateway.json')]",
-        "module-CreateNetworkConnection-URL": "[concat(variables('moduleStoreURL'),'virtualNetworks/', 'az-CreateNetworkConnection.json')]",
-        "module-CreateVirtualNetworkGateways-URL": "[concat(variables('moduleStoreURL'),'virtualNetworks/', 'az-CreateVirtualNetworkGateways.json')]"
+        "module-CreateLocalNetworkGateway-URL": "https://github.com/CNS-Fujitsu/Azure-ARM-Modules/blob/fb-addingNSGwithIPBasedRules-module/modules/virtualNetworks/az-createLocalNetworkGateways.json",
+        "module-CreateNetworkConnection-URL": "https://github.com/CNS-Fujitsu/Azure-ARM-Modules/blob/fb-addingNSGwithIPBasedRules-module/modules/virtualNetworks/az-createNetworkConnection.json",
+        "module-CreateVirtualNetworkGateways-URL": "https://github.com/CNS-Fujitsu/Azure-ARM-Modules/blob/fb-addingNSGwithIPBasedRules-module/modules/virtualNetworks/az-createVirtualNetworkGateway.json"
         
     },
     "resources": [
@@ -623,7 +623,7 @@
                     "contentVersion": "1.0.0.1"
                 },
                 "parameters": {
-                    "moduleCreateLocalNetworkGateways": { "value": "[parameters('moduleCreateLocalNetworkGateway')]"},
+                    "moduleCreateLocalNetworkGateways": { "value": "[parameters('moduleCreateLocalNetworkGateways')]"},
                     "customTages": {
                         "value": "[parameters('customTages')]"
                     },
@@ -650,7 +650,7 @@
                     "contentVersion": "1.0.0.1"
                 },
                 "parameters": {
-                    "moduleCreateNetworkConnections": { "value": "[parameters('moduleCreateNetworkConnection')]"},
+                    "moduleCreateNetworkConnections": { "value": "[parameters('moduleCreateNetworkConnections')]"},
                     "customTages": {
                         "value": "[parameters('customTages')]"
                     },

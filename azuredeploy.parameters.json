@@ -19,7 +19,7 @@
             "value" : "No" 
         },
         "requireCreatePublicIPAddresses": {
-            "value" : "No" 
+            "value" : "Yes" 
         },
         "requireCreateVNetsAndSubnets": {
             "value" : "Yes" 
@@ -43,13 +43,13 @@
             "value" : "No" 
         },
         "requireLocalNetworkGateway": {
-            "value" : "No" 
+            "value" : "Yes" 
         },
         "requireCreateNetworkConnection": {
-            "value" : "No" 
+            "value" : "Yes" 
         },
         "requireCreateVirtualNetworkGateways": {
-            "value" : "No" 
+            "value" : "Yes" 
         },
     
 
