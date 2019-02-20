@@ -34,7 +34,7 @@
                     "[parameters('moduleCreateLocalNetworkGateways').localNetworkGateways[copyIndex('localNetworkGateway')].addressPrefixes]"
                 ]
               },
-              "gatewayIpAddress": "[parameters('moduleCreateLocalNetworkGateways').localNetworkGateway[copyIndex('localNetworkGateway')].gatewayIpAddress]"
+              "gatewayIpAddress": "[parameters('moduleCreateLocalNetworkGateways').localNetworkGateways[copyIndex('localNetworkGateway')].gatewayIpAddress]"
             }  
         }
     ], 
