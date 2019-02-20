@@ -42,7 +42,16 @@
         "requireCreateLoadBalancers": {
             "value" : "No" 
         },
-
+        "requireLocalNetworkGateway": {
+            "value" : "No" 
+        },
+        "requireCreateNetworkConnection": {
+            "value" : "No" 
+        },
+        "requireCreateVirtualNetworkGateways": {
+            "value" : "No" 
+        },
+    
 
         "moduleCreateApplicationSecurityGroups": { 
             "value" : {
@@ -340,6 +349,13 @@
                         "description": "this is a storage group",
                         "publicIPAllocationMethod": "Dynamic",
                         "domainNameLabelprefix": "myrdpserver2d"
+                    },
+                    {
+                        "vmName":  "localGW1",
+                        "pipName": "localGW1",
+                        "description": "localGatewayIpAddress",
+                        "publicIPAllocationMethod": "Dynamic",
+                        "domainNameLabelprefix": "mylocalGatewayIpAddress1"
                     }
                 ]
             }
@@ -360,7 +376,7 @@
                             {
                                 "name":"prod-ne1-vnet-subnet1",
                                 "addressPrefix":"10.0.1.0/24",
-                                "nsgName": "inboundWebTrafficip2"
+                                "nsgName": "inboundWebTrafficip1"
                             },
                             {
                                 "name":"prod-ne1-vnet-subnet2",
@@ -678,6 +694,59 @@
             }
         },
 
+        "moduleCreateLocalNetworkGateway": { 
+            "value": {
+                "location" : null,
+                "localNetworkGateways": [
+                    {
+                        "name": "localGateway",
+                        "addressPrefixes": "10.0.0.0/24",
+                        "gatewayIpAddress": "10.0.0.1" 
+                    }
+                ]
+            }
+        },
+
+        "moduleCreateNetworkConnection": {
+            "value": {
+                "location" : null,
+                "networkConnections": [
+                    {
+                        "name": "Azure2Other",
+                        "virtualNetworkGateway1Name" : "azureGateway",
+                        "virtualNetworkGateway2Name" : "localGateway",
+                        "connectionType": "IPsec",
+                        "routingWeight": 10,
+                        "sharedKey": "GEN-UNIQUE"
+                    }
+                ]
+            }
+        },
+
+
+        "moduleCreateVirtualNetworkGateways": {
+            "value": {
+                "location" : null,
+                "virtualNetworkGateways": [
+                    {
+                        "name": "azureGateway",
+                        "privateIPAllocationMethod": "Dynamic",
+                        "vnetName" : "myvnet",
+                        "subnetname": "GatewaySubnet",
+                        "publicIPAddressName": "localGW1",
+                        "configName": "vnetGatewayConfig",
+                        "skuName": "Standard",
+                        "skuTier": "Standard",
+                        "gatewayType": "Vpn",
+                        "vpnType": "RouteBased",
+                        "enableBgp": "false"
+
+                    }
+                ]
+            }
+        },
+
+
         "customTages": {
             "value": {
                 "Application": "Finance",
@@ -709,7 +778,10 @@
                 "applicationGatewaySuffix": "-agw",
                 "availabilitySetSuffix": "-avset",
                 "extLoadbalancerSuffix": "-extlb",
-                "intLoadbalancerSuffix": "-intlb"
+                "intLoadbalancerSuffix": "-intlb",
+                "localNetworkGateway": "lng",
+                "networkConnection": "nc",
+                "networkGateway": "nc"
             }
         }
     }

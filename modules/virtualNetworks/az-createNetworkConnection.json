@@ -1,0 +1,45 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.1",
+    "parameters": {
+      "moduleNetworkConnection": {
+        "type": "object"
+      },
+      "customTages": {
+        "type": "object"
+      },
+      "suffixes" : {
+        "type": "object"
+      }
+    },
+    "variables": {
+      "defaultLocation": "[resourceGroup().location]"
+    },
+    "resources": [
+
+        {   
+          "copy" : {
+            "name": "networkConnection",
+            "count": "[length(parameters('moduleNetworkConnection').networkConnections)]"
+          },
+          "type": "Microsoft.Network/connections",
+          "name": "[concat(toLower(parameters('moduleNetworkConnection').networkConnection[copyIndex('networkConnection')].name),parameters('suffixes').networkConnection)]",
+          "apiVersion": "2018-07-01",
+          "tags": "[parameters('customTages')]",
+          "location": "[if(equals(parameters('moduleNetworkConnection').location, json('null')), variables('defaultLocation'), parameters('moduleNetworkConnection').location)]",
+          "properties": {
+            "virtualNetworkGateway1": {
+              "id": "[resourceId('Microsoft.Network/virtualNetworkGateways', parameters('moduleNetworkConnection').networkConnections[copyIndex('networkConnection')].virtualNetworkGateway1Name)]"
+            },
+            "localNetworkGateway2": {
+              "id": "[resourceId('Microsoft.Network/localNetworkGateways', parameters('moduleNetworkConnection').networkConnections[copyIndex('networkConnection')].virtualNetworkGateway2Name)]"
+            },
+            "connectionType": "[parameters('moduleNetworkConnection').networkConnections[copyIndex('networkConnection')].connectionType]",
+            "routingWeight": "[parameters('moduleNetworkConnection').networkConnections[copyIndex('networkConnection')].routingWeight]",
+            "sharedKey": "[parameters('moduleNetworkConnection').networkConnections[copyIndex('networkConnection')].sharedKey]"
+          }   
+        }
+    ], 
+    "outputs": {
+    }
+}

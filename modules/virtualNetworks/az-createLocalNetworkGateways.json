@@ -1,0 +1,43 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.1",
+    "parameters": {
+      "moduleLocalNetworkGateway": {
+        "type": "object"
+      },
+      "customTages": {
+        "type": "object"
+      },
+      "suffixes" : {
+        "type": "object"
+      }
+    },
+    "variables": {
+      "defaultLocation": "[resourceGroup().location]"
+    },
+    "resources": [
+
+        {   
+            "copy" : {
+                "name": "localNetworkGateway",
+                "count": "[length(parameters('moduleLocalNetworkGateway').localNetworkGateways)]"
+            },
+            "type": "Microsoft.Network/localNetworkGateways",
+            "name": "[concat(toLower(parameters('moduleLocalNetworkGateway').localNetworkGateways[copyIndex('localNetworkGateway')].name),parameters('suffixes').localNetworkGateway)]",
+            "apiVersion": "2018-07-01",
+            "type": "Microsoft.Network/localNetworkGateways",
+            "tags": "[parameters('customTages')]",
+            "location": "[if(equals(parameters('moduleLocalNetworkGateway').location, json('null')), variables('defaultLocation'), parameters('moduleLocalNetworkGateway').location)]",
+            "properties": {
+              "localNetworkAddressSpace": {
+                "addressPrefixes": [
+                    "[parameters('moduleLocalNetworkGateway').localNetworkGateways[copyIndex('localNetworkGateway')].addressPrefixes]"
+                ]
+              },
+              "gatewayIpAddress": "[parameters('moduleLocalNetworkGateway').localNetworkGateway[copyIndex('localNetworkGateway')].gatewayIpAddress]"
+            }  
+        }
+    ], 
+    "outputs": {
+    }
+}
