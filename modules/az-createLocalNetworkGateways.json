@@ -27,14 +27,14 @@
             "apiVersion": "2018-07-01",
             "type": "Microsoft.Network/localNetworkGateways",
             "tags": "[parameters('customTages')]",
-            "location": "[if(equals(parameters('moduleCreateLocalNetworkGateways').location, json('null')), variables('defaultLocation'), parameters('moduleLocalNetworkGateways').location)]",
+            "location": "[if(equals(parameters('moduleCreateLocalNetworkGateways').location, json('null')), variables('defaultLocation'), parameters('moduleCreateLocalNetworkGateways').location)]",
             "properties": {
               "localNetworkAddressSpace": {
                 "addressPrefixes": [
-                    "[parameters('moduleCreateLocalNetworkGateway').localNetworkGateways[copyIndex('localNetworkGateway')].addressPrefixes]"
+                    "[parameters('moduleCreateLocalNetworkGateways').localNetworkGateways[copyIndex('localNetworkGateway')].addressPrefixes]"
                 ]
               },
-              "gatewayIpAddress": "[parameters('moduleCreateLocalNetworkGateway').localNetworkGateway[copyIndex('localNetworkGateway')].gatewayIpAddress]"
+              "gatewayIpAddress": "[parameters('moduleCreateLocalNetworkGateways').localNetworkGateway[copyIndex('localNetworkGateway')].gatewayIpAddress]"
             }  
         }
     ], 
