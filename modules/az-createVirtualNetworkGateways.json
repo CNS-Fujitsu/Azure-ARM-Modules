@@ -33,7 +33,7 @@
               "properties": {
                 "privateIPAllocationMethod": ["parameters('moduleCreateVirtualNetworkGateways').virtualNetworkGateways[copyIndex('virtualNetworkGateway')].privateIPAllocationMethod"],
                 "subnet": {
-                  "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets',concat(parameters('moduleCreateVirtualNetworkGateways').virtualNetworkGateways[copyIndex('virtualNetworkGateway')].vnetName,parameters('suffixes').vnetSuffix),concat(parameters('moduleCreateVirtualNetworkGateways').virtualNetworkGateways[copyIndex('virtualNetworkGateway')].subnetName,parameters('suffixes').subnetSuffix))]"
+                  "id": "[resourceId('Microsoft.Network/virtualNetworks/',concat(parameters('moduleCreateVirtualNetworkGateways').virtualNetworkGateways[copyIndex('virtualNetworkGateway')].vnetName,parameters('suffixes').vnetSuffix),'/subnets/',concat(parameters('moduleCreateVirtualNetworkGateways').virtualNetworkGateways[copyIndex('virtualNetworkGateway')].subnetName,parameters('suffixes').subnetSuffix))]"
                 },
                 "publicIPAddress": {
                   "id": "[resourceId('Microsoft.Network/publicIPAddresses',concat(parameters('moduleCreateVirtualNetworkGateways').virtualNetworkGateways[copyIndex('virtualNetworkGateway')].publicIPAddressName,parameters('suffixes').publicIPSuffix))]"
