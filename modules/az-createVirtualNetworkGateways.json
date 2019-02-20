@@ -22,7 +22,7 @@
           "name": "virtualNetworkGateway",
           "count": "[length(parameters('moduleCreateVirtualNetworkGateways').virtualNetworkGateways)]"
         },
-        "type": "Microsoft.Network/virtualNetworks",
+        "type": "Microsoft.Network/virtualNetworkGateways",
         "name": "[toLower(concat(parameters('moduleCreateVirtualNetworkGateways').virtualNetworkGateways[copyIndex('virtualNetworkGateway')].name,parameters('suffixes').networkGateway))]",
         "apiVersion": "2018-07-01",
         "tags": "[parameters('customTages')]",
