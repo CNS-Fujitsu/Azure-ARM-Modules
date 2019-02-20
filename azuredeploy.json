@@ -641,7 +641,8 @@
             "condition": "[equals(parameters('requireCreateNetworkConnection'), 'Yes')]",
             "dependsOn": [
                 "AllVNetsAndSubnetsForResourceGroup",
-                "AllPublicIPAddressesForResourceGroup"
+                "AllPublicIPAddressesForResourceGroup",
+                "AllVirtualNetworkGatewaysForResourceGroup"
             ],
             "properties" : {
                 "mode": "Incremental",
