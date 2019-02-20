@@ -94,6 +94,28 @@
                 "No"
             ]
         },
+        "requireLocalNetworkGateway" : {
+            "type" : "string",
+            "allowedValues": [
+                "Yes",
+                "No"
+            ]
+        },
+        "requireCreateNetworkConnection" : {
+            "type" : "string",
+            "allowedValues": [
+                "Yes",
+                "No"
+            ]
+        }
+        ,
+        "requireCreateVirtualNetworkGateways" : {
+            "type" : "string",
+            "allowedValues": [
+                "Yes",
+                "No"
+            ]
+        },
 
         "moduleCreateApplicationSecurityGroups" : {
             "type" : "object"
@@ -134,6 +156,16 @@
         "moduleCreateLoadBalancers" : {
             "type" : "object"
         },
+        "moduleCreateLocalNetworkGateways" : {
+            "type" : "object"
+        },
+        "moduleCreateNetworkConnections" : {
+            "type" : "object"
+        },
+        "moduleCreateVirtualNetworkGateways" : {
+            "type" : "object"
+        },
+
         
         
         "suffixes" : {
@@ -163,7 +195,10 @@
         "module-CreateWAFApplicationGateway-URL": "[concat(variables('moduleStoreURL'),'virtualNetworks/', 'az-createWAFApplicationGateways.json')]",
         "module-CreateLoadBalancers-URL": "[concat(variables('moduleStoreURL'),'virtualNetworks/', 'az-createLoadBalancers.json')]",
         "module-CreateLoadBalancers-URL2": "[concat(variables('moduleStoreURL'),'virtualNetworks/', 'az-createLoadBalancers-probes.json')]",
-        "module-CreateLoadBalancers-URL3": "[concat(variables('moduleStoreURL'),'virtualNetworks/', 'az-createLoadBalancers-inbound.json')]"
+        "module-CreateLoadBalancers-URL3": "[concat(variables('moduleStoreURL'),'virtualNetworks/', 'az-createLoadBalancers-inbound.json')]",
+        "module-CreateLocalNetworkGateway-URL": "https://raw.githubusercontent.com/CNS-Fujitsu/Azure-ARM-Modules/fb-addingNSGwithIPBasedRules-module/modules/virtualNetworks/az-createLocalNetworkGateways.json",
+        "module-CreateNetworkConnection-URL": "https://raw.githubusercontent.com/CNS-Fujitsu/Azure-ARM-Modules/fb-addingNSGwithIPBasedRules-module/modules/virtualNetworks/az-createNetworkConnections.json",
+        "module-CreateVirtualNetworkGateways-URL": "https://raw.githubusercontent.com/CNS-Fujitsu/Azure-ARM-Modules/fb-addingNSGwithIPBasedRules-module/modules/virtualNetworks/az-createVirtualNetworkGateways.json"
         
     },
     "resources": [
@@ -555,6 +590,94 @@
                 },
                 "parameters": {
                     "moduleCreateLoadBalancers": { "value": "[parameters('moduleCreateLoadBalancers')]"},
+                    "customTages": {
+                        "value": "[parameters('customTages')]"
+                    },
+                    "suffixes" : {
+                        "value": "[parameters('suffixes')]"
+                    }
+                }
+            }
+        },
+
+
+
+
+
+
+
+        {
+            "apiVersion": "2018-05-01",
+            "name": "AllLocalNetworkGatewaysForResourceGroup",
+            "comments": "Calling Module to deploy one or more VPN LocalGateways for the Resource Group",
+            "type": "Microsoft.Resources/deployments",
+            "condition": "[equals(parameters('requireLocalNetworkGateway'), 'Yes')]",
+            "dependsOn": [
+                "AllVNetsAndSubnetsForResourceGroup",
+                "AllPublicIPAddressesForResourceGroup"
+            ],
+            "properties" : {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[variables('module-CreateLocalNetworkGateway-URL')]",
+                    "contentVersion": "1.0.0.1"
+                },
+                "parameters": {
+                    "moduleCreateLocalNetworkGateways": { "value": "[parameters('moduleCreateLocalNetworkGateways')]"},
+                    "customTages": {
+                        "value": "[parameters('customTages')]"
+                    },
+                    "suffixes" : {
+                        "value": "[parameters('suffixes')]"
+                    }
+                }
+            }
+        },
+        {
+            "apiVersion": "2018-05-01",
+            "name": "AllNetworkConnectionForResourceGroup",
+            "comments": "Calling Module to deploy one or more VPN Network Connections for the Resource Group",
+            "type": "Microsoft.Resources/deployments",
+            "condition": "[equals(parameters('requireCreateNetworkConnection'), 'Yes')]",
+            "dependsOn": [
+                "AllVNetsAndSubnetsForResourceGroup",
+                "AllPublicIPAddressesForResourceGroup"
+            ],
+            "properties" : {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[variables('module-CreateNetworkConnection-URL')]",
+                    "contentVersion": "1.0.0.1"
+                },
+                "parameters": {
+                    "moduleCreateNetworkConnections": { "value": "[parameters('moduleCreateNetworkConnections')]"},
+                    "customTages": {
+                        "value": "[parameters('customTages')]"
+                    },
+                    "suffixes" : {
+                        "value": "[parameters('suffixes')]"
+                    }
+                }
+            }
+        },
+        {
+            "apiVersion": "2018-05-01",
+            "name": "AllVirtualNetworkGatewaysForResourceGroup",
+            "comments": "Calling Module to deploy one or more VPN VirtualNetworkGateways for the Resource Group",
+            "type": "Microsoft.Resources/deployments",
+            "condition": "[equals(parameters('requireCreateVirtualNetworkGateways'), 'Yes')]",
+            "dependsOn": [
+                "AllVNetsAndSubnetsForResourceGroup",
+                "AllPublicIPAddressesForResourceGroup"
+            ],
+            "properties" : {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[variables('module-CreateVirtualNetworkGateways-URL')]",
+                    "contentVersion": "1.0.0.1"
+                },
+                "parameters": {
+                    "moduleVirtualNetworkGateways": { "value": "[parameters('moduleCreateVirtualNetworkGateways')]"},
                     "customTages": {
                         "value": "[parameters('customTages')]"
                     },
