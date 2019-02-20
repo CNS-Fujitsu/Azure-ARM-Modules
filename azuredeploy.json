@@ -642,6 +642,8 @@
             "dependsOn": [
                 "AllVNetsAndSubnetsForResourceGroup",
                 "AllPublicIPAddressesForResourceGroup",
+                "AllVirtualNetworkGatewaysForResourceGroup",
+                "AllLocalNetworkGatewaysForResourceGroup",
                 "AllVirtualNetworkGatewaysForResourceGroup"
             ],
             "properties" : {
