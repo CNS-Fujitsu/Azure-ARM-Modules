@@ -732,7 +732,7 @@
                         "name": "azureGateway",
                         "privateIPAllocationMethod": "Dynamic",
                         "vnetName" : "myvnet",
-                        "subnetname": "GatewaySubnet",
+                        "subnetName": "GatewaySubnet",
                         "publicIPAddressName": "localGW1",
                         "configName": "vnetGatewayConfig",
                         "skuName": "Standard",
