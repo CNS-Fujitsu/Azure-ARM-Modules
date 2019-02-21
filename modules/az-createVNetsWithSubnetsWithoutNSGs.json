@@ -2,7 +2,7 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.1",
     "parameters": {
-      "moduleCreateVNetsAndSubnets": {
+      "moduleCreateVNetsAndSubnetsWithoutNSGs": {
         "type": "object"
       },
       
@@ -20,28 +20,28 @@
         {
             "copy" : {
                 "name": "vNets",
-                "count": "[length(parameters('moduleCreateVNetsAndSubnets').vNets)]"
+                "count": "[length(parameters('moduleCreateVNetsAndSubnetsWithoutNSGs').vNets)]"
             },
-            "name": "[concat(parameters('moduleCreateVNetsAndSubnets').vNets[copyIndex('vNets')].vnetName,parameters('suffixes').vnetSuffix)]",
+            "name": "[concat(parameters('moduleCreateVNetsAndSubnetsWithoutNSGs').vNets[copyIndex('vNets')].vnetName,parameters('suffixes').vnetSuffix)]",
             "type": "Microsoft.Network/virtualNetworks",
             "comments": "Module to create a vNET with multiple subnets",
             "apiVersion": "2018-08-01",
             "tags": "[parameters('customTages')]",
-            "location": "[if(equals(parameters('moduleCreateVNetsAndSubnets').location, json('null')), variables('defaultLocation'), parameters('moduleCreateVNetsAndSubnets').location)]",
+            "location": "[if(equals(parameters('moduleCreateVNetsAndSubnetsWithoutNSGs').location, json('null')), variables('defaultLocation'), parameters('moduleCreateVNetsAndSubnetsWithoutNSGs').location)]",
             "properties": {
                 "addressSpace": {
                     "addressPrefixes": [
-                        "[parameters('moduleCreateVNetsAndSubnets').vNets[copyIndex('vNets')].vnetCIDR]"
+                        "[parameters('moduleCreateVNetsAndSubnetsWithoutNSGs').vNets[copyIndex('vNets')].vnetCIDR]"
                     ]
                 },
                 "copy" : [
                     {
                         "name": "subnets",
-                        "count": "[length(parameters('moduleCreateVNetsAndSubnets').vNets[copyIndex('vNets')].subnets)]",
+                        "count": "[length(parameters('moduleCreateVNetsAndSubnetsWithoutNSGs').vNets[copyIndex('vNets')].subnets)]",
                         "input" : { 
-                            "name": "[if(equals(parameters('moduleCreateVNetsAndSubnets').vNets[copyIndex('vNets')].subnets[copyIndex('subnets')].name,'GatewaySubnet'),parameters('moduleCreateVNetsAndSubnets').vNets[copyIndex('vNets')].subnets[copyIndex('subnets')].name,concat(parameters('moduleCreateVNetsAndSubnets').vNets[copyIndex('vNets')].subnets[copyIndex('subnets')].name,parameters('suffixes').subnetSuffix))]",
+                            "name": "[if(equals(parameters('moduleCreateVNetsAndSubnetsWithoutNSGs').vNets[copyIndex('vNets')].subnets[copyIndex('subnets')].name,'GatewaySubnet'),parameters('moduleCreateVNetsAndSubnetsWithoutNSGs').vNets[copyIndex('vNets')].subnets[copyIndex('subnets')].name,concat(parameters('moduleCreateVNetsAndSubnetsWithoutNSGs').vNets[copyIndex('vNets')].subnets[copyIndex('subnets')].name,parameters('suffixes').subnetSuffix))]",
                             "properties": {
-                                "addressPrefix": "[parameters('moduleCreateVNetsAndSubnets').vNets[copyIndex('vNets')].subnets[copyIndex('subnets')].addressPrefix]"   
+                                "addressPrefix": "[parameters('moduleCreateVNetsAndSubnetsWithoutNSGs').vNets[copyIndex('vNets')].subnets[copyIndex('subnets')].addressPrefix]"   
                             }
                         }
                     }
