@@ -29,10 +29,10 @@
           "location": "[if(equals(parameters('moduleCreateNetworkConnections').location, json('null')), variables('defaultLocation'), parameters('moduleCreateNetworkConnections').location)]",
           "properties": {
             "virtualNetworkGateway1": {
-              "id": "[resourceId('Microsoft.Network/virtualNetworkGateways', parameters('moduleCreateNetworkConnections').networkConnections[copyIndex('networkConnection')].virtualNetworkGateway1Name)]"
+              "id": "[resourceId('Microsoft.Network/virtualNetworkGateways', concat(parameters('moduleCreateNetworkConnections').networkConnections[copyIndex('networkConnection')].virtualNetworkGateway1Name,parameters('suffixes').networkGateway))]"
             },
             "localNetworkGateway2": {
-              "id": "[resourceId('Microsoft.Network/localNetworkGateways', parameters('moduleCreateNetworkConnections').networkConnections[copyIndex('networkConnection')].virtualNetworkGateway2Name)]"
+              "id": "[resourceId('Microsoft.Network/localNetworkGateways', concat(parameters('moduleCreateNetworkConnections').networkConnections[copyIndex('networkConnection')].virtualNetworkGateway2Name,parameters('suffixes').networkGateway))]"
             },
             "connectionType": "[parameters('moduleCreateNetworkConnections').networkConnections[copyIndex('networkConnection')].connectionType]",
             "routingWeight": "[parameters('moduleCreateNetworkConnections').networkConnections[copyIndex('networkConnection')].routingWeight]",

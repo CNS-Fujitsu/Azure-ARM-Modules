@@ -46,7 +46,7 @@
             "value" : "Yes" 
         },
         "requireCreateNetworkConnection": {
-            "value" : "No" 
+            "value" : "Yes" 
         },
         "requireCreateVirtualNetworkGateways": {
             "value" : "Yes" 
@@ -780,9 +780,9 @@
                 "availabilitySetSuffix": "-avset",
                 "extLoadbalancerSuffix": "-extlb",
                 "intLoadbalancerSuffix": "-intlb",
-                "localNetworkGateway": "lng",
-                "networkConnection": "nc",
-                "networkGateway": "nc"
+                "localNetworkGateway": "-lng",
+                "networkConnection": "-nc",
+                "networkGateway": "-ng"
             }
         }
     }
