@@ -15,7 +15,7 @@
     },
     "variables": {
         "defaultLocation": "[resourceGroup().location]",
-        "empty": [].
+        "empty": []
     },
     "resources": [
         {
