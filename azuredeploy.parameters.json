@@ -27,6 +27,9 @@
         "requireCreateVNetsAndSubnetsWithoutNSGs": {
             "value" : "Yes" 
         },
+        "requireAddSubnetsToExistingVNets": {
+            "value" : "Yes" 
+        },
         "requireCreateNetworkInterfaces": {
             "value" : "Yes" 
         },
@@ -390,13 +393,7 @@
                     },
                     {
                         "vnetName" : "myvnet2",
-                        "vnetCIDR" : "10.2.0.0/16",
                         "subnets": [
-                            {
-                                "name": "GatewaySubnet",
-                                "addressPrefix": "10.2.0.0/24",
-                                "nsgName": "inboundWebTrafficip1"
-                            },
                             {
                                 "name":"prod-ne1-vnet-subnet1",
                                 "addressPrefix":"10.2.1.0/24",
@@ -451,6 +448,43 @@
                             {
                                 "name":"prod-ne1-vnet-subnet2",
                                 "addressPrefix":"10.2.2.0/24"
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        "moduleAddSubnetsToExistingVNets": {
+            "value": {
+                "location" : null,
+                "vNets" : [
+                    {
+                        "vnetName" : "myvnet",
+                        "subnets": [
+                            {
+                                "name":"prod-ne1-vnet-subnet1",
+                                "addressPrefix":"10.1.1.0/24",
+                                "nsgName": "inboundWebTrafficip1"
+                            },
+                            {
+                                "name":"prod-ne1-vnet-subnet2",
+                                "addressPrefix":"10.1.2.0/24",
+                                "nsgName": "inboundWebTrafficip1"
+                            }
+                        ]
+                    },
+                    {
+                        "vnetName" : "myvnet2",
+                        "subnets": [
+                            {
+                                "name":"prod-ne1-vnet-subnet1",
+                                "addressPrefix":"10.2.1.0/24",
+                                "nsgName": "inboundWebTrafficip1"
+                            },
+                            {
+                                "name":"prod-ne1-vnet-subnet2",
+                                "addressPrefix":"10.2.2.0/24",
+                                "nsgName": "inboundWebTrafficip1"
                             }
                         ]
                     }

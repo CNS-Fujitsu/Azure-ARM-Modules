@@ -29,11 +29,6 @@
             "tags": "[parameters('customTages')]",
             "location": "[if(equals(parameters('moduleCreateVNetsAndSubnets').location, json('null')), variables('defaultLocation'), parameters('moduleCreateVNetsAndSubnets').location)]",
             "properties": {
-                "addressSpace": {
-                    "addressPrefixes": [
-                        "[parameters('moduleCreateVNetsAndSubnets').vNets[copyIndex('vNets')].vnetCIDR]"
-                    ]
-                },
                 "copy" : [
                     {
                         "name": "subnets",

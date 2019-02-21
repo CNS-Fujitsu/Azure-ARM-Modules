@@ -59,6 +59,13 @@
                 "No"
             ]
         },
+        "requireAddSubnetsToExistingVNETs" : {
+            "type" : "string",
+            "allowedValues": [
+                "Yes",
+                "No"
+            ]
+        },
         "requireCreateNetworkInterfaces" : {
             "type" : "string",
             "allowedValues": [
@@ -148,6 +155,9 @@
         "moduleCreateVNetsAndSubnetsWithoutNSGs" : {
             "type" : "object"
         },
+        "moduleAddSubnetsToExistingVNets" : {
+            "type" : "object"
+        },
         "moduleCreateNetworkInterfaces" : {
             "type" : "object"
         },
@@ -200,6 +210,7 @@
         "module-CreateAvailabilitySets-URL": "[concat(variables('moduleStoreURL'),'modules/', 'az-createAvailabilitySets.json')]",
         "module-CreateVirtualNetworks-URL": "https://raw.githubusercontent.com/CNS-Fujitsu/Azure-ARM-Modules/fb-addingNSGwithIPBasedRules-module/modules/az-createVNetsWithSubnets.json",
         "module-CreateVirtualNetworksWithoutNSGs-URL": "https://raw.githubusercontent.com/CNS-Fujitsu/Azure-ARM-Modules/fb-addingNSGwithIPBasedRules-module/modules/az-createVNetsWithSubnetsWithoutNSGs.json",
+        "module-AddSubnetsToExistingVNets-URL": "https://raw.githubusercontent.com/CNS-Fujitsu/Azure-ARM-Modules/fb-addingNSGwithIPBasedRules-module/modules/az-addSubnetsToExistingVNets.json",
         "module-CreateNetworkInterfaces-URL": "[concat(variables('moduleStoreURL'),'modules/', 'az-createNetworkInterfaces.json')]",
         "module-CreateVirtualMachines-URL": "[concat(variables('moduleStoreURL'),'modules/', 'az-createVirtualMachines.json')]",
         "module-CreateApplicationGateway-URL": "[concat(variables('moduleStoreURL'),'modules/', 'az-createApplicationGateways.json')]",
@@ -396,6 +407,31 @@
                 },
                 "parameters": {
                     "moduleCreateVNetsAndSubnetsWithoutNSGs": { "value": "[parameters('moduleCreateVNetsAndSubnetsWithoutNSGs')]"},
+                    "customTages": {
+                        "value": "[parameters('customTages')]"
+                    },
+                    "suffixes" : {
+                        "value": "[parameters('suffixes')]"
+                    }
+                }
+            }
+        },
+        {
+            "apiVersion": "2018-05-01",
+            "name": "AddSubnetsToExistingVNetsForResourceGroup",
+            "comments": "Calling Module to deploy a Vnets with subnets without NSGs",
+            "type": "Microsoft.Resources/deployments",
+            "condition": "[equals(parameters('requireaddSubnetsToExistingVNets'), 'Yes')]",
+            "dependsOn": [
+            ],
+            "properties" : {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[variables('Module-addSubnetsToExistingVNets-URL')]",
+                    "contentVersion": "1.0.0.1"
+                },
+                "parameters": {
+                    "moduleAddSubnetsToExistingVNets": { "value": "[parameters('moduleAddSubnetsToExistingVNets')]"},
                     "customTages": {
                         "value": "[parameters('customTages')]"
                     },
