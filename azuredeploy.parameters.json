@@ -22,7 +22,7 @@
             "value" : "Yes" 
         },
         "requireCreateVNetsAndSubnets": {
-            "value" : "Yes" 
+            "value" : "No" 
         },
         "requireCreateNetworkInterfaces": {
             "value" : "Yes" 
@@ -371,7 +371,7 @@
                             {
                                 "name": "GatewaySubnet",
                                 "addressPrefix": "10.1.0.0/24",
-                                "nsgName": ""
+                                "nsgName": "inboundWebTrafficip1"
                             },
                             {
                                 "name":"prod-ne1-vnet-subnet1",
@@ -392,7 +392,7 @@
                             {
                                 "name": "GatewaySubnet",
                                 "addressPrefix": "10.2.0.0/24",
-                                "nsgName": ""
+                                "nsgName": "inboundWebTrafficip1"
                             },
                             {
                                 "name":"prod-ne1-vnet-subnet1",
@@ -403,6 +403,35 @@
                                 "name":"prod-ne1-vnet-subnet2",
                                 "addressPrefix":"10.2.2.0/24",
                                 "nsgName": "inboundWebTrafficip1"
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        "moduleCreateVNetsAndSubnetsWithoutNSGs": {
+            "value": {
+                "location" : null,
+                "vNets" : [
+                    {
+                        "vnetName" : "myvnet",
+                        "vnetCIDR" : "10.1.0.0/16",
+                        "subnets": [
+                            {
+                                "name": "GatewaySubnet",
+                                "addressPrefix": "10.1.0.0/24"
+                                
+                            }
+                        ]
+                    },
+                    {
+                        "vnetName" : "myvnet2",
+                        "vnetCIDR" : "10.2.0.0/16",
+                        "subnets": [
+                            {
+                                "name": "GatewaySubnet",
+                                "addressPrefix": "10.2.0.0/24"
+                                
                             }
                         ]
                     }

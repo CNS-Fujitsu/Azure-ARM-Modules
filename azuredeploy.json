@@ -52,6 +52,13 @@
                 "No"
             ]
         },
+        "requireCreateVNetsAndSubnetsWithoutNSGs" : {
+            "type" : "string",
+            "allowedValues": [
+                "Yes",
+                "No"
+            ]
+        },
         "requireCreateNetworkInterfaces" : {
             "type" : "string",
             "allowedValues": [
@@ -138,6 +145,9 @@
         "moduleCreateVNetsAndSubnets" : {
             "type" : "object"
         },
+        "moduleCreateVNetsAndSubnetsWithoutNSGs" : {
+            "type" : "object"
+        },
         "moduleCreateNetworkInterfaces" : {
             "type" : "object"
         },
@@ -189,6 +199,7 @@
         "module-CreatePublicIPAddresses-URL": "[concat(variables('moduleStoreURL'),'modules/', 'az-createPublicIPAddresses.json')]",
         "module-CreateAvailabilitySets-URL": "[concat(variables('moduleStoreURL'),'modules/', 'az-createAvailabilitySets.json')]",
         "module-CreateVirtualNetworks-URL": "https://raw.githubusercontent.com/CNS-Fujitsu/Azure-ARM-Modules/fb-addingNSGwithIPBasedRules-module/modules/az-createVNetsWithSubnets.json",
+        "module-CreateVirtualNetworksWithoutNSGs-URL": "https://raw.githubusercontent.com/CNS-Fujitsu/Azure-ARM-Modules/fb-addingNSGwithIPBasedRules-module/modules/az-createVNetsWithSubnetsWithoutNSGs.json",
         "module-CreateNetworkInterfaces-URL": "[concat(variables('moduleStoreURL'),'modules/', 'az-createNetworkInterfaces.json')]",
         "module-CreateVirtualMachines-URL": "[concat(variables('moduleStoreURL'),'modules/', 'az-createVirtualMachines.json')]",
         "module-CreateApplicationGateway-URL": "[concat(variables('moduleStoreURL'),'modules/', 'az-createApplicationGateways.json')]",
@@ -360,6 +371,31 @@
                 },
                 "parameters": {
                     "moduleCreateVNetsAndSubnets": { "value": "[parameters('moduleCreateVNetsAndSubnets')]"},
+                    "customTages": {
+                        "value": "[parameters('customTages')]"
+                    },
+                    "suffixes" : {
+                        "value": "[parameters('suffixes')]"
+                    }
+                }
+            }
+        },
+        {
+            "apiVersion": "2018-05-01",
+            "name": "AllVNetsAndSubnetsWithoutNSGsForResourceGroup",
+            "comments": "Calling Module to deploy a Vnets with subnets without NSGs",
+            "type": "Microsoft.Resources/deployments",
+            "condition": "[equals(parameters('requireCreateVNetsAndSubnetsWithoutNSGs'), 'Yes')]",
+            "dependsOn": [
+            ],
+            "properties" : {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[variables('Module-CreateVirtualNetworksWithoutNSGs-URL')]",
+                    "contentVersion": "1.0.0.1"
+                },
+                "parameters": {
+                    "moduleCreateVNetsAndSubnetsWithoutNSGs": { "value": "[parameters('moduleCreateVNetsAndSubnetsWithoutNSGs')]"},
                     "customTages": {
                         "value": "[parameters('customTages')]"
                     },
