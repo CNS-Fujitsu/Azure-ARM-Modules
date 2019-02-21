@@ -19,7 +19,7 @@
             "value" : "No" 
         },
         "requireCreatePublicIPAddresses": {
-            "value" : "Yes" 
+            "value" : "No" 
         },
         "requireCreateVNetsAndSubnets": {
             "value" : "Yes" 
@@ -43,13 +43,13 @@
             "value" : "No" 
         },
         "requireLocalNetworkGateway": {
-            "value" : "Yes" 
+            "value" : "No" 
         },
         "requireCreateNetworkConnection": {
-            "value" : "Yes" 
+            "value" : "No" 
         },
         "requireCreateVirtualNetworkGateways": {
-            "value" : "Yes" 
+            "value" : "No" 
         },
     
 
@@ -355,7 +355,7 @@
                         "pipName": "localGW1",
                         "description": "localGatewayIpAddress",
                         "publicIPAllocationMethod": "Dynamic",
-                        "domainNameLabelprefix": "mylocalGatewayIpAddress1"
+                        "domainNameLabelprefix": "mylocalGatewayIpAddress2"
                     }
                 ]
             }
