@@ -188,7 +188,7 @@
         "module-CreateBlobContainers-URL": "[concat(variables('moduleStoreURL'),'modules/', 'az-createBlobContainers.json')]",
         "module-CreatePublicIPAddresses-URL": "[concat(variables('moduleStoreURL'),'modules/', 'az-createPublicIPAddresses.json')]",
         "module-CreateAvailabilitySets-URL": "[concat(variables('moduleStoreURL'),'modules/', 'az-createAvailabilitySets.json')]",
-        "module-CreateVirtualNetworks-URL": "[concat(variables('moduleStoreURL'),'modules/', 'az-createVNetsWithSubnets.json')]",
+        "module-CreateVirtualNetworks-URL": "https://raw.githubusercontent.com/CNS-Fujitsu/Azure-ARM-Modules/fb-addingNSGwithIPBasedRules-module/modules/az-createVNetsWithSubnets.json",
         "module-CreateNetworkInterfaces-URL": "[concat(variables('moduleStoreURL'),'modules/', 'az-createNetworkInterfaces.json')]",
         "module-CreateVirtualMachines-URL": "[concat(variables('moduleStoreURL'),'modules/', 'az-createVirtualMachines.json')]",
         "module-CreateApplicationGateway-URL": "[concat(variables('moduleStoreURL'),'modules/', 'az-createApplicationGateways.json')]",

@@ -19,13 +19,13 @@
             "value" : "No" 
         },
         "requireCreatePublicIPAddresses": {
-            "value" : "No" 
+            "value" : "Yes" 
         },
         "requireCreateVNetsAndSubnets": {
             "value" : "Yes" 
         },
         "requireCreateNetworkInterfaces": {
-            "value" : "No" 
+            "value" : "Yes" 
         },
         "requireCreateAvailabilitySets": {
             "value" : "No" 
