@@ -371,7 +371,7 @@
                             {
                                 "name": "GatewaySubnet",
                                 "addressPrefix": "10.1.0.0/24",
-                                "nsgName": null
+                                "nsgName": ""
                             },
                             {
                                 "name":"prod-ne1-vnet-subnet1",
@@ -392,7 +392,7 @@
                             {
                                 "name": "GatewaySubnet",
                                 "addressPrefix": "10.2.0.0/24",
-                                "nsgName": null
+                                "nsgName": ""
                             },
                             {
                                 "name":"prod-ne1-vnet-subnet1",
