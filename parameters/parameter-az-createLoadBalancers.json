@@ -1,0 +1,110 @@
+{   
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "moduleCreateLoadBalancers": {
+            "value": {
+                "location" : null,
+                "loadbalancers": [
+                    {
+                        "lbName": "appLB",
+                        "frontendIPConfigurationsName": "LoadBalancerFrontEnd",
+                        "nameOfExistingPublicIPAddress": "myLB1",
+                        "backendAddressPoolName": "backendpool",
+                        "probes": [
+                            {
+                                "probeName": "tcpProbe1",
+                                "protocol": "tcp",
+                                "port": 80,
+                                "intervalInSeconds": 5,
+                                "numberOfProbes": 2
+                                    
+                            },
+                            {
+                                "probeName": "tcpProbe2",
+                                "protocol": "tcp",
+                                "port": 80,
+                                "intervalInSeconds": 5,
+                                "numberOfProbes": 2
+                                    
+                            }
+                        ],
+                        "inboundNatRules": [
+                            {
+                                "inboundNatRulesname": "rdp-vm-one",
+                                "protocol": "tcp",
+                                "frontendPort": 50001,
+                                "backendPort": 3389,
+                                "enableFloatingIP": false
+                            },
+                            {
+                                "inboundNatRulesname": "rdp-vm-two",
+                                "protocol": "tcp",
+                                "frontendPort": 50002,
+                                "backendPort": 3388,
+                                "enableFloatingIP": false
+                            }
+                        ],
+                        "loadBalancingRules": [
+                            {
+                                "name": "LBRule",
+                                "protocol": "tcp",
+                                "frontendPort": 80,
+                                "backendPort": 80,
+                                "enableFloatingIP": false,
+                                "idleTimeoutInMinutes": 5,
+                                "probeName" : "tcpProbe1"
+                            },
+                            {
+                                "name": "LBRule2",
+                                "protocol": "tcp",
+                                "frontendPort": 81,
+                                "backendPort": 81,
+                                "enableFloatingIP": false,
+                                "idleTimeoutInMinutes": 5,
+                                "probeName" : "tcpProbe2"
+                            }
+                        ]
+                    }
+                ]   
+            }
+        },
+        "customTages": {
+            "value": {
+                "Application": "Finance",
+                "Environment": "Production",
+                "Version": "1.0.1",
+                "Creation Date": "30/10/2018",
+                "Creation By": "Ian Purvis",
+                "End Date": "01/11/2018",
+                "Owner": "Steve Owens",
+                "Cost Centre": "CNS",
+                "Customer": "MAB",
+                "Project": "Khamelon",
+                "Data Classificiation":"Secret"
+            }
+        },
+
+        "suffixes": {
+            "value": { 
+                "asgSuffix": "-asg",
+                "nsgSuffix": "-nsg",
+                "publicIPSuffix": "-pip",
+                "nicSuffix": "-nic",
+                "storageAccountSuffix": "stg",
+                "vnetSuffix": "-vnet",
+                "subnetSuffix": "-snet",
+                "vmSuffix": "-vm",
+                "osDiskSuffix": "-osdisk",
+                "osDataDiskSuffix": "-datadisk",
+                "applicationGatewaySuffix": "-agw",
+                "availabilitySetSuffix": "-avset",
+                "extLoadbalancerSuffix": "-extlb",
+                "intLoadbalancerSuffix": "-intlb",
+                "localNetworkGateway": "lng",
+                "networkConnection": "nc",
+                "networkGateway": "nc"
+            }
+        }
+    }
+}

@@ -1,0 +1,103 @@
+{   
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "moduleCreateApplicationGateway": {
+            "value": {
+                "location" : null,
+                "appGWs": [
+                    {
+                        "applicationGatewayName" : "myfirstapplicationgatewayisp001",
+                        "vnetName": "myvnet",
+                        "subnetName": "GatewaySubnet",
+                        "tier": "Standard",
+                        "applicationGatewaySize":  "Standard_small",
+                        "applicationGatewayInstanceCount": 1,
+                        "frontendPort": "80",
+                        "backendPort": "80",
+                        "backendIPAddresses" : [
+                            {
+                                "IpAddress": "10.0.0.7"
+                            },
+                            {
+                                "IpAddress": "10.0.0.8"
+                            },
+                            {
+                                "IpAddress": "10.0.0.9"
+                            }
+                        ],
+                        "cookieBasedAffinity": "Disabled",
+                        "wafEnabled" : false,
+                        "wafMode" : "Detection",
+                        "wafRuleSetType" : "OWASP",
+                        "wafRuleSetVersion" : "3.0"
+                    },
+                    {
+                        "applicationGatewayName" : "myfirstapplicationgatewayisp002",
+                        "vnetName": "myvnet2",
+                        "subnetName": "GatewaySubnet",
+                        "tier": "Standard",
+                        "applicationGatewaySize":  "Standard_small",
+                        "applicationGatewayInstanceCount": 1,
+                        "frontendPort": "80",
+                        "backendPort": "80",
+                        "backendIPAddresses" : [
+                            {
+                                "IpAddress": "10.0.0.7"
+                            },
+                            {
+                                "IpAddress": "10.0.0.8"
+                            },
+                            {
+                                "IpAddress": "10.0.0.9"
+                            }
+                        ],
+                        "cookieBasedAffinity": "Disabled",
+                        "wafEnabled" : false,
+                        "wafMode" : "Detection",
+                        "wafRuleSetType" : "OWASP",
+                        "wafRuleSetVersion" : "3.0"
+                        
+                    }
+                ]
+            }
+        },
+        "customTages": {
+            "value": {
+                "Application": "Finance",
+                "Environment": "Production",
+                "Version": "1.0.1",
+                "Creation Date": "30/10/2018",
+                "Creation By": "Ian Purvis",
+                "End Date": "01/11/2018",
+                "Owner": "Steve Owens",
+                "Cost Centre": "CNS",
+                "Customer": "MAB",
+                "Project": "Khamelon",
+                "Data Classificiation":"Secret"
+            }
+        },
+
+        "suffixes": {
+            "value": { 
+                "asgSuffix": "-asg",
+                "nsgSuffix": "-nsg",
+                "publicIPSuffix": "-pip",
+                "nicSuffix": "-nic",
+                "storageAccountSuffix": "stg",
+                "vnetSuffix": "-vnet",
+                "subnetSuffix": "-snet",
+                "vmSuffix": "-vm",
+                "osDiskSuffix": "-osdisk",
+                "osDataDiskSuffix": "-datadisk",
+                "applicationGatewaySuffix": "-agw",
+                "availabilitySetSuffix": "-avset",
+                "extLoadbalancerSuffix": "-extlb",
+                "intLoadbalancerSuffix": "-intlb",
+                "localNetworkGateway": "lng",
+                "networkConnection": "nc",
+                "networkGateway": "nc"
+            }
+        }
+    }
+}

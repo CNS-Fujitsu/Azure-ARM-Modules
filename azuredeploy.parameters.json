@@ -366,42 +366,42 @@
                 "vNets" : [
                     {
                         "vnetName" : "myvnet",
-                        "vnetCIDR" : "10.0.0.0/16",
+                        "vnetCIDR" : "10.1.0.0/16",
                         "subnets": [
                             {
                                 "name": "GatewaySubnet",
-                                "addressPrefix": "10.0.0.0/24",
+                                "addressPrefix": "10.1.0.0/24",
                                 "nsgName": "inboundWebTrafficip1"
                             },
                             {
                                 "name":"prod-ne1-vnet-subnet1",
-                                "addressPrefix":"10.0.1.0/24",
+                                "addressPrefix":"10.1.1.0/24",
                                 "nsgName": "inboundWebTrafficip1"
                             },
                             {
                                 "name":"prod-ne1-vnet-subnet2",
-                                "addressPrefix":"10.0.2.0/24",
+                                "addressPrefix":"10.1.2.0/24",
                                 "nsgName": "inboundWebTrafficip1"
                             }
                         ]
                     },
                     {
                         "vnetName" : "myvnet2",
-                        "vnetCIDR" : "10.0.0.0/16",
+                        "vnetCIDR" : "10.2.0.0/16",
                         "subnets": [
                             {
                                 "name": "GatewaySubnet",
-                                "addressPrefix": "10.0.0.0/24",
+                                "addressPrefix": "10.2.0.0/24",
                                 "nsgName": "inboundWebTrafficip1"
                             },
                             {
                                 "name":"prod-ne1-vnet-subnet1",
-                                "addressPrefix":"10.0.1.0/24",
+                                "addressPrefix":"10.2.1.0/24",
                                 "nsgName": "inboundWebTrafficip1"
                             },
                             {
                                 "name":"prod-ne1-vnet-subnet2",
-                                "addressPrefix":"10.0.2.0/24",
+                                "addressPrefix":"10.2.2.0/24",
                                 "nsgName": "inboundWebTrafficip1"
                             }
                         ]
@@ -700,8 +700,8 @@
                 "localNetworkGateways": [
                     {
                         "name": "localGateway",
-                        "addressPrefixes": "10.0.0.0/24",
-                        "gatewayIpAddress": "10.0.0.1" 
+                        "addressPrefixes": "10.0.4.0/24",
+                        "gatewayIpAddress": "10.0.4.1" 
                     }
                 ]
             }
@@ -712,12 +712,12 @@
                 "location" : null,
                 "networkConnections": [
                     {
-                        "name": "Azure2Other",
-                        "virtualNetworkGateway1Name" : "azureGateway",
-                        "virtualNetworkGateway2Name" : "localGateway",
+                        "name": "azure2Other",
+                        "virtualNetworkGateway1Name" : "azuregateway",
+                        "virtualNetworkGateway2Name" : "localgateway",
                         "connectionType": "IPsec",
                         "routingWeight": 10,
-                        "sharedKey": "GEN-UNIQUE"
+                        "sharedKey": "Qwerty!ASdergh"
                     }
                 ]
             }
@@ -732,14 +732,15 @@
                         "name": "azureGateway",
                         "privateIPAllocationMethod": "Dynamic",
                         "vnetName" : "myvnet",
-                        "subnetname": "GatewaySubnet",
+                        "subnetName": "GatewaySubnet",
                         "publicIPAddressName": "localGW1",
                         "configName": "vnetGatewayConfig",
                         "skuName": "Standard",
                         "skuTier": "Standard",
                         "gatewayType": "Vpn",
                         "vpnType": "RouteBased",
-                        "enableBgp": "false"
+                        "enableBgp": "false",
+                        "localAddressPrefix": "10.2.0.0/24"
 
                     }
                 ]
@@ -771,7 +772,7 @@
                 "nicSuffix": "-nic",
                 "storageAccountSuffix": "stg",
                 "vnetSuffix": "-vnet",
-                "subnetSuffix": "-snet",
+                "subnetSuffix": "",
                 "vmSuffix": "-vm",
                 "osDiskSuffix": "-osdisk",
                 "osDataDiskSuffix": "-datadisk",
@@ -779,9 +780,9 @@
                 "availabilitySetSuffix": "-avset",
                 "extLoadbalancerSuffix": "-extlb",
                 "intLoadbalancerSuffix": "-intlb",
-                "localNetworkGateway": "lng",
-                "networkConnection": "nc",
-                "networkGateway": "nc"
+                "localNetworkGateway": "-lng",
+                "networkConnection": "-nc",
+                "networkGateway": "-ng"
             }
         }
     }

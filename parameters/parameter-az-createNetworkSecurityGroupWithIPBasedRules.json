@@ -1,0 +1,134 @@
+{   
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "moduleCreateNetworkSecurityGroupWithIPBasedRules": {
+            "value": {
+                "location" : null,
+                "nsgNames" : [
+                    {
+                        "nsgName": "inboundWebTrafficip1",
+                        "rules": [
+                            {
+                                "name": "AllowHttpAll",
+                                "description": "Allow http traffic to web servers",
+                                "sourceAddressPrefix": "*",
+                                "sourcePortRange": "*",
+                                "direction": "Inbound",
+                                "access": "Allow",
+                                "priority": 100,
+                                "protocol": "Tcp",
+                                "destinationPortRange": "80",
+                                "destinationAddressPrefix": "*"
+                                
+                            },
+                            {
+                                "name": "AllowRDP",
+                                "description": "Allow RDP traffic to web servers",
+                                "sourceAddressPrefix": "192.168.1.1",
+                                "sourcePortRange": "*",
+                                "direction": "Inbound",
+                                "access": "Allow",
+                                "priority": 101,
+                                "protocol": "Tcp",
+                                "destinationPortRange": "3389",
+                                "destinationAddressPrefix": "*"
+                            },
+                            {
+                                "name": "AllowSSHl",
+                                "description": "Allow SSH traffic to web servers",
+                                "sourceAddressPrefix": "192.168.1.1",
+                                "sourcePortRange": "*",
+                                "direction": "Inbound",
+                                "access": "Allow",
+                                "priority": 102,
+                                "protocol": "Tcp",
+                                "destinationPortRange": "22",
+                                "destinationAddressPrefix": "*"
+                            }
+                        ]
+                    },
+                    {
+                        "nsgName": "inboundWebTrafficip2",
+                        "rules": [
+                            {
+                                "name": "AllowHttpAll",
+                                "description": "Allow http traffic to web servers",
+                                "sourceAddressPrefix": "*",
+                                "sourcePortRange": "*",
+                                "direction": "Inbound",
+                                "access": "Allow",
+                                "priority": 100,
+                                "protocol": "Tcp",
+                                "destinationPortRange": "80",
+                                "destinationAddressPrefix": "*"
+                            },
+                            {
+                                "name": "AllowRDP",
+                                "description": "Allow RDP traffic to web servers",
+                                "sourceAddressPrefix": "192.168.1.1",
+                                "sourcePortRange": "*",
+                                "direction": "Inbound",
+                                "access": "Allow",
+                                "priority": 101,
+                                "protocol": "Tcp",
+                                "destinationPortRange": "3389",
+                                "destinationAddressPrefix": "*"
+                            },
+                            {
+                                "name": "AllowSSHl",
+                                "description": "Allow SSH traffic to web servers",
+                                "sourceAddressPrefix": "192.168.1.1",
+                                "sourcePortRange": "*",
+                                "direction": "Inbound",
+                                "access": "Allow",
+                                "priority": 102,
+                                "protocol": "Tcp",
+                                "destinationPortRange": "3389",
+                                "destinationAddressPrefix": "*"
+                            }
+                        ]
+                    }
+
+                ]
+            }
+        },
+        "customTages": {
+            "value": {
+                "Application": "Finance",
+                "Environment": "Production",
+                "Version": "1.0.1",
+                "Creation Date": "30/10/2018",
+                "Creation By": "Ian Purvis",
+                "End Date": "01/11/2018",
+                "Owner": "Steve Owens",
+                "Cost Centre": "CNS",
+                "Customer": "MAB",
+                "Project": "Khamelon",
+                "Data Classificiation":"Secret"
+            }
+        },
+
+        "suffixes": {
+            "value": { 
+                "asgSuffix": "-asg",
+                "nsgSuffix": "-nsg",
+                "publicIPSuffix": "-pip",
+                "nicSuffix": "-nic",
+                "storageAccountSuffix": "stg",
+                "vnetSuffix": "-vnet",
+                "subnetSuffix": "-snet",
+                "vmSuffix": "-vm",
+                "osDiskSuffix": "-osdisk",
+                "osDataDiskSuffix": "-datadisk",
+                "applicationGatewaySuffix": "-agw",
+                "availabilitySetSuffix": "-avset",
+                "extLoadbalancerSuffix": "-extlb",
+                "intLoadbalancerSuffix": "-intlb",
+                "localNetworkGateway": "lng",
+                "networkConnection": "nc",
+                "networkGateway": "nc"
+            }
+        }
+    }
+}

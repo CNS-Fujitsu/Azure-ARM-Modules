@@ -1,0 +1,89 @@
+{   
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "moduleCreateNetworkInterfaces": {
+            "value": {
+                "location" : null,
+                "nics": [
+                    {
+                        "vmName":  "myVM",
+                        "nicName": "myNic",
+                        "ipConfigName": "ipconfigdmz",
+                        "privateIPAllocationMethod": "Dynamic",
+                        "pipName": "myVM",
+                        "vnetName": "myvnet",
+                        "subnetName": "prod-ne1-vnet-subnet1",
+                        "aSGName": "tier1ASG",
+                        "lbName": "appLB",
+                        "backendAddressPoolName": "backendpool",
+                        "inboundNatRulesname": "rdp-vm-one"
+                    },
+                    {
+                        "vmName":  "myVM2",
+                        "nicName": "myNic2",
+                        "ipConfigName": "ipconfigdmz",
+                        "privateIPAllocationMethod": "Dynamic",
+                        "pipName": "myVM2",
+                        "vnetName": "myvnet",
+                        "subnetName": "prod-ne1-vnet-subnet1",
+                        "aSGName": "tier1ASG",
+                        "lbName": "appLB",
+                        "backendAddressPoolName": "backendpool",
+                        "inboundNatRulesname": "rdp-vm-two"
+                    },
+                    {
+                        "vmName":  "myVM3",
+                        "nicName": "myNic3",
+                        "ipConfigName": "ipconfigdmz",
+                        "privateIPAllocationMethod": "Dynamic",
+                        "pipName": "myVM3",
+                        "vnetName": "myvnet",
+                        "subnetName": "prod-ne1-vnet-subnet1",
+                        "aSGName": null,
+                        "lbName": null,
+                        "backendAddressPoolName": null,
+                        "inboundNatRulesname": null
+                    }
+                ]
+            }
+        },
+        "customTages": {
+            "value": {
+                "Application": "Finance",
+                "Environment": "Production",
+                "Version": "1.0.1",
+                "Creation Date": "30/10/2018",
+                "Creation By": "Ian Purvis",
+                "End Date": "01/11/2018",
+                "Owner": "Steve Owens",
+                "Cost Centre": "CNS",
+                "Customer": "MAB",
+                "Project": "Khamelon",
+                "Data Classificiation":"Secret"
+            }
+        },
+
+        "suffixes": {
+            "value": { 
+                "asgSuffix": "-asg",
+                "nsgSuffix": "-nsg",
+                "publicIPSuffix": "-pip",
+                "nicSuffix": "-nic",
+                "storageAccountSuffix": "stg",
+                "vnetSuffix": "-vnet",
+                "subnetSuffix": "-snet",
+                "vmSuffix": "-vm",
+                "osDiskSuffix": "-osdisk",
+                "osDataDiskSuffix": "-datadisk",
+                "applicationGatewaySuffix": "-agw",
+                "availabilitySetSuffix": "-avset",
+                "extLoadbalancerSuffix": "-extlb",
+                "intLoadbalancerSuffix": "-intlb",
+                "localNetworkGateway": "lng",
+                "networkConnection": "nc",
+                "networkGateway": "nc"
+            }
+        }
+    }
+}
