@@ -7,11 +7,11 @@
                 "location" : null,
                 "vms": [
                     {
-                        "vmName":  "myVM1",
-                        "storageAccountName": "mystoragegroupisp01",
-                        "nicName": "myNic",
-                        "vmSize": "Standard_A1",
-                        "availabilitySetName" : "myAvSet01",
+                        "vmName":  "adds01UkSouth",
+                        "diagnosticStorageAccountName": "mystoragegroupisp01",
+                        "nicName": "adds01UkSouth",
+                        "vmSize": "Standard_A2_v2",
+                        "availabilitySetName" : "addsUkSouth",
                         "adminUsername": "ian",
                         "adminPassword": "H7hdfdshbnfy",
                         "publisher": "MicrosoftWindowsServer",
@@ -19,42 +19,20 @@
                         "sku": "2016-Datacenter",
                         "version": "latest",
                         "osCreateOption": "FromImage",
+                        "osCaching": "none",
+                        "osWriteAcceleratorEnabled": false,
                         "otherDisks": [
                             {
-                                "name": "myVM101",
-                                "diskSizeGB": 1023,
-                                "createOption": "Empty"
-                            },
-                            {
-                                "name": "myVM102",
-                                "diskSizeGB": 1023,
-                                "createOption": "Empty"
+                                "name": "adds01UkSouth01",
+                                "diskSizeGB": 60,
+                                "createOption": "Empty",
+                                "caching": "none",
+                                "writeAcceleratorEnabled": false,
                             }
-                        ]
-                    },
-                    {
-                        "vmName":  "myVM2",
-                        "storageAccountName": "mystoragegroupisp01",
-                        "nicName": "myNic2",
-                        "vmSize": "Standard_A1",
-                        "availabilitySetName" : "myAvSet01",
-                        "adminUsername": "ian",
-                        "adminPassword": "H7hdfdshbnfy",
-                        "publisher": "MicrosoftWindowsServer",
-                        "offer": "WindowsServer",
-                        "sku": "2016-Datacenter",
-                        "version": "latest",
-                        "osCreateOption": "FromImage",
-                        "otherDisks": [
+                        ],
+                        "extensions": [
                             {
-                                "name": "myVM201",
-                                "diskSizeGB": 1023,
-                                "createOption": "Empty"
-                            },
-                            {
-                                "name": "myVM202",
-                                "diskSizeGB": 1023,
-                                "createOption": "Empty"
+
                             }
                         ]
                     }
