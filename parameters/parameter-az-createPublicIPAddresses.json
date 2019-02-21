@@ -1,0 +1,92 @@
+{   
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "moduleCreatePublicIPAddresses": {
+            "value": {
+                "location" : null,
+                "pips": [
+                    {
+                        "vmName":  "myVM",
+                        "pipName": "myVM",
+                        "description": "this is a storage group",
+                        "publicIPAllocationMethod": "Dynamic",
+                        "domainNameLabelprefix": "myrdpserver"
+                    },
+                    {
+                        "vmName":  "myVM2",
+                        "pipName": "myVM2",
+                        "description": "this is a storage group",
+                        "publicIPAllocationMethod": "Dynamic",
+                        "domainNameLabelprefix": "myrdpserver2F"
+                    },
+                    {
+                        "vmName":  "myLB1",
+                        "pipName": "myLB1",
+                        "description": "this is a storage group",
+                        "publicIPAllocationMethod": "Dynamic",
+                        "domainNameLabelprefix": "myLoadBalancer1"
+                    },
+                    {
+                        "vmName":  "myLB2",
+                        "pipName": "myLB2",
+                        "description": "this is a storage group",
+                        "publicIPAllocationMethod": "Dynamic",
+                        "domainNameLabelprefix": "myLoadBalancer2"
+                    },
+                    {
+                        "vmName":  "myVM3",
+                        "pipName": "myVM3",
+                        "description": "this is a storage group",
+                        "publicIPAllocationMethod": "Dynamic",
+                        "domainNameLabelprefix": "myrdpserver2d"
+                    },
+                    {
+                        "vmName":  "localGW1",
+                        "pipName": "localGW1",
+                        "description": "localGatewayIpAddress",
+                        "publicIPAllocationMethod": "Dynamic",
+                        "domainNameLabelprefix": "mylocalGatewayIpAddress1"
+                    }
+                ]
+            }
+        },
+        "customTages": {
+            "value": {
+                "Application": "Finance",
+                "Environment": "Production",
+                "Version": "1.0.1",
+                "Creation Date": "30/10/2018",
+                "Creation By": "Ian Purvis",
+                "End Date": "01/11/2018",
+                "Owner": "Steve Owens",
+                "Cost Centre": "CNS",
+                "Customer": "MAB",
+                "Project": "Khamelon",
+                "Data Classificiation":"Secret"
+            }
+        },
+
+        "suffixes": {
+            "value": { 
+                "asgSuffix": "-asg",
+                "nsgSuffix": "-nsg",
+                "publicIPSuffix": "-pip",
+                "nicSuffix": "-nic",
+                "storageAccountSuffix": "stg",
+                "vnetSuffix": "-vnet",
+                "subnetSuffix": "-snet",
+                "vmSuffix": "-vm",
+                "osDiskSuffix": "-osdisk",
+                "osDataDiskSuffix": "-datadisk",
+                "applicationGatewaySuffix": "-agw",
+                "availabilitySetSuffix": "-avset",
+                "extLoadbalancerSuffix": "-extlb",
+                "intLoadbalancerSuffix": "-intlb",
+                "localNetworkGateway": "lng",
+                "networkConnection": "nc",
+                "networkGateway": "nc"
+            }
+        }
+    }
+}

@@ -1,52 +1,36 @@
-{  
+{   
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "moduleCreateVNetsAndSubnets": {
+        "moduleCreateWAFApplicationGateway": {
             "value": {
                 "location" : null,
-                "vNets" : [
+                "appGWs": [
                     {
-                        "vnetName" : "myvnet",
-                        "vnetCIDR" : "10.0.0.0/16",
-                        "subnets": [
+                        "applicationGatewayName" : "myfirstwafapplicationgatewayisp001",
+                        "vnetName": "myvnet",
+                        "subnetName": "GatewaySubnet",
+                        "tier": "WAF",
+                        "applicationGatewaySize":  "WAF_Medium",
+                        "applicationGatewayInstanceCount": 2,
+                        "frontendPort": "80",
+                        "backendPort": "80",
+                        "backendIPAddresses" : [
                             {
-                                "name": "GatewaySubnet",
-                                "addressPrefix": "10.0.0.0/24",
-                                "nsgName": "inboundWebTrafficip1"
+                                "IpAddress": "10.0.0.17"
                             },
                             {
-                                "name":"prod-ne1-vnet-subnet1",
-                                "addressPrefix":"10.0.1.0/24",
-                                "nsgName": "inboundWebTrafficip1"
+                                "IpAddress": "10.0.0.18"
                             },
                             {
-                                "name":"prod-ne1-vnet-subnet2",
-                                "addressPrefix":"10.0.2.0/24",
-                                "nsgName": "inboundWebTrafficip1"
+                                "IpAddress": "10.0.0.19"
                             }
-                        ]
-                    },
-                    {
-                        "vnetName" : "myvnet2",
-                        "vnetCIDR" : "10.0.0.0/16",
-                        "subnets": [
-                            {
-                                "name": "GatewaySubnet",
-                                "addressPrefix": "10.0.0.0/24",
-                                "nsgName": "inboundWebTrafficip1"
-                            },
-                            {
-                                "name":"prod-ne1-vnet-subnet1",
-                                "addressPrefix":"10.0.1.0/24",
-                                "nsgName": "inboundWebTrafficip1"
-                            },
-                            {
-                                "name":"prod-ne1-vnet-subnet2",
-                                "addressPrefix":"10.0.2.0/24",
-                                "nsgName": "inboundWebTrafficip1"
-                            }
-                        ]
+                        ],
+                        "cookieBasedAffinity": "Disabled",
+                        "wafEnabled" : true,
+                        "wafMode" : "Detection",
+                        "wafRuleSetType" : "OWASP",
+                        "wafRuleSetVersion" : "3.0"
                     }
                 ]
             }

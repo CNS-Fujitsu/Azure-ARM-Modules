@@ -7,12 +7,11 @@ trigger:
 - develope
 
 pool:
-  vmImage: 'Ubuntu-16.04'
-
+  vmImage: ubuntu-16.04
 steps:
 - task: Bash@3
-  displayName: 'Validate Json Files'
+  displayName: 'JSON File Validation'
   inputs:
-    targetType: ./
+    targetType: filePath
     filePath: validate.sh
-    arguments: '"$(Build.SourcesDirectory)" -G'
+    arguments: '"$(Build.SourcesDirectory)" "-G"'

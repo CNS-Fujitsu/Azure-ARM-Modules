@@ -2,7 +2,7 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.1",
     "parameters": {
-      "moduleLocalNetworkGateway": {
+      "moduleCreateLocalNetworkGateways": {
         "type": "object"
       },
       "customTages": {
@@ -20,21 +20,21 @@
         {   
             "copy" : {
                 "name": "localNetworkGateway",
-                "count": "[length(parameters('moduleLocalNetworkGateway').localNetworkGateways)]"
+                "count": "[length(parameters('moduleCreateLocalNetworkGateways').localNetworkGateways)]"
             },
             "type": "Microsoft.Network/localNetworkGateways",
-            "name": "[concat(toLower(parameters('moduleLocalNetworkGateway').localNetworkGateways[copyIndex('localNetworkGateway')].name),parameters('suffixes').localNetworkGateway)]",
+            "name": "[toLower(concat(parameters('moduleCreateLocalNetworkGateways').localNetworkGateways[copyIndex('localNetworkGateway')].name,parameters('suffixes').localNetworkGateway))]",
             "apiVersion": "2018-07-01",
             "type": "Microsoft.Network/localNetworkGateways",
             "tags": "[parameters('customTages')]",
-            "location": "[if(equals(parameters('moduleLocalNetworkGateway').location, json('null')), variables('defaultLocation'), parameters('moduleLocalNetworkGateway').location)]",
+            "location": "[if(equals(parameters('moduleCreateLocalNetworkGateways').location, json('null')), variables('defaultLocation'), parameters('moduleCreateLocalNetworkGateways').location)]",
             "properties": {
               "localNetworkAddressSpace": {
                 "addressPrefixes": [
-                    "[parameters('moduleLocalNetworkGateway').localNetworkGateways[copyIndex('localNetworkGateway')].addressPrefixes]"
+                    "[parameters('moduleCreateLocalNetworkGateways').localNetworkGateways[copyIndex('localNetworkGateway')].addressPrefixes]"
                 ]
               },
-              "gatewayIpAddress": "[parameters('moduleLocalNetworkGateway').localNetworkGateway[copyIndex('localNetworkGateway')].gatewayIpAddress]"
+              "gatewayIpAddress": "[parameters('moduleCreateLocalNetworkGateways').localNetworkGateways[copyIndex('localNetworkGateway')].gatewayIpAddress]"
             }  
         }
     ], 

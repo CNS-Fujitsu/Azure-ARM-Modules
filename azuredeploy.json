@@ -178,27 +178,27 @@
     },
     "variables": {
         
-        "moduleStoreURL": "https://raw.githubusercontent.com/fujitsuk5/Azure-ARM-Modules/master/modules/",
+        "moduleStoreURL": "https://raw.githubusercontent.com/fujitsuk5/Azure-ARM-Modules/master/",
         
         "moduleStoreFBURL": "https://raw.githubusercontent.com/fujitsuk5/Azure-ARM-Modules/TidyUp/modules/",
-        "module-CreateApplicationSecurityGroups-URL": "[concat(variables('moduleStoreURL'),'virtualNetworks/', 'az-createApplicationSecurityGroups.json')]",
-        "module-CreateNetworkSecurityGroupWithASGBasedRules-URL": "[concat(variables('moduleStoreURL'),'virtualNetworks/', 'az-createNetworkSecurityGroupWithASGBasedRules.json')]",
-        "module-CreateNetworkSecurityGroupWithIPBasedRules-URL": "[concat(variables('moduleStoreURL'),'virtualNetworks/', 'az-createNetworkSecurityGroupWithIPBasedRules.json')]",
-        "module-CreateStorageAccounts-URL": "[concat(variables('moduleStoreURL'),'virtualNetworks/', 'az-createStorageAccounts.json')]",
-        "module-CreateBlobContainers-URL": "[concat(variables('moduleStoreURL'),'virtualNetworks/', 'az-createBlobContainers.json')]",
-        "module-CreatePublicIPAddresses-URL": "[concat(variables('moduleStoreURL'),'virtualNetworks/', 'az-createPublicIPAddresses.json')]",
-        "module-CreateAvailabilitySets-URL": "[concat(variables('moduleStoreURL'),'virtualMachines/', 'az-createAvailabilitySets.json')]",
-        "module-CreateVirtualNetworks-URL": "[concat(variables('moduleStoreURL'),'virtualNetworks/', 'az-createVNetsWithSubnets.json')]",
-        "module-CreateNetworkInterfaces-URL": "[concat(variables('moduleStoreURL'),'virtualNetworks/', 'az-createNetworkInterfaces.json')]",
-        "module-CreateVirtualMachines-URL": "[concat(variables('moduleStoreURL'),'virtualMachines/', 'az-createVirtualMachines.json')]",
-        "module-CreateApplicationGateway-URL": "[concat(variables('moduleStoreURL'),'virtualNetworks/', 'az-createApplicationGateways.json')]",
-        "module-CreateWAFApplicationGateway-URL": "[concat(variables('moduleStoreURL'),'virtualNetworks/', 'az-createWAFApplicationGateways.json')]",
-        "module-CreateLoadBalancers-URL": "[concat(variables('moduleStoreURL'),'virtualNetworks/', 'az-createLoadBalancers.json')]",
-        "module-CreateLoadBalancers-URL2": "[concat(variables('moduleStoreURL'),'virtualNetworks/', 'az-createLoadBalancers-probes.json')]",
-        "module-CreateLoadBalancers-URL3": "[concat(variables('moduleStoreURL'),'virtualNetworks/', 'az-createLoadBalancers-inbound.json')]",
-        "module-CreateLocalNetworkGateway-URL": "https://raw.githubusercontent.com/CNS-Fujitsu/Azure-ARM-Modules/fb-addingNSGwithIPBasedRules-module/modules/virtualNetworks/az-createLocalNetworkGateways.json",
-        "module-CreateNetworkConnection-URL": "https://raw.githubusercontent.com/CNS-Fujitsu/Azure-ARM-Modules/fb-addingNSGwithIPBasedRules-module/modules/virtualNetworks/az-createNetworkConnections.json",
-        "module-CreateVirtualNetworkGateways-URL": "https://raw.githubusercontent.com/CNS-Fujitsu/Azure-ARM-Modules/fb-addingNSGwithIPBasedRules-module/modules/virtualNetworks/az-createVirtualNetworkGateways.json"
+        "module-CreateApplicationSecurityGroups-URL": "[concat(variables('moduleStoreURL'),'modules/', 'az-createApplicationSecurityGroups.json')]",
+        "module-CreateNetworkSecurityGroupWithASGBasedRules-URL": "[concat(variables('moduleStoreURL'),'modules/', 'az-createNetworkSecurityGroupWithASGBasedRules.json')]",
+        "module-CreateNetworkSecurityGroupWithIPBasedRules-URL": "[concat(variables('moduleStoreURL'),'modules/', 'az-createNetworkSecurityGroupWithIPBasedRules.json')]",
+        "module-CreateStorageAccounts-URL": "[concat(variables('moduleStoreURL'),'modules/', 'az-createStorageAccounts.json')]",
+        "module-CreateBlobContainers-URL": "[concat(variables('moduleStoreURL'),'modules/', 'az-createBlobContainers.json')]",
+        "module-CreatePublicIPAddresses-URL": "[concat(variables('moduleStoreURL'),'modules/', 'az-createPublicIPAddresses.json')]",
+        "module-CreateAvailabilitySets-URL": "[concat(variables('moduleStoreURL'),'modules/', 'az-createAvailabilitySets.json')]",
+        "module-CreateVirtualNetworks-URL": "[concat(variables('moduleStoreURL'),'modules/', 'az-createVNetsWithSubnets.json')]",
+        "module-CreateNetworkInterfaces-URL": "[concat(variables('moduleStoreURL'),'modules/', 'az-createNetworkInterfaces.json')]",
+        "module-CreateVirtualMachines-URL": "[concat(variables('moduleStoreURL'),'modules/', 'az-createVirtualMachines.json')]",
+        "module-CreateApplicationGateway-URL": "[concat(variables('moduleStoreURL'),'modules/', 'az-createApplicationGateways.json')]",
+        "module-CreateWAFApplicationGateway-URL": "[concat(variables('moduleStoreURL'),'modules/', 'az-createWAFApplicationGateways.json')]",
+        "module-CreateLoadBalancers-URL": "[concat(variables('moduleStoreURL'),'modules/', 'az-createLoadBalancers.json')]",
+        "module-CreateLoadBalancers-URL2": "[concat(variables('moduleStoreURL'),'modules/', 'az-createLoadBalancers-probes.json')]",
+        "module-CreateLoadBalancers-URL3": "[concat(variables('moduleStoreURL'),'modules/', 'az-createLoadBalancers-inbound.json')]",
+        "module-CreateLocalNetworkGateway-URL": "https://raw.githubusercontent.com/CNS-Fujitsu/Azure-ARM-Modules/fb-addingNSGwithIPBasedRules-module/modules/az-createLocalNetworkGateways.json",
+        "module-CreateNetworkConnection-URL": "https://raw.githubusercontent.com/CNS-Fujitsu/Azure-ARM-Modules/fb-addingNSGwithIPBasedRules-module/modules/az-createNetworkConnections.json",
+        "module-CreateVirtualNetworkGateways-URL": "https://raw.githubusercontent.com/CNS-Fujitsu/Azure-ARM-Modules/fb-addingNSGwithIPBasedRules-module/modules/az-createVirtualNetworkGateways.json"
         
     },
     "resources": [
@@ -641,7 +641,10 @@
             "condition": "[equals(parameters('requireCreateNetworkConnection'), 'Yes')]",
             "dependsOn": [
                 "AllVNetsAndSubnetsForResourceGroup",
-                "AllPublicIPAddressesForResourceGroup"
+                "AllPublicIPAddressesForResourceGroup",
+                "AllVirtualNetworkGatewaysForResourceGroup",
+                "AllLocalNetworkGatewaysForResourceGroup",
+                "AllVirtualNetworkGatewaysForResourceGroup"
             ],
             "properties" : {
                 "mode": "Incremental",
@@ -677,7 +680,7 @@
                     "contentVersion": "1.0.0.1"
                 },
                 "parameters": {
-                    "moduleVirtualNetworkGateways": { "value": "[parameters('moduleCreateVirtualNetworkGateways')]"},
+                    "moduleCreateVirtualNetworkGateways": { "value": "[parameters('moduleCreateVirtualNetworkGateways')]"},
                     "customTages": {
                         "value": "[parameters('customTages')]"
                     },

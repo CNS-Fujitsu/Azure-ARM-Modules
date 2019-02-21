@@ -2,7 +2,7 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.1",
     "parameters": {
-      "moduleNetworkConnection": {
+      "moduleCreateNetworkConnections": {
         "type": "object"
       },
       "customTages": {
@@ -20,23 +20,23 @@
         {   
           "copy" : {
             "name": "networkConnection",
-            "count": "[length(parameters('moduleNetworkConnection').networkConnections)]"
+            "count": "[length(parameters('moduleCreateNetworkConnections').networkConnections)]"
           },
           "type": "Microsoft.Network/connections",
-          "name": "[concat(toLower(parameters('moduleNetworkConnection').networkConnection[copyIndex('networkConnection')].name),parameters('suffixes').networkConnection)]",
+          "name": "[toLower(concat(parameters('moduleCreateNetworkConnections').networkConnections[copyIndex('networkConnection')].name,parameters('suffixes').networkConnection))]",
           "apiVersion": "2018-07-01",
           "tags": "[parameters('customTages')]",
-          "location": "[if(equals(parameters('moduleNetworkConnection').location, json('null')), variables('defaultLocation'), parameters('moduleNetworkConnection').location)]",
+          "location": "[if(equals(parameters('moduleCreateNetworkConnections').location, json('null')), variables('defaultLocation'), parameters('moduleCreateNetworkConnections').location)]",
           "properties": {
             "virtualNetworkGateway1": {
-              "id": "[resourceId('Microsoft.Network/virtualNetworkGateways', parameters('moduleNetworkConnection').networkConnections[copyIndex('networkConnection')].virtualNetworkGateway1Name)]"
+              "id": "[resourceId('Microsoft.Network/virtualNetworkGateways', concat(parameters('moduleCreateNetworkConnections').networkConnections[copyIndex('networkConnection')].virtualNetworkGateway1Name,parameters('suffixes').networkGateway))]"
             },
             "localNetworkGateway2": {
-              "id": "[resourceId('Microsoft.Network/localNetworkGateways', parameters('moduleNetworkConnection').networkConnections[copyIndex('networkConnection')].virtualNetworkGateway2Name)]"
+              "id": "[resourceId('Microsoft.Network/localNetworkGateways', concat(parameters('moduleCreateNetworkConnections').networkConnections[copyIndex('networkConnection')].virtualNetworkGateway2Name,parameters('suffixes').localNetworkGateway))]"
             },
-            "connectionType": "[parameters('moduleNetworkConnection').networkConnections[copyIndex('networkConnection')].connectionType]",
-            "routingWeight": "[parameters('moduleNetworkConnection').networkConnections[copyIndex('networkConnection')].routingWeight]",
-            "sharedKey": "[parameters('moduleNetworkConnection').networkConnections[copyIndex('networkConnection')].sharedKey]"
+            "connectionType": "[parameters('moduleCreateNetworkConnections').networkConnections[copyIndex('networkConnection')].connectionType]",
+            "routingWeight": 10,
+            "sharedKey": "[parameters('moduleCreateNetworkConnections').networkConnections[copyIndex('networkConnection')].sharedKey]"
           }   
         }
     ], 
