@@ -416,6 +416,7 @@
                 "AllASGSForResourceGroup",
                 "AllPublicIPAddressesForResourceGroup",
                 "AllVNetsAndSubnetsForResourceGroup",
+                "AllVNetsAndSubnetsForResourceGroupWithoutNSGs",
                 "AllLoadBalancersForResourceGroup-inbound"
 
             ],
