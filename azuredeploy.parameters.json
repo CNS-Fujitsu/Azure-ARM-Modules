@@ -712,12 +712,12 @@
                 "location" : null,
                 "networkConnections": [
                     {
-                        "name": "Azure2Other",
-                        "virtualNetworkGateway1Name" : "azureGateway",
-                        "virtualNetworkGateway2Name" : "localGateway",
+                        "name": "azure2Other",
+                        "virtualNetworkGateway1Name" : "azuregateway",
+                        "virtualNetworkGateway2Name" : "localgateway",
                         "connectionType": "IPsec",
                         "routingWeight": 10,
-                        "sharedKey": "GEN-UNIQUE"
+                        "sharedKey": "Qwerty!ASdergh"
                     }
                 ]
             }

@@ -1,0 +1,102 @@
+{   
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "moduleCreateVirtualMachinesPerVNet": {
+            "value": {
+                "location" : null,
+                "vms": [
+                    {
+                        "vmName":  "myVM1",
+                        "storageAccountName": "mystoragegroupisp01",
+                        "nicName": "myNic",
+                        "vmSize": "Standard_A1",
+                        "availabilitySetName" : "myAvSet01",
+                        "adminUsername": "ian",
+                        "adminPassword": "H7hdfdshbnfy",
+                        "publisher": "MicrosoftWindowsServer",
+                        "offer": "WindowsServer",
+                        "sku": "2016-Datacenter",
+                        "version": "latest",
+                        "osCreateOption": "FromImage",
+                        "otherDisks": [
+                            {
+                                "name": "myVM101",
+                                "diskSizeGB": 1023,
+                                "createOption": "Empty"
+                            },
+                            {
+                                "name": "myVM102",
+                                "diskSizeGB": 1023,
+                                "createOption": "Empty"
+                            }
+                        ]
+                    },
+                    {
+                        "vmName":  "myVM2",
+                        "storageAccountName": "mystoragegroupisp01",
+                        "nicName": "myNic2",
+                        "vmSize": "Standard_A1",
+                        "availabilitySetName" : "myAvSet01",
+                        "adminUsername": "ian",
+                        "adminPassword": "H7hdfdshbnfy",
+                        "publisher": "MicrosoftWindowsServer",
+                        "offer": "WindowsServer",
+                        "sku": "2016-Datacenter",
+                        "version": "latest",
+                        "osCreateOption": "FromImage",
+                        "otherDisks": [
+                            {
+                                "name": "myVM201",
+                                "diskSizeGB": 1023,
+                                "createOption": "Empty"
+                            },
+                            {
+                                "name": "myVM202",
+                                "diskSizeGB": 1023,
+                                "createOption": "Empty"
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        "customTages": {
+            "value": {
+                "Application": "Finance",
+                "Environment": "Production",
+                "Version": "1.0.1",
+                "Creation Date": "30/10/2018",
+                "Creation By": "Ian Purvis",
+                "End Date": "01/11/2018",
+                "Owner": "Steve Owens",
+                "Cost Centre": "CNS",
+                "Customer": "MAB",
+                "Project": "Khamelon",
+                "Data Classificiation":"Secret"
+            }
+        },
+
+        "suffixes": {
+            "value": { 
+                "asgSuffix": "-asg",
+                "nsgSuffix": "-nsg",
+                "publicIPSuffix": "-pip",
+                "nicSuffix": "-nic",
+                "storageAccountSuffix": "stg",
+                "vnetSuffix": "-vnet",
+                "subnetSuffix": "-snet",
+                "vmSuffix": "-vm",
+                "osDiskSuffix": "-osdisk",
+                "osDataDiskSuffix": "-datadisk",
+                "applicationGatewaySuffix": "-agw",
+                "availabilitySetSuffix": "-avset",
+                "extLoadbalancerSuffix": "-extlb",
+                "intLoadbalancerSuffix": "-intlb",
+                "localNetworkGateway": "lng",
+                "networkConnection": "nc",
+                "networkGateway": "nc"
+            }
+        }
+    }
+}

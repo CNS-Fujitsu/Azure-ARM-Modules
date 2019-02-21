@@ -32,10 +32,10 @@
               "id": "[resourceId('Microsoft.Network/virtualNetworkGateways', concat(parameters('moduleCreateNetworkConnections').networkConnections[copyIndex('networkConnection')].virtualNetworkGateway1Name,parameters('suffixes').networkGateway))]"
             },
             "localNetworkGateway2": {
-              "id": "[resourceId('Microsoft.Network/localNetworkGateways', concat(parameters('moduleCreateNetworkConnections').networkConnections[copyIndex('networkConnection')].virtualNetworkGateway2Name,parameters('suffixes').networkGateway))]"
+              "id": "[resourceId('Microsoft.Network/localNetworkGateways', concat(parameters('moduleCreateNetworkConnections').networkConnections[copyIndex('networkConnection')].virtualNetworkGateway2Name,parameters('suffixes').localNetworkGateway))]"
             },
             "connectionType": "[parameters('moduleCreateNetworkConnections').networkConnections[copyIndex('networkConnection')].connectionType]",
-            "routingWeight": "[parameters('moduleCreateNetworkConnections').networkConnections[copyIndex('networkConnection')].routingWeight]",
+            "routingWeight": 10,
             "sharedKey": "[parameters('moduleCreateNetworkConnections').networkConnections[copyIndex('networkConnection')].sharedKey]"
           }   
         }
