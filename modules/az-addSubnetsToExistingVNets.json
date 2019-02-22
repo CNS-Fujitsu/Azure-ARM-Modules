@@ -22,20 +22,19 @@
                 "name": "vNets",
                 "count": "[length(parameters('moduleAddSubnetsToExistingVNets').vNets)]"
             },
+            "name": "AddSubnets",
             "apiVersion": "2018-03-01",
             "type": "Microsoft.Network/virtualNetworks/subnets",
-            "name": "AddSubnets",
             "location": "[resourceGroup().location]",
             "properties": {
                 "copy" : [
                     {
-                        "name": "subnets",
-                        "count": "[length(parameters('moduleAddSubnetsToExistingVNets').vNets[copyIndex('vNets')].subnets)]",
+                        "name": "vNets/subnets",
+                        "count": "[length(parameters('moduleAddSubnetsToExistingVNets').vNets[copyIndex('vNets/subnets')].subnets)]",
                         "input" : { 
-                            "addressPrefix": "[parameters('moduleAddSubnetsToExistingVNets').vNets[copyIndex('vNets')].subnets[copyIndex('subnets')].addressPrefix]",
+                            "addressPrefix": "[parameters('moduleAddSubnetsToExistingVNets').vNets[copyIndex('vNets')].subnets[copyIndex('vNets/subnets')].addressPrefix]",
                             "networkSecurityGroup": {
-                                "id": "[resourceId('Microsoft.Network/networkSecurityGroups',concat(parameters('moduleAddSubnetsToExistingVNets').vNets[copyIndex('vNets')].subnets[copyIndex('subnets')].nsgName,parameters('suffixes').nsgSuffix))]"
-                                
+                                "id": "[resourceId('Microsoft.Network/networkSecurityGroups',concat(parameters('moduleAddSubnetsToExistingVNets').vNets[copyIndex('vNets')].subnets[copyIndex('vNets/subnets')].nsgName,parameters('suffixes').nsgSuffix))]"              
                             }
                         }
                    }
