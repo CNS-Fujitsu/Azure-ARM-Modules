@@ -24,7 +24,6 @@
             },
             "apiVersion": "2018-03-01",
             "type": "Microsoft.Network/virtualNetworks/subnets",
-            "name": "vNets/AddSubnets",
             "location": "[resourceGroup().location]",
             "properties": {
                 "copy" : [
