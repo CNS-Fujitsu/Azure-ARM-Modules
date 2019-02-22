@@ -24,7 +24,7 @@
             },
             "apiVersion": "2018-03-01",
             "type": "Microsoft.Network/virtualNetworks/subnets",
-            "name": "[concat(parameters('moduleAddSubnetsToExistingVNets').vNets[copyIndex('vNets')].subnets[copyIndex('subnets')].name,parameters('suffixes').subnetSuffix)]",
+            "name": "AddSubnets",
             "location": "[resourceGroup().location]",
             "properties": {
                 "copy" : [
