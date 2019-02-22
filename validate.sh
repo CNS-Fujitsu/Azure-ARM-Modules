@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Description: File to validate json files
-# Iterate over the arm Module filesg
+# Iterate over the arm Module files
 
 #TODO: Validate CF template > Validate matching name parameter file >  validate param file - DONE
 #TODO: Ensure matching parameter file is present - DONE
