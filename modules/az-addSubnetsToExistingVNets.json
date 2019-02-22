@@ -5,6 +5,9 @@
       "moduleAddSubnetsToExistingVNets": {
         "type": "object"
       },
+      "customTages": {
+        "type": "object"
+      },
       "suffixes" : {
         "type": "object"
       }

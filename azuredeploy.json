@@ -421,13 +421,13 @@
             "name": "AddSubnetsToExistingVNetsForResourceGroup",
             "comments": "Calling Module to deploy a Vnets with subnets without NSGs",
             "type": "Microsoft.Resources/deployments",
-            "condition": "[equals(parameters('requireaddSubnetsToExistingVNets'), 'Yes')]",
+            "condition": "[equals(parameters('requireAddSubnetsToExistingVNets'), 'Yes')]",
             "dependsOn": [
             ],
             "properties" : {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[variables('Module-addSubnetsToExistingVNets-URL')]",
+                    "uri": "[variables('Module-AddSubnetsToExistingVNets-URL')]",
                     "contentVersion": "1.0.0.1"
                 },
                 "parameters": {
