@@ -95,7 +95,7 @@ process_templates () {
 
         einfo "Working: ${baseFileName}"
 
-        templatesBasename=`echo ${baseFileName} | cut -f1 -d"."`
+        templateBasename=`echo ${baseFileName} | cut -f1 -d"."`
 
         if [[ `find ${baseDirectory}/parameters -name parameters-${templateBasename}.${key}` ]]
         then
