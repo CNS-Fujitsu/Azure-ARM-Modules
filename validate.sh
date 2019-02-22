@@ -105,7 +105,7 @@ process_templates () {
             cd ${baseDirectory}/parameters
             validate_${key} parameters-${templateBasename}.${key}
         else
-            eerror "Matching parameter file not found for: ${base_filename}"
+            eerror "Matching parameter file not found for: ${baseFileName}"
             check_output 2
         fi
     done
