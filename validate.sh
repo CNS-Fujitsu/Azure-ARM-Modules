@@ -6,7 +6,7 @@
 #TODO: Ensure matching parameter file is present - DONE
 #TODO: Do we want to halt the program when a matching parameter file is NOT present? - DONE
 #TODO: Enhance validation to include yaml - DONE
-#TODO: Refactor to handle generic codebase - DONE
+#TODO: Refactor to handle generic codebase - DONE ee
 
 
 colblk='\033[0;30m' # Black - Regular
@@ -95,17 +95,17 @@ process_templates () {
 
         einfo "Working: ${baseFileName}"
 
-        templatesBasename=`echo ${baseFileName} | cut -f1 -d"."`
+        templateBasename=`echo ${baseFileName} | cut -f1 -d"."`
 
-        if [[ `find ${baseDirectory}/parameters -name parameters-${templateBasename}.${key}` ]]
+        if [[ `find ${baseDirectory}/parameters -name parameter-${templateBasename}.${key}` ]]
         then
             cd ${baseDirectory}/modules
             validate_${key} ${filename}
             einfo "Working: ${templateBasename}.${key}"
             cd ${baseDirectory}/parameters
-            validate_${key} parameters-${templateBasename}.${key}
+            validate_${key} parameter-${templateBasename}.${key}
         else
-            eerror "Matching parameter file not found for: ${base_filename}"
+            eerror "Matching parameter file not found for: ${baseFileName} "
             check_output 2
         fi
     done

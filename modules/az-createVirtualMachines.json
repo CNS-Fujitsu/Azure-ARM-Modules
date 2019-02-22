@@ -48,7 +48,9 @@
                     },
                     "osDisk": {
                         "name": "[concat(parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].vmName,parameters('suffixes').osDiskSuffix)]",
-                        "createOption": "[parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].osCreateOption]"
+                        "createOption": "[parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].osCreateOption]",
+                        "caching": "[parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].osCaching]",
+                        "writeAcceleratorEnabled":"[parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].osWriteAcceleratorEnabled]",
                     },
                     "copy": [
                         {
@@ -58,7 +60,9 @@
                                 "name": "[concat(parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].otherDisks[copyIndex('dataDisks')].name,parameters('suffixes').osDataDiskSuffix)]",
                                 "diskSizeGB": "[parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].otherDisks[copyIndex('dataDisks')].diskSizeGB]",
                                 "lun": "[copyIndex('dataDisks')]",
-                                "createOption": "[parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].otherDisks[copyIndex('dataDisks')].createOption]"
+                                "createOption": "[parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].otherDisks[copyIndex('dataDisks')].createOption]",
+                                "caching": "[parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].otherDisks[copyIndex('dataDisks')].caching]",
+                                "writeAcceleratorEnabled": "[parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].otherDisks[copyIndex('dataDisks')].writeAcceleratorEnabled]",
                             }
                         }    
                     ]
@@ -72,8 +76,8 @@
                 },
                 "diagnosticsProfile": {
                     "bootDiagnostics": {
-                        "enabled": "true",
-                        "storageUri": "[concat(reference(concat('Microsoft.Storage/storageAccounts/',concat(parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].storageAccountName,parameters('suffixes').storageAccountSuffix)), '2016-01-01').primaryEndpoints.blob)]"
+                        "enabled": true,
+                        "storageUri": "[concat(reference(concat('Microsoft.Storage/storageAccounts/',concat(parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].diagnosticStorageAccountName,parameters('suffixes').storageAccountSuffix)), '2016-01-01').primaryEndpoints.blob)]"
                     }
                 }
             }
@@ -82,6 +86,3 @@
     "outputs": {
     }
 }
-
-
-  
