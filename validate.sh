@@ -97,7 +97,7 @@ process_templates () {
 
         templateBasename=`echo ${baseFileName} | cut -f1 -d"."`
 
-        if [[ `find ${baseDirectory}/parameters -name parameters-${templateBasename}.${key}` ]]
+        if [[ `find ${baseDirectory}/parameters -name parameter-${templateBasename}.${key}` ]]
         then
             cd ${baseDirectory}/modules
             validate_${key} ${filename}
