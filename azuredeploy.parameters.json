@@ -22,13 +22,13 @@
             "value" : "Yes" 
         },
         "requireCreateVNetsAndSubnets": {
-            "value" : "No" 
+            "value" : "Yes" 
         },
         "requireCreateVNetsAndSubnetsWithoutNSGs": {
-            "value" : "Yes" 
+            "value" : "No" 
         },
         "requireAddSubnetsToExistingVNETs": {
-            "value" : "Yes" 
+            "value" : "No" 
         },
         "requireCreateNetworkInterfaces": {
             "value" : "Yes" 
@@ -377,7 +377,7 @@
                             {
                                 "name": "GatewaySubnet",
                                 "addressPrefix": "10.1.0.0/24",
-                                "nsgName": "inboundWebTrafficip1"
+                                "nsgName": null
                             },
                             {
                                 "name":"prod-ne1-vnet-subnet1",
@@ -397,7 +397,7 @@
                             {
                                 "name":"prod-ne1-vnet-subnet1",
                                 "addressPrefix":"10.2.1.0/24",
-                                "nsgName": "inboundWebTrafficip1"
+                                "nsgName": null
                             },
                             {
                                 "name":"prod-ne1-vnet-subnet2",
