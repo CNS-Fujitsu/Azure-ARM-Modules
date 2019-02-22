@@ -27,7 +27,7 @@
         "requireCreateVNetsAndSubnetsWithoutNSGs": {
             "value" : "Yes" 
         },
-        "requireAddSubnetsToExistingVNets": {
+        "requireAddSubnetsToExistingVNETs": {
             "value" : "Yes" 
         },
         "requireCreateNetworkInterfaces": {

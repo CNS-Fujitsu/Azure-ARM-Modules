@@ -22,8 +22,6 @@
                 "name": "vNets",
                 "count": "[length(parameters('moduleAddSubnetsToExistingVNets').vNets)]"
             },
-            "name": "[concat(parameters('moduleAddSubnetsToExistingVNets').vNets[copyIndex('vNets')].vnetName,parameters('suffixes').vnetSuffix)]",
-            "type": "Microsoft.Network/networkSecurityGroups",
             "comments": "Module to create a vNET with multiple subnets",
             "apiVersion": "2017-08-01",
             "tags": "[parameters('customTages')]",
