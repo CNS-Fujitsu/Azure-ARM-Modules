@@ -5,10 +5,6 @@
       "moduleAddSubnetsToExistingVNets": {
         "type": "object"
       },
-      
-      "customTages": {
-        "type": "object"
-      },
       "suffixes" : {
         "type": "object"
       }
@@ -22,7 +18,7 @@
                 "name": "vNets",
                 "count": "[length(parameters('moduleAddSubnetsToExistingVNets').vNets)]"
             },
-            "name": "[concat(parameters('moduleCreateVNetsAndSubnets').vNets[copyIndex('vNets')].vnetName,parameters('suffixes').vnetSuffix)]",
+            "name": "[concat(parameters('moduleAddSubnetsToExistingVNets').vNets[copyIndex('vNets')].vnetName,parameters('suffixes').vnetSuffix)]",
             "type": "Microsoft.Network/virtualNetworks/subnets",
             "apiVersion": "2018-03-01",
             "location": "[resourceGroup().location]",
