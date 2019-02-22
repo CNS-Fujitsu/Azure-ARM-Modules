@@ -6,7 +6,7 @@
 #TODO: Ensure matching parameter file is present - DONE
 #TODO: Do we want to halt the program when a matching parameter file is NOT present? - DONE
 #TODO: Enhance validation to include yaml - DONE
-#TODO: Refactor to handle generic codebase - DONE
+#TODO: Refactor to handle generic codebase - DONE ee
 
 
 colblk='\033[0;30m' # Black - Regular
