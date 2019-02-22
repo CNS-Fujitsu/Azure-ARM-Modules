@@ -23,8 +23,8 @@
                 "count": "[length(parameters('moduleAddSubnetsToExistingVNets').vNets)]"
             },
             "apiVersion": "2018-03-01",
-            "type": "subnets",
-            "name": "AddSubnets",
+            "type": "Microsoft.Network/virtualNetworks/subnets",
+            "name": "vNets/AddSubnets",
             "location": "[resourceGroup().location]",
             "properties": {
                 "copy" : [
