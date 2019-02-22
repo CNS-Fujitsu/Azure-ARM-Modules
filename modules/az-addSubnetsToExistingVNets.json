@@ -22,35 +22,20 @@
                 "name": "vNets",
                 "count": "[length(parameters('moduleAddSubnetsToExistingVNets').vNets)]"
             },
-            "comments": "Module to create a vNET with multiple subnets",
-            "apiVersion": "2017-08-01",
-            "tags": "[parameters('customTages')]",
-            "name": "apply-nsg-to-subnet",
-            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2018-03-01",
+            "type": "Microsoft.Network/virtualNetworks/subnets",
+            "name": "[concat(parameters('moduleAddSubnetsToExistingVNets').vNets[copyIndex('vNets')].subnets[copyIndex('subnets')].name,parameters('suffixes').subnetSuffix)]",
+            "location": "[resourceGroup().location]",
             "properties": {
                 "copy" : [
                     {
                         "name": "subnets",
                         "count": "[length(parameters('moduleAddSubnetsToExistingVNets').vNets[copyIndex('vNets')].subnets)]",
                         "input" : { 
-                            "mode": "Incremental",
-                            "template": {
-                                "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-                                "contentVersion": "1.0.0.0",
-                                "resources": [
-                                    {
-                                        "apiVersion": "2018-03-01",
-                                        "type": "Microsoft.Network/virtualNetworks/subnets",
-                                        "name": "[concat(parameters('moduleAddSubnetsToExistingVNets').vNets[copyIndex('vNets')].subnets[copyIndex('subnets')].name,parameters('suffixes').subnetSuffix)]",
-                                        "location": "[resourceGroup().location]",
-                                        "properties": {
-                                            "addressPrefix": "[parameters('moduleAddSubnetsToExistingVNets').vNets[copyIndex('vNets')].subnets[copyIndex('subnets')].addressPrefix]",
-                                            "networkSecurityGroup": {
-                                                "id": "[resourceId('Microsoft.Network/networkSecurityGroups',concat(parameters('moduleAddSubnetsToExistingVNets').vNets[copyIndex('vNets')].subnets[copyIndex('subnets')].nsgName,parameters('suffixes').nsgSuffix))]"
-                                            }
-                                        }  
-                                    }
-                                ]
+                            "addressPrefix": "[parameters('moduleAddSubnetsToExistingVNets').vNets[copyIndex('vNets')].subnets[copyIndex('subnets')].addressPrefix]",
+                            "networkSecurityGroup": {
+                                "id": "[resourceId('Microsoft.Network/networkSecurityGroups',concat(parameters('moduleAddSubnetsToExistingVNets').vNets[copyIndex('vNets')].subnets[copyIndex('subnets')].nsgName,parameters('suffixes').nsgSuffix))]"
+                                
                             }
                         }
                    }
