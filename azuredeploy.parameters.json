@@ -387,7 +387,7 @@
                             {
                                 "name":"prod-ne1-vnet-subnet2",
                                 "addressPrefix":"10.1.2.0/24",
-                                "nsgName": "inboundWebTrafficip1"
+                                "nsgName": null
                             }
                         ]
                     },

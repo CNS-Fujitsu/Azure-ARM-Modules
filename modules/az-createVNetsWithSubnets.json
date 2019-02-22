@@ -38,7 +38,7 @@
                             "properties": {
                                 "addressPrefix": "[parameters('moduleCreateVNetsAndSubnets').vNets[copyIndex('vNets')].subnets[copyIndex('subnets')].addressPrefix]",
                                 "networkSecurityGroup": {
-                                    "id": "[if(equals(parameters('moduleCreateVNetsAndSubnets').vNets[copyIndex('vNets')].subnets[copyIndex('subnets')].nsgName,json('null')),parameters('moduleCreateVNetsAndSubnets').vNets[copyIndex('vNets')].subnets[copyIndex('subnets')].nsgName,concat(parameters('moduleCreateVNetsAndSubnets').vNets[copyIndex('vNets')].subnets[copyIndex('subnets')].nsgName,parameters('suffixes').nsgSuffix))]"
+                                    "id": "[if(equals(parameters('moduleCreateVNetsAndSubnets').vNets[copyIndex('vNets')].subnets[copyIndex('subnets')].nsgName,json('null')),parameters('moduleCreateVNetsAndSubnets').vNets[copyIndex('vNets')].subnets[copyIndex('subnets')].nsgName,resourceId('Microsoft.Network/networkSecurityGroups',concat(parameters('moduleCreateVNetsAndSubnets').vNets[copyIndex('vNets')].subnets[copyIndex('subnets')].nsgName,parameters('suffixes').nsgSuffix)))]"
                                 }    
                             }
                         }
