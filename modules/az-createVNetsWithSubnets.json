@@ -58,7 +58,7 @@
             "dependsOn": [
                 "[concat(parameters('moduleCreateVNetsAndSubnets').subnets[copyIndex('nsgSubnets')].vnetName,parameters('suffixes').vnetSuffix)]"
             ],
-            "properties": "variables('withnsg')"
+            "properties": "[variables('withnsg')]"
         }
         
     ],
