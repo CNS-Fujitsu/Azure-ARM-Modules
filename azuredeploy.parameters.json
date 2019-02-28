@@ -372,7 +372,7 @@
                 "vNets" : [
                     {
                         "vnetName" : "myvnet",
-                        "vnetCIDR" : "10.1.0.0/16"
+                        "vnetCIDR" : "10.2.0.0/16"
                     },
                     {
                         "vnetName" : "myvnet2",
@@ -380,6 +380,8 @@
                     }
                 ],
                 "subnets": [
+
+                    
                     {
                                 "vnetName" : "myvnet",
                                 "name":"prod-ne1-vnet-subnet1",
