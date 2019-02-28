@@ -11,12 +11,104 @@
       },
       "suffixes" : {
         "type": "object"
-      }
+      },
+      "subnets": {
+        "type": "array",
+        "defaultValue": [
+            {
+                "name": "GatewaySubnet",
+                "addressPrefix": "10.2.0.0/24",
+                "networkSecurityGroup": "NSG-AllowAll",
+                "routeTable": "UDR-Default"
+            },
+            {
+                "name": "UnTrusted",
+                "addressPrefix": "10.2.1.0/24",
+                "networkSecurityGroup": "NSG-AllowAll1"
+            },
+            {
+                "name": "routed",
+                "addressPrefix": "10.2.2.0/24",
+                "routeTable": "UDR-Default1"
+            }
+        ]
+    }
+      
     },
     "variables": {
-        "defaultLocation": "[resourceGroup().location]"
+        "defaultLocation": "[resourceGroup().location]",
+        "subnetsBase": {
+            "copy": [
+            {
+                "name": "subnetsBase",
+                "count": "[length(parameters('subnets'))]",
+                "input": {
+                    "name": "[concat('subnet-', parameters('subnets')[copyIndex('subnetsBase')].name)]",
+                    "properties": {
+                        "addressPrefix": "[parameters('subnets')[copyIndex('subnetsBase')].addressPrefix]"
+                    }
+                }
+            }
+            ]
+        },
+        "subnetsUDR": {
+            "copy": [
+            {
+                "name": "subnetsUDR",
+                "count": "[length(parameters('subnets'))]",
+                "input": {
+                    "routeTable": {
+                        "id": "[if(contains(parameters('subnets')[copyIndex('subnetsUDR')], 'routeTable'), resourceId('Microsoft.Network/routeTables', parameters('subnets')[copyIndex('subnetsUDR')].routeTable), 'skip')]"
+                    }
+                }
+            }
+            ]
+        },
+        "subnetsNSG" : {
+            "copy": [
+                {
+                "name": "subnetsNSG",
+                "count": "[length(parameters('subnets'))]",
+                "input": {
+                    "networkSecurityGroup": {
+                        "id": "[if(contains(parameters('subnets')[copyIndex('subnetsNSG')], 'networkSecurityGroup'), resourceId('Microsoft.Network/networkSecurityGroups', parameters('subnets')[copyIndex('subnetsNSG')].networkSecurityGroup), 'skip')]"
+                    }
+                }
+            }
+
+            ]
+        }
+        
     },
     "resources": [
+        {
+            "condition": "[not(contains(variables('subnetsNSG')[copyIndex()].networkSecurityGroup.id, 'skip'))]",
+            "apiVersion": "2017-06-01",
+            "name": "[if(contains(parameters('subnets')[copyIndex()], 'networkSecurityGroup'), parameters('subnets')[copyIndex()].networkSecurityGroup, 'skip')]",
+            "location": "[resourceGroup().location]",
+            "type": "Microsoft.Network/networkSecurityGroups",
+            "copy": {
+                "name": "nsg",
+                "count": "[length(parameters('subnets'))]"
+            },
+            "properties": {
+                "securityRules": []
+            }
+        },
+        {
+            "condition": "[not(contains(variables('subnetsUDR')[copyIndex()].routeTable.id, 'skip'))]",
+            "type": "Microsoft.Network/routeTables",
+            "name": "[if(contains(parameters('subnets')[copyIndex()], 'routeTable'), parameters('subnets')[copyIndex()].routeTable, 'skip')]",
+            "apiVersion": "2017-10-01",
+            "location": "[resourceGroup().location]",
+            "copy": {
+                "name": "udr",
+                "count": "[length(parameters('subnets'))]"
+            },
+            "properties": {
+                "routes": []
+            }
+        },
         {
             "copy" : {
                 "name": "vNets",
@@ -37,20 +129,15 @@
                 "copy" : [
                     {
                         "name": "subnets",
-                        "count": "[length(parameters('moduleCreateVNetsAndSubnets').subnets[copyIndex('subnets')].subnets)]",
-                        "input" : { 
-                            "properties": {
-                                "addressPrefix": "[parameters('moduleCreateVNetsAndSubnets').subnets[copyIndex('subnets')].addressPrefix]",
-                                "networkSecurityGroup": {
-                                    "id": "[resourceId('Microsoft.Network/networkSecurityGroups',concat(parameters('moduleCreateVNetsAndSubnets').subnets[copyIndex('subnets')].nsgName,parameters('suffixes').nsgSuffix))]"
-                                }
-                            }
+                        "count": "[length(parameters('moduleCreateVNetsAndSubnets').vNets[copyIndex('vNets')].subnets)]",
+                        "input": {
+                            "name": "[concat('subnet-', parameters('subnets')[copyIndex('subnets')].name)]",
+                            "properties": "[union(variables('subnetsBase')[copyIndex('subnets')].properties, if(equals(variables('subnetsUDR')[copyIndex('subnets')].routetable.id, 'skip'), variables('subnetsBase')[copyIndex('subnets')].properties, variables('subnetsUDR')[copyIndex('subnets')]), if(equals(variables('subnetsNSG')[copyIndex('subnets')].networkSecurityGroup.id, 'skip'), variables('subnetsBase')[copyIndex('subnets')].properties, variables('subnetsNSG')[copyIndex('subnets')]))]"
                         }
                     }
                 ]
             }
-        }
-        
+        } 
     ],
     "outputs": {
     }
