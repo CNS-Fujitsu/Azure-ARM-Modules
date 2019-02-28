@@ -72,8 +72,8 @@
                         "name": "subnets",
                         "count": "[length(parameters('moduleCreateVNetsAndSubnets').subnets)]",
                         "input": {
-                            "name": "[concat('subnet-', parameters('moduleCreateVNetsAndSubnets').name)]",
-                            "properties": "[union(variables('subs')[copyIndex('subnets')].properties, variables('subs')[copyIndex('subnets')].properties, if(equals(variables('subs')[copyIndex('subnets')].networkSecurityGroup.id, 'skip'), variables('subs')[copyIndex('subnets')].properties, variables('subs')[copyIndex('subnets')]))]"
+                            "name": "[parameters('moduleCreateVNetsAndSubnets').name]",
+                            "properties": "[union(variables('subs')[copyIndex('subnets')].properties,  if(equals(variables('subs')[copyIndex('subnets')].networkSecurityGroup.id, 'skip'), variables('subs')[copyIndex('subnets')].properties, variables('subs')[copyIndex('subnets')]))]"
                         }
                     }
                 ]
