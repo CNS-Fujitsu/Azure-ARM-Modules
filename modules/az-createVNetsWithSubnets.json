@@ -17,12 +17,28 @@
         "defaultLocation": "[resourceGroup().location]",
         "withnsg": [
                 {
-                    "addressPrefix": "[parameters('moduleCreateVNetsAndSubnets').subnets[copyIndex('nsgSubnets')].addressPrefix]",
-                    "networkSecurityGroup": {
-                        "id": "[resourceId('Microsoft.Network/networkSecurityGroups',concat(parameters('moduleCreateVNetsAndSubnets').subnets[copyIndex('nsgSubnets')].nsgName,parameters('suffixes').nsgSuffix))]"
+                    "copy" : {
+                        "name": "nsgSubnets",
+                        "count": "[length(parameters('moduleCreateVNetsAndSubnets').subnets)]"
+                    },
+                    "apiVersion": "2018-10-01",
+                    "type": "Microsoft.Network/virtualNetworks/subnets",
+                    "location": "[if(equals(parameters('moduleCreateVNetsAndSubnets').location, json('null')), variables('defaultLocation'), parameters('moduleCreateVNetsAndSubnets').location)]",
+                    "name": "[concat(parameters('moduleCreateVNetsAndSubnets').subnets[copyIndex('nsgSubnets')].vnetName,parameters('suffixes').vnetSuffix,'/', parameters('moduleCreateVNetsAndSubnets').subnets[copyIndex('nsgSubnets')].name,parameters('suffixes').subnetSuffix)]",
+                    "condition" : "[not(equals(parameters('moduleCreateVNetsAndSubnets').subnets[copyIndex('nsgSubnets')].nsgName,json('null')))]",
+                    "dependsOn": [
+                        "[concat(parameters('moduleCreateVNetsAndSubnets').subnets[copyIndex('nsgSubnets')].vnetName,parameters('suffixes').vnetSuffix)]"
+                    ],
+                    "properties": {
+                        "addressPrefix": "[parameters('moduleCreateVNetsAndSubnets').subnets[copyIndex('nsgSubnets')].addressPrefix]",
+                        "networkSecurityGroup": {
+                            "id": "[resourceId('Microsoft.Network/networkSecurityGroups',concat(parameters('moduleCreateVNetsAndSubnets').subnets[copyIndex('nsgSubnets')].nsgName,parameters('suffixes').nsgSuffix))]"
+                        }
+                    
                     }
                 
                 }
+
         ]
     },
     "resources": [
@@ -47,18 +63,7 @@
         },
         {
             
-            "copy" : {
-                "name": "nsgSubnets",
-                "count": "[length(parameters('moduleCreateVNetsAndSubnets').subnets)]"
-            },
-            "apiVersion": "2018-10-01",
-            "type": "Microsoft.Network/virtualNetworks/subnets",
-            "location": "[if(equals(parameters('moduleCreateVNetsAndSubnets').location, json('null')), variables('defaultLocation'), parameters('moduleCreateVNetsAndSubnets').location)]",
-            "name": "[concat(parameters('moduleCreateVNetsAndSubnets').subnets[copyIndex('nsgSubnets')].vnetName,parameters('suffixes').vnetSuffix,'/', parameters('moduleCreateVNetsAndSubnets').subnets[copyIndex('nsgSubnets')].name,parameters('suffixes').subnetSuffix)]",
-            "dependsOn": [
-                "[concat(parameters('moduleCreateVNetsAndSubnets').subnets[copyIndex('nsgSubnets')].vnetName,parameters('suffixes').vnetSuffix)]"
-            ],
-            "properties": "[variables('withnsg')]"
+            "input": "[variables('withnsg')]"
         }
         
     ],
