@@ -22,7 +22,6 @@
                     "name": "nsgSubnets",
                     "count": "[length(parameters('moduleCreateVNetsAndSubnets').subnets)]",
                     "input": {
-                        "addressPrefix": "[parameters('moduleCreateVNetsAndSubnets').subnets[copyIndex('nsgSubnets')].addressPrefix]",
                         "networkSecurityGroup": {
                             "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('moduleCreateVNetsAndSubnets').subnets[copyIndex('nsgSubnets')].nsgName)]"
                             }      
