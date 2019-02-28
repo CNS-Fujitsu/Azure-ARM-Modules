@@ -30,6 +30,21 @@
                         }
                     }
             ]
+        },
+        "base": {
+            "copy": [
+                {
+                    "name": "subnetsBase",
+                    "count": "[length(parameters('moduleCreateVNetsAndSubnets').subnets)]",
+                    "condition": "[not(equals(parameters('moduleCreateVNetsAndSubnets').subnets[copyIndex('nsgSubnets')].nsgName,'null'))]",
+                    "input": {
+                        "name": "[parameters('moduleCreateVNetsAndSubnets').subnets[copyIndex('subnetsBase')].name]",
+                        "properties": {
+                            "addressPrefix": "[parameters('moduleCreateVNetsAndSubnets').subnets[copyIndex('subnetsBase')].addressPrefix]"
+                        }
+                    }
+                }
+            ]
         }
 
         
@@ -73,7 +88,7 @@
                         "count": "[length(parameters('moduleCreateVNetsAndSubnets').subnets)]",
                         "input": {
                             "name": "[parameters('moduleCreateVNetsAndSubnets').name]",
-                            "properties": "[union(variables('subs')[copyIndex('subnets')].properties,  if(equals(variables('subs')[copyIndex('subnets')].networkSecurityGroup.id, 'skip'), variables('subs')[copyIndex('subnets')].properties, variables('subs')[copyIndex('subnets')]))]"
+                            "properties": "[union(variables('base')[copyIndex('subnets')].properties, if(equals(variables('subs')[copyIndex('subnets')].networkSecurityGroup.id, 'skip'), variables('base')[copyIndex('subnets')].properties, variables('subs')[copyIndex('subnets')]))]"
                         }
                     }
                 ]
