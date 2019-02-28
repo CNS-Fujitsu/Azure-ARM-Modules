@@ -15,8 +15,8 @@
     },
     "variables": {
         "defaultLocation": "[resourceGroup().location]",
-        "withnsg": [
-                {
+        "withnsg": {
+            "value" : {
                     "copy" : {
                         "name": "nsgSubnets",
                         "count": "[length(parameters('moduleCreateVNetsAndSubnets').subnets)]"
@@ -32,14 +32,15 @@
                     "properties": {
                         "addressPrefix": "[parameters('moduleCreateVNetsAndSubnets').subnets[copyIndex('nsgSubnets')].addressPrefix]",
                         "networkSecurityGroup": {
+                            "id": "[resourceId('Microsoft.Network/networkSecurityGroups',concat(parameters('moduleCreateVNetsAndSubnets').subnets[copyIndex('nsgSubnets')].nsgName,parameters('suffixes').nsgSuffix))]",
                             "id": "[resourceId('Microsoft.Network/networkSecurityGroups',concat(parameters('moduleCreateVNetsAndSubnets').subnets[copyIndex('nsgSubnets')].nsgName,parameters('suffixes').nsgSuffix))]"
                         }
                     
                     }
                 
                 }
-
-        ]
+                
+            }
     },
     "resources": [
         {
@@ -62,8 +63,9 @@
             }
         },
         {
-            
-            "input": "[variables('withnsg')]"
+            "nsg" : {
+                "value": "[variables('withnsg')]"
+            }
         }
         
     ],
