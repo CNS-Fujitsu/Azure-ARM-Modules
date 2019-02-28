@@ -63,27 +63,3 @@
     "outputs": {
     }
 }
-
-
-
-
-
-
-
-
-
-"copy" : [
-    {
-        "name": "subnets",
-        "count": "[length(parameters('moduleCreateVNetsAndSubnets').vNets[copyIndex('vNets')].subnets)]",
-        "input" : { 
-            "name": "[if(equals(parameters('moduleCreateVNetsAndSubnets').vNets[copyIndex('vNets')].subnets[copyIndex('subnets')].name,'GatewaySubnet'),parameters('moduleCreateVNetsAndSubnets').vNets[copyIndex('vNets')].subnets[copyIndex('subnets')].name,concat(parameters('moduleCreateVNetsAndSubnets').vNets[copyIndex('vNets')].subnets[copyIndex('subnets')].name,parameters('suffixes').subnetSuffix))]",
-            "properties": {
-                "addressPrefix": "[parameters('moduleCreateVNetsAndSubnets').vNets[copyIndex('vNets')].subnets[copyIndex('subnets')].addressPrefix]",
-                "networkSecurityGroup": {
-                    "id": "[resourceId('Microsoft.Network/networkSecurityGroups',concat(parameters('moduleCreateVNetsAndSubnets').vNets[copyIndex('vNets')].subnets[copyIndex('subnets')].nsgName,parameters('suffixes').nsgSuffix))]"
-                }    
-            }
-        }
-    }
-]
