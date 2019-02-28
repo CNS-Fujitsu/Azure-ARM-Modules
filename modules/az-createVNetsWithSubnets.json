@@ -38,7 +38,7 @@
         {
             "condition": "[not(contains(variables('subs')[copyIndex()].networkSecurityGroup.id, 'skip'))]",
             "apiVersion": "2017-06-01",
-            "name": "[if(contains(parameters('moduleCreateVNetsAndSubnets').subnets[copyIndex()], 'nsgName'), parameters('moduleCreateVNetsAndSubnets').subnets[copyIndex()].nsgName, 'skip')]",
+            "name": "[if(contains(parameters('moduleCreateVNetsAndSubnets').subnets[copyIndex('nsg')], 'nsgName'), parameters('moduleCreateVNetsAndSubnets').subnets[copyIndex('nsgSubnets')].nsgName, 'skip')]",
             "location": "[resourceGroup().location]",
             "type": "Microsoft.Network/networkSecurityGroups",
             "copy": {
