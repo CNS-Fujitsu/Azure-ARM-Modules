@@ -47,20 +47,7 @@
         
     },
     "resources": [
-        {
-            "condition": "[not(contains(variables('subs')[copyIndex()].networkSecurityGroup.id, 'skip'))]",
-            "apiVersion": "2017-06-01",
-            "name": "[if(contains(parameters('moduleCreateVNetsAndSubnets').subnets[copyIndex()], 'nsgName'), parameters('moduleCreateVNetsAndSubnets').subnets[copyIndex()].nsgName, 'skip')]",
-            "location": "[resourceGroup().location]",
-            "type": "Microsoft.Network/networkSecurityGroups",
-            "copy": {
-                "name": "nsg",
-                "count": "[length(parameters('moduleCreateVNetsAndSubnets').subnets)]"
-            },
-            "properties": {
-                "securityRules": []
-            }
-        },
+
        
         {
             "copy" : {
