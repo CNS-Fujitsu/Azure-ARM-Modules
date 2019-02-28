@@ -21,7 +21,6 @@
                 {
                     "name": "nsgSubnets",
                     "count": "[length(parameters('moduleCreateVNetsAndSubnets').subnets)]",
-                    "condition": "[not(equals(parameters('moduleCreateVNetsAndSubnets').subnets[copyIndex('nsgSubnets')].nsgName,'null'))]",
                     "input": {
                         "addressPrefix": "[parameters('moduleCreateVNetsAndSubnets').subnets[copyIndex('nsgSubnets')].addressPrefix]",
                         "networkSecurityGroup": {
@@ -36,7 +35,6 @@
                 {
                     "name": "subnetsBase",
                     "count": "[length(parameters('moduleCreateVNetsAndSubnets').subnets)]",
-                    "condition": "[not(equals(parameters('moduleCreateVNetsAndSubnets').subnets[copyIndex('nsgSubnets')].nsgName,'null'))]",
                     "input": {
                         "name": "[parameters('moduleCreateVNetsAndSubnets').subnets[copyIndex('subnetsBase')].name]",
                         "properties": {
@@ -95,7 +93,7 @@
             }
         } 
     ],
-    
+
     "outputs": {
     }
 }
