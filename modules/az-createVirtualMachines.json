@@ -28,11 +28,12 @@
             "tags": "[parameters('customTages')]",
             "location": "[if(equals(parameters('moduleCreateVirtualMachinesPerVNet').location, json('null')), variables('defaultLocation'), parameters('moduleCreateVirtualMachinesPerVNet').location)]",
             "properties": {
-                "availabilitySet": {
-                    "id": "[resourceId('Microsoft.Compute/availabilitySets',concat(parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].availabilitySetName,parameters('suffixes').availabilitySetSuffix))]"
-                },
+
                 "hardwareProfile": {
                     "vmSize": "[parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].vmSize]"
+                },
+                "availabilitySet": {
+                    "id": "[resourceId('Microsoft.Compute/availabilitySets',concat(parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].availabilitySetName,parameters('suffixes').availabilitySetSuffix))]"
                 },
                 "osProfile": {
                     "computerName": "[parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].vmName]",
