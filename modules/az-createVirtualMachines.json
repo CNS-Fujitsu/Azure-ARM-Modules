@@ -62,7 +62,7 @@
                                 "lun": "[copyIndex('dataDisks')]",
                                 "createOption": "[parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].otherDisks[copyIndex('dataDisks')].createOption]",
                                 "caching": "[parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].otherDisks[copyIndex('dataDisks')].caching]",
-                                "writeAcceleratorEnabled": "[parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].otherDisks[copyIndex('dataDisks')].writeAcceleratorEnabled]",
+                                "writeAcceleratorEnabled": "[parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].otherDisks[copyIndex('dataDisks')].writeAcceleratorEnabled]"
                             }
                         }    
                     ]
