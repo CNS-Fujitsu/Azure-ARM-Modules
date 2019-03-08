@@ -23,7 +23,7 @@
                 "count": "[length(parameters('moduleCreateLocalNetworkGateways').localNetworkGateways)]"
             },
             "type": "Microsoft.Network/localNetworkGateways",
-            "name": "[toLower(concat(parameters('moduleCreateLocalNetworkGateways').localNetworkGateways[copyIndex('localNetworkGateway')].name,parameters('suffixes').localNetworkGateway))]",
+            "name": "[concat(parameters('moduleCreateLocalNetworkGateways').localNetworkGateways[copyIndex('localNetworkGateway')].name,parameters('suffixes').localNetworkGateway)]",
             "apiVersion": "2018-07-01",
             "type": "Microsoft.Network/localNetworkGateways",
             "tags": "[parameters('customTages')]",
