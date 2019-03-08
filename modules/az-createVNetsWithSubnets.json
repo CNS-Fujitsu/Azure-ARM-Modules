@@ -48,27 +48,46 @@
                 ]
             }
         },
-        {       
-            "copy" : {
-                "name": "subnetNSG",
-                "count": "[length(parameters('moduleCreateVNetsAndSubnets').subnetNSG)]"
-            },
-            "apiVersion": "2018-03-01",
-            "type": "Microsoft.Network/virtualNetworks/subnets",
-            "dependsOn": [
-                "[concat(parameters('moduleCreateVNetsAndSubnets').subnetNSG[copyIndex('subnetNSG')].vnetName, parameters('suffixes').vnetSuffix)]",
-                "[concat(parameters('moduleCreateVNetsAndSubnets').subnetNSG[copyIndex('subnetNSG')].vnetName, parameters('suffixes').vnetSuffix, '/', parameters('moduleCreateVNetsAndSubnets').subnetNSG[copyIndex('subnetNSG')].name, parameters('suffixes').subnetSuffix)]"
-            ],
-            "name": "[concat(parameters('moduleCreateVNetsAndSubnets').subnetNSG[copyIndex('subnetNSG')].vnetName, parameters('suffixes').vnetSuffix, '/', parameters('moduleCreateVNetsAndSubnets').subnetNSG[copyIndex('subnetNSG')].name, parameters('suffixes').subnetSuffix)]",
-            "location": "[resourceGroup().location]",
-            "comments": "Module to create multiple subnets for Vnets",
-            "properties": {
-                "addressPrefix": "[parameters('moduleCreateVNetsAndSubnets').subnetNSG[copyIndex('subnetNSG')].addressPrefix]",
-                "networkSecurityGroup": {
-                  "id": "[resourceId('Microsoft.Network/networkSecurityGroups',concat(parameters('moduleCreateVNetsAndSubnets').subnetNSG[copyIndex('subnetNSG')].nsgName,parameters('suffixes').nsgSuffix))]"
+        
+                {   
+                    "copy" : {
+                        "name": "subnetNSG",
+                        "count": "[length(parameters('moduleCreateVNetsAndSubnets').subnetNSG)]"
+                    },
+                    "apiVersion": "2017-05-10",
+                     "name": "nestedTemplate",
+                    "type": "Microsoft.Resources/deployments",
+                    
+                    "properties": {
+                        "mode": "Incremental",
+                        "template": {
+                        "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+                        "contentVersion": "1.0.0.0",
+                        "resources": [
+                            {
+                                
+                                "apiVersion": "2018-03-01",
+                                "type": "Microsoft.Network/virtualNetworks/subnets",
+                                "dependsOn": [
+                                    "[concat(parameters('moduleCreateVNetsAndSubnets').subnetNSG[copyIndex('subnetNSG')].vnetName, parameters('suffixes').vnetSuffix)]"
+                                ],
+                                "name": "[concat(parameters('moduleCreateVNetsAndSubnets').subnetNSG[copyIndex('subnetNSG')].vnetName, parameters('suffixes').vnetSuffix, '/', parameters('moduleCreateVNetsAndSubnets').subnetNSG[copyIndex('subnetNSG')].name, parameters('suffixes').subnetSuffix)]",
+                                "location": "[resourceGroup().location]",
+                                "comments": "Module to create multiple subnets for Vnets",
+                                "properties": {
+                                    "addressPrefix": "[parameters('moduleCreateVNetsAndSubnets').subnetNSG[copyIndex('subnetNSG')].addressPrefix]",
+                                    "networkSecurityGroup": {
+                                        "id": "[resourceId('Microsoft.Network/networkSecurityGroups',concat(parameters('moduleCreateVNetsAndSubnets').subnetNSG[copyIndex('subnetNSG')].nsgName,parameters('suffixes').nsgSuffix))]"
+                                    }
+                                }   
+                            }
+                        ]
+                    }
+                  }
                 }
-            } 
-        }
+            
+            
+        
     ],
     "outputs": {
     }
