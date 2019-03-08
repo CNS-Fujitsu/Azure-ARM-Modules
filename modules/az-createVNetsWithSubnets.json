@@ -57,7 +57,7 @@
             "type": "Microsoft.Network/virtualNetworks/subnets",
             "dependsOn": [
                 "[concat(parameters('moduleCreateVNetsAndSubnets').subnetNSG[copyIndex('subnetNSG')].vnetName, parameters('suffixes').vnetSuffix)]",
-                "[concat(parameters('moduleCreateVNetsAndSubnets').subnetNSG[copyIndex('subnetNSG')].vnetName, parameters('suffixes').vnetSuffix, '/', parameters('moduleCreateVNetsAndSubnets').subnetNSG[copyIndex('subnetNSG',-1)].name, parameters('suffixes').subnetSuffix)]"
+                "[concat(parameters('moduleCreateVNetsAndSubnets').subnetNSG[copyIndex('subnetNSG')].vnetName, parameters('suffixes').vnetSuffix, '/', parameters('moduleCreateVNetsAndSubnets').subnetNSG[copyIndex('subnetNSG')].name, parameters('suffixes').subnetSuffix)]"
             ],
             "name": "[concat(parameters('moduleCreateVNetsAndSubnets').subnetNSG[copyIndex('subnetNSG')].vnetName, parameters('suffixes').vnetSuffix, '/', parameters('moduleCreateVNetsAndSubnets').subnetNSG[copyIndex('subnetNSG')].name, parameters('suffixes').subnetSuffix)]",
             "location": "[resourceGroup().location]",
