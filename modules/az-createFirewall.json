@@ -48,10 +48,11 @@
                     
                        
                 "applicationRuleCollections": [
+
                     { 
-        
+                        "name": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.name]",
                         "properties": {
-                            "name": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.name]",
+                           
                             "priority": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.priority]",
                             "action": {"type": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.action]"},
                             "rules": [
