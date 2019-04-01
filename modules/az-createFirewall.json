@@ -58,7 +58,7 @@
                                             "action": {"type": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections[copyIndex('arc')].action]"},
                                             "rules": [
                                                 {
-                                                    "name": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections[copyIndex('arc')].rules.name]",
+                                                    "name": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections[copyIndex('arc')].rules[0].name]",
                                                     "protocols": [{"port": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections[copyIndex('arc')].rules.port]", "protocolType": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections[copyIndex('arc')].rules.protocolType]"}],
                                                     "targetFqdns": ["[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections[copyIndex('arc')].rules.targetUrl]"],
                                                     "sourceAddresses": ["[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections[copyIndex('arc')].rules.sourceAddress]"]
