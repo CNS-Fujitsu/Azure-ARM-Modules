@@ -72,7 +72,7 @@
                 "copy" : [
                     {
                         "name": "nrc",
-                        "count": "[length(parameters('moduleCreateFirewalls').firewalls.networkRuleCollections)]",
+                        "count": "[length(parameters('moduleCreateFirewalls').firewalls[copyIndex('fws')].networkRuleCollections)]",
                         "input" : {
                             "networkRuleCollections": [
                                 {
