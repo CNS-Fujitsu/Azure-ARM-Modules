@@ -33,7 +33,7 @@
             "properties": {
                 "ipConfigurations": [
                   {
-                    "name": "[concat(parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].fwName,parameters('suffixes').fwSuffix)]",
+                    "name": "[concat(parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].ipconfName)]",
                     "properties" : {
                       "subnet": {
                         "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets',concat(parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].vnetName,parameters('suffixes').vnetSuffix),concat(parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].subnetName,parameters('suffixes').subnetSuffix))]"
