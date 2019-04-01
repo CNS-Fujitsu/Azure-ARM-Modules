@@ -20,7 +20,7 @@
         {
             "copy" : {
                 "name": "fws",
-                "count": "[length(parameters('moduleCreateFirewalls').firewalls)]"
+                "count": "[length(parameters('moduleCreateFirewalls').fireWalls)]"
             },
             "apiVersion": "2018-11-01",
             "type": "Microsoft.Network/azureFirewalls",
