@@ -46,37 +46,30 @@
                 ],
                 
                     
-                        "copy" : [
-                            {
-                                "name": "arc",
-                                "count": "[length(parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections)]",
-                                "input" : {
-                                    "applicationRuleCollections": [
-                                        { 
-                                            "name": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections[copyIndex('arc')].name]",
-                                            "properties": {
-                                                "priority":"[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections[copyIndex('arc')].priority]",
-                                                "action": {"type": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections[copyIndex('arc')].action]"},
-                                                "rules": [
-                                                    {
-                                                        "name": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections[copyIndex('arc')].rules[0].name]",
-                                                        "protocols": [
-                                                            {
-                                                                "port": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections[copyIndex('arc')].rules[0].port]", 
-                                                                "protocolType": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections[copyIndex('arc')].rules[0].protocolType]"
-                                                            }
-                                                        ],
-                                                        "targetFqdns": ["[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections[copyIndex('arc')].rules[0].targetUrl]"],
-                                                        "sourceAddresses": ["[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections[copyIndex('arc')].rules[0].sourceAddress]"]
-                                                    }
-                                                ]
-                                            }
+                       
+                "applicationRuleCollections": [
+                    { 
+                        "name": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.name]",
+                        "properties": {
+                            "priority": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.priority]",
+                            "action": {"type": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.action]"},
+                            "rules": [
+                                {
+                                    "name": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.rules[0].name]",
+                                    "protocols": [
+                                        {
+                                            "port": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.rules[0].port]", 
+                                            "protocolType": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.rules[0].protocolType]"
                                         }
-                                    ]
+                                    ],
+                                    "targetFqdns": ["[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.rules[0].targetUrl]"],
+                                    "sourceAddresses": ["[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.rules[0].sourceAddress]"]
                                 }
-                            }
-                        ]
-                    
+                            ]
+                        }
+                    }
+                ]
+                                                 
                 
             }
         }
