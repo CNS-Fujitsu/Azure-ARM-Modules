@@ -23,6 +23,9 @@
         },
         "type": "Microsoft.Network/publicIPAddresses",
         "name": "[concat(parameters('moduleCreatePublicIPAddresses').pips[copyIndex('publicIPAddresses')].pipName,parameters('suffixes').publicIPSuffix)]",
+        "sku": {
+          "name": "parameters('moduleCreatePublicIPAddresses').pips[copyIndex('publicIPAddresses')].sku"
+        },
         "apiVersion": "2018-06-01",
         "dependsOn": [
         ],
