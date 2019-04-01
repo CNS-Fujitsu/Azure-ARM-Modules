@@ -1,0 +1,88 @@
+{  
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "moduleCreateFirewalls": {
+            "value": {
+                "location" : null,
+                "fireWalls" : [
+                    {
+                        "fwName" : "myfw01",
+                        "vnetName" : "sharedService01UkSouthVn",
+                        "subnetName": "azureFWSubnet",
+                        "pipName": "fwPublicIP",
+                        "applicationRuleCollections": [
+                            {
+                              "name": "appRc1",
+                              "priority": 101,
+                              "action": "Allow",
+                               "rules": [
+                                  {
+                                    "name": "appRule1",
+                                    "port": "80", 
+                                    "protocolType": "http",
+                                    "targetUrl": "www.google.com",
+                                    "sourceAddress": "192.168.2.0/24"
+                                  }
+                                ]
+                              }
+                        ],
+                        "networkRuleCollections": [
+                            {
+                                "name": "netRc1",
+                                "priority": 200,
+                                "action":  "Allow",
+                                "rules": [
+                                  {
+                                    "name": "netRule1",
+                                    "protocols": "TCP",
+                                    "sourceAddress": "192.168.2.0/24",
+                                    "destinationAddress": "*",
+                                    "destinationPort": "8000-8999"
+                                  }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        "customTages": {
+            "value": {
+                "Application": "Finance",
+                "Environment": "Production",
+                "Version": "1.0.1",
+                "Creation Date": "30/10/2018",
+                "Creation By": "Ian Purvis",
+                "End Date": "01/11/2018",
+                "Owner": "Steve Owens",
+                "Cost Centre": "CNS",
+                "Customer": "MAB",
+                "Project": "Khamelon",
+                "Data Classificiation":"Secret"
+            }
+        },
+
+        "suffixes": {
+            "value": { 
+                "asgSuffix": "-asg",
+                "nsgSuffix": "-nsg",
+                "publicIPSuffix": "-pip",
+                "nicSuffix": "-nic",
+                "storageAccountSuffix": "stg",
+                "vnetSuffix": "-vnet",
+                "subnetSuffix": "-snet",
+                "vmSuffix": "-vm",
+                "osDiskSuffix": "-osdisk",
+                "osDataDiskSuffix": "-datadisk",
+                "applicationGatewaySuffix": "-agw",
+                "availabilitySetSuffix": "-avset",
+                "extLoadbalancerSuffix": "-extlb",
+                "intLoadbalancerSuffix": "-intlb",
+                "localNetworkGateway": "lng",
+                "networkConnection": "nc",
+                "networkGateway": "nc"
+            }
+        }
+    }
+}
