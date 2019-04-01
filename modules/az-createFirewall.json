@@ -50,7 +50,7 @@
                 "applicationRuleCollections": [
 
                     { 
-                        "name": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.name]",
+                        "name": "test1",
                         "properties": {
                            
                             "priority": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.priority]",
