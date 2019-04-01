@@ -47,7 +47,7 @@
                 "copy" : [
                     {
                         "name": "arc",
-                        "count": "[length(parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].fwName.applicationRuleCollections)]",
+                        "count": "[length(parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections)]",
                         "input" : {
                             "applicationRuleCollections": [
                                 {
