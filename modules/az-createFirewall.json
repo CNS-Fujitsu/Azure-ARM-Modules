@@ -72,36 +72,7 @@
                             }
                         ]
                     }
-                },
-                "copy" : {
-                    "name": "nrc",
-                    "count": "[length(parameters('moduleCreateFirewalls').firewalls.networkRuleCollections)]",
-                    "input" : {
-                        "networkRuleCollections": [
-                            {
-                                "name": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].networkRuleCollections[copyIndex('nrc')].name]",
-                                "properties": {                    
-                                    "priority": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].networkRuleCollections[copyIndex('nrc')].priority]",
-                                    "action":  { "type":  "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].networkRuleCollections[copyIndex('nrc')].action]"},
-                                    "copy" : {
-                                        "name": "rules2",
-                                        "count": "[length(parameters('moduleCreateFirewalls').firewalls[copyIndex('fws')].networkRuleCollections[copyIndex('nrc')].rules)]",
-                                        "input" : {
-                                            "rules": [
-                                                {
-                                                    "name": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].networkRuleCollections[copyIndex('nrc')].rules[copyIndex('rules2')].name]",
-                                                    "protocols": ["[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].networkRuleCollections[copyIndex('nrc')].rules[copyIndex('rules2')].protocol]"],
-                                                    "sourceAddresses": ["[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].networkRuleCollections[copyIndex('nrc')].rules[copyIndex('rules2')].sourceAddress]"],
-                                                    "destinationAddresses": ["[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].networkRuleCollections[copyIndex('nrc')].rules[copyIndex('rules2')].destinationAddress]"],
-                                                    "destinationPorts": ["[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].networkRuleCollections[copyIndex('nrc')].rules[copyIndex('rules2')].destinationPort]"]
-                                                }
-                                            ]
-                                        }
-                                    }
-                                }
-                            }
-                        ]
-                    }
+                
                 }
             }
         }
