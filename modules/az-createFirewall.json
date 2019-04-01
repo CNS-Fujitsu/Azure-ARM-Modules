@@ -58,7 +58,7 @@
                             "rules": [
                                 { 
                                    
-                                    "name": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.rules.name]",
+                                    "name": "test2",
                                     "protocols": [
                                         {
                                             "port": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.rules.port]", 
