@@ -44,36 +44,38 @@
                     }
                   }
                 ],
-                "copy" : {
-                    "name": "arc",
-                    "count": "[length(parameters('moduleCreateFirewalls').firewalls.applicationRuleCollections)]",
-                    "input" : {
-                        "applicationRuleCollections": [
-                            {
-                                "name": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections[copyIndex('arc')].name]",
-                                "properties": {
-                                    "priority":"[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections[copyIndex('arc')].priority]",
-                                    "action": {"type": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections[copyIndex('arc')].action]"},
-                                    "copy" : {
-                                        "name": "rules",
-                                        "count": "[length(parameters('moduleCreateFirewalls').firewalls[copyIndex('fws')].applicationRuleCollections[copyIndex('arc')].rules)]",
-                                        "input" : {
-                                            "rules": [
-                                                {
-                                                    "name": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections[copyIndex('arc')].rules[copyIndex('rules')].name]",
-                                                    "protocols": [{"port": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections[copyIndex('arc')].rules[copyIndex('rules')].port]", "protocolType": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections[copyIndex('arc')].rules[copyIndex('rules')].protocolType]"}],
-                                                    "targetUrls": ["[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections[copyIndex('arc')].rules[copyIndex('rules')].targetUrl]"],
-                                                    "sourceAddresses": ["[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections[copyIndex('arc')].rules[copyIndex('rules')].sourceAddress]"]
-                                                }
-                                            ]
+                "copy" : [
+                    {
+                        "name": "arc",
+                        "count": "[length(parameters('moduleCreateFirewalls').firewalls.applicationRuleCollections)]",
+                        "input" : {
+                            "applicationRuleCollections": [
+                                {
+                                    "name": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections[copyIndex('arc')].name]",
+                                    "properties": {
+                                        "priority":"[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections[copyIndex('arc')].priority]",
+                                        "action": {"type": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections[copyIndex('arc')].action]"},
+                                        "copy" : {
+                                            "name": "rules",
+                                            "count": "[length(parameters('moduleCreateFirewalls').firewalls[copyIndex('fws')].applicationRuleCollections[copyIndex('arc')].rules)]",
+                                            "input" : {
+                                                "rules": [
+                                                    {
+                                                        "name": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections[copyIndex('arc')].rules[copyIndex('rules')].name]",
+                                                        "protocols": [{"port": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections[copyIndex('arc')].rules[copyIndex('rules')].port]", "protocolType": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections[copyIndex('arc')].rules[copyIndex('rules')].protocolType]"}],
+                                                        "targetUrls": ["[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections[copyIndex('arc')].rules[copyIndex('rules')].targetUrl]"],
+                                                        "sourceAddresses": ["[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections[copyIndex('arc')].rules[copyIndex('rules')].sourceAddress]"]
+                                                    }
+                                                ]
+                                            }
                                         }
                                     }
                                 }
-                            }
-                        ]
+                            ]
+                        }
                     }
+                ]
                 
-                }
             }
         }
     ],
