@@ -38,7 +38,7 @@
                       "subnet": {
                         "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets',concat(parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].vnetName,parameters('suffixes').vnetSuffix),concat(parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].subnetName,parameters('suffixes').subnetSuffix))]"
                       },
-                      "InternalPublicIPAddress": {
+                      "publicIPAddress": {
                         "id": "[resourceId('Microsoft.Network/publicIPAddresses',concat(parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].pipName,parameters('suffixes').publicIPSuffix))]"
                       }
                     }
