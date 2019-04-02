@@ -55,7 +55,7 @@
                            
                             "priority": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.priority]",
                             "action": {"type": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.action]"},
-                            "rules": 
+                            "rules": [
                                 { 
                                    
                                     "name": "test2",
@@ -68,7 +68,7 @@
                                     "targetFqdns": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.rules.targetUrl]",
                                     "sourceAddresses": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.rules.sourceAddress]"
                                 }
-                            
+                            ]
                         }
                     }
                 ]
