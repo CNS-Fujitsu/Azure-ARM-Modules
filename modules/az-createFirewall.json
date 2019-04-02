@@ -65,8 +65,8 @@
                                             "protocolType": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.rules.protocolType]"
                                         }
                                     ],
-                                    "targetFqdns": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.rules.targetUrl]",
-                                    "sourceAddresses": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.rules.sourceAddress]"
+                                    "targetFqdns": "[string(parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.rules.targetUrl)]",
+                                    "sourceAddresses": "[string(parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.rules.sourceAddress)]"
                                 }
                             ]
                         }
