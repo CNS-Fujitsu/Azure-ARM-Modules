@@ -66,15 +66,15 @@
                                           "name": "test2",
                                           "protocols": [
                                               {
-                                                  "port": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.rules.port]", 
-                                                  "protocolType": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.rules.protocolType]"
+                                                  "port": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.rules[copyIndex('apprules')].port]", 
+                                                  "protocolType": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.rules[copyIndex('apprules')].protocolType]"
                                               }
                                           ],
                                           "targetFqdns": [
-                                              "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.rules.targetUrl]"
+                                              "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.rules[copyIndex('apprules')].targetUrl]"
                                           ],
                                           "sourceAddresses": [
-                                            "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.rules.sourceAddress]"
+                                            "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.rules[copyIndex('apprules')].sourceAddress]"
                                           ]
                                       }
                                   }
