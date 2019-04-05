@@ -50,7 +50,7 @@
                 "applicationRuleCollections": [
 
                   { 
-                      "name": "test1",
+                      "name": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.name]",
                       "properties": {
                          
                           "priority": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.priority]",
@@ -58,7 +58,7 @@
                           "rules": [
                               { 
                                  
-                                  "name": "test2",
+                                  "name": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.rules.name]",
                                   "protocols": [
                                       {
                                           "port": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.rules.port]", 
