@@ -58,7 +58,6 @@
                         {
                           "name": "rules",
                           "count" : 2,
-                          
                           "input" : { 
                             "name": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.rules[copyIndex('rules')].name]",
                             "protocols": [
