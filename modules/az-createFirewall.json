@@ -50,15 +50,16 @@
                 "applicationRuleCollections": [
 
                     { 
-                        "name": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.name]",
+                        
                         "properties": {
                            
                             "priority": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.priority]",
-                            "action": {"type": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.action]"},
+                            "action": {"type": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.action]"
+                            },
                             "rules": [
                                 { 
                                    
-                                    "name": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.rules.name]",
+                                    "name": "test2",
                                     "protocols": [
                                         {
                                             "port": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.rules.port]", 
@@ -73,7 +74,8 @@
                                     ]
                                 }
                             ]
-                        }
+                        },
+                        "name": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.name]"
                     }
                 ]
                                                  
