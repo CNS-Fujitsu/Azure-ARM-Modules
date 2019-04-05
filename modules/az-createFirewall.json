@@ -58,7 +58,7 @@
                           "copy": [
                             {
                               "name": "apprules",
-                              "count" : "[length(parameters('moduleCreateFirewalls').firewalls[copyIndex('fws')].applicationRuleCollections[copyIndex('apprules')].rules)]",
+                              "count" : "[length(parameters('moduleCreateFirewalls').firewalls[copyIndex('fws')].applicationRuleCollections.rules)]",
                               "input" : { 
                                 "rules": [
                                 { 
