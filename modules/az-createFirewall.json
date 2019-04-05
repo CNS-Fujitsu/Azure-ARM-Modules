@@ -60,18 +60,18 @@
                           "count" : 2,
                           
                           "input" : { 
-                            "name": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections[copyIndex('rules')].name]",
+                            "name": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.rules[copyIndex()].name]",
                             "protocols": [
                                 {
-                                  "port": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.rules[copyIndex('rules')].port]", 
-                                  "protocolType": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.rules[copyIndex('rules')].protocolType]"
+                                  "port": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.rules[copyIndex()].port]", 
+                                  "protocolType": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.rules[copyIndex()].protocolType]"
                                 }
                             ],
                             "targetFqdns": [
-                              "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.rules[copyIndex('rules')].targetUrl]"
+                              "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.rules[copyIndex()].targetUrl]"
                             ],
                             "sourceAddresses": [
-                              "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.rules[copyIndex('rules')].sourceAddress]"
+                              "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.rules[copyIndex()].sourceAddress]"
                             ]
                           }
                         }
