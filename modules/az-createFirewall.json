@@ -55,11 +55,10 @@
                          
                           "priority": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.priority]",
                           "action": {"type": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.action]"},
-                          "copy": [
-                            {
+                          "copy": {
                               "name": "apprules",
                               "count" : "[length(parameters('moduleCreateFirewalls').firewalls[copyIndex('fws')].applicationRuleCollections.rules)]",
-                              "input" : { 
+                            },
                                 "rules": [
                                 { 
                                   
