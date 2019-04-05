@@ -51,12 +51,13 @@
                       
                 "priority": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.priority]",
                 "action": {"type": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.action]"},
-                "copy": [
-                    {
-                      "name": "apprules",
-                      "count" : 2,
-                      "rules": [
+                "rules": [
+                  {
+                    "copy": [
                         {
+                          "name": "apprules",
+                          "count" : 2,
+                          
                           "input" : { 
                             "name": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.rules[copyIndex('apprules')].name]",
                             "protocols": [
@@ -73,13 +74,12 @@
                             ]
                           }
                         }
-                      ]
-                    }
-                  ]
-                }
+                    ]
+                  }
+                ]
               }
-            ]
-          
+            }
+          ]
         }
       }
     ],
