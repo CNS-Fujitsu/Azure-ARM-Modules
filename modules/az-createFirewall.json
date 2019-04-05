@@ -55,29 +55,31 @@
                            
                             "priority": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.priority]",
                             "action": {"type": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.action]"},
-                            "copy" : {
-                              "name" : "appRules",
-                              "count": "[length(parameters('moduleCreateFirewalls').firewalls[copyIndex('fws')].applicationRuleCollections[copyIndex('apprules')].rules)]",
-                              "input" : {
-                                "rules": [
-                                    { 
-                                      
-                                        "name": "test2",
-                                        "protocols": [
-                                            {
-                                                "port": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.rules.port]", 
-                                                "protocolType": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.rules.protocolType]"
-                                            }
-                                        ],
-                                        "targetFqdns": [
-                                            "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.rules.targetUrl]"
-                                        ],
-                                        "sourceAddresses": [
-                                          "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.rules.sourceAddress]"
-                                        ]
-                                    }
-                                ]
+                            "copy" : [
+                              { 
+                                "name" : "appRules",
+                                "count": "[length(parameters('moduleCreateFirewalls').firewalls[copyIndex('fws')].applicationRuleCollections[copyIndex('apprules')].rules)]",
+                                "input" : {
+                                  "rules": 
+                                      { 
+                                        
+                                          "name": "test2",
+                                          "protocols": [
+                                              {
+                                                  "port": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.rules.port]", 
+                                                  "protocolType": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.rules.protocolType]"
+                                              }
+                                          ],
+                                          "targetFqdns": [
+                                              "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.rules.targetUrl]"
+                                          ],
+                                          "sourceAddresses": [
+                                            "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.rules.sourceAddress]"
+                                          ]
+                                      }
+                                  }
                               }
+                            ]
                         }
                     }
                 ]
