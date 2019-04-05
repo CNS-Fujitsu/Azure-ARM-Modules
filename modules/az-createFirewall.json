@@ -43,8 +43,21 @@
                 }
               }
             }
-          ],
-          
+          ]
+        }
+      }
+    ],
+    "resources": [
+      {
+        "copy" : {
+          "name": "fws",
+          "count": "[length(parameters('moduleCreateFirewalls').fireWalls)]"
+        },
+        "apiVersion": "2018-11-01",
+        "type": "[concat('Microsoft.Network/azureFirewalls/',parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].fwName,parameters('suffixes').fwSuffix)]",
+        "location": "[if(equals(parameters('moduleCreateFirewalls').location, json('null')), variables('defaultLocation'), parameters('moduleCreateFirewalls').location)]",
+        "dependsOn": [
+        ],         
           "applicationRuleCollections": [
             { 
               "name": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.name]",
@@ -74,13 +87,10 @@
                           }
                         }
                     ]
-                  
-                
               }
             }
           ]
         }
-      }
     ],
     "outputs": {
     }
