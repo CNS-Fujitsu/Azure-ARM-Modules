@@ -44,6 +44,7 @@
               }
             }
           ],
+          
           "applicationRuleCollections": [
             { 
               "name": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.name]",
