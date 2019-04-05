@@ -49,35 +49,33 @@
                        
                 "applicationRuleCollections": [
 
-                    { 
-                        
-                        "properties": {
-                           
-                            "priority": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.priority]",
-                            "action": {"type": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.action]"
-                            },
-                            "rules": [
-                                { 
-                                   
-                                    "name": "test2",
-                                    "protocols": [
-                                        {
-                                            "port": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.rules.port]", 
-                                            "protocolType": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.rules.protocolType]"
-                                        }
-                                    ],
-                                    "targetFqdns": [
-                                        "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.rules.targetUrl]"
-                                    ],
-                                    "sourceAddresses": [
-                                      "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.rules.sourceAddress]"
-                                    ]
-                                }
-                            ]
-                        },
-                        "name": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.name]"
-                    }
-                ]
+                  { 
+                      "name": "test1",
+                      "properties": {
+                         
+                          "priority": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.priority]",
+                          "action": {"type": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.action]"},
+                          "rules": [
+                              { 
+                                 
+                                  "name": "test2",
+                                  "protocols": [
+                                      {
+                                          "port": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.rules.port]", 
+                                          "protocolType": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.rules.protocolType]"
+                                      }
+                                  ],
+                                  "targetFqdns": [
+                                      "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.rules.targetUrl]"
+                                  ],
+                                  "sourceAddresses": [
+                                    "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.rules.sourceAddress]"
+                                  ]
+                              }
+                          ]
+                      }
+                  }
+              ]
                                                  
                 
             }
