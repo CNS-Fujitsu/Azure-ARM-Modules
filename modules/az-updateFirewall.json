@@ -23,12 +23,12 @@
         "count": "[length(parameters('moduleUpdateFirewalls').fireWalls)]"
       },
       "apiVersion": "2018-11-01",
-      "type": "[concat('Microsoft.Network/azureFirewalls/',parameters('moduleUpdateFirewalls').fireWalls[copyIndex('fws')].fwName,parameters('suffixes').fwSuffix)]",
+      "type": "Microsoft.Network/azureFirewalls/"
       "name": "[concat(parameters('moduleUpdateFirewalls').fireWalls[copyIndex('fws')].fwName,parameters('suffixes').fwSuffix)]",
       "location": "[if(equals(parameters('moduleUpdateFirewalls').location, json('null')), variables('defaultLocation'), parameters('moduleUpdateFirewalls').location)]",
       "dependsOn": [
       ],
-      
+
       "properties": {
         "applicationRuleCollections": [
           { 
