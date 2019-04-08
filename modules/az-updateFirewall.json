@@ -28,6 +28,7 @@
       "location": "[if(equals(parameters('moduleUpdateFirewalls').location, json('null')), variables('defaultLocation'), parameters('moduleUpdateFirewalls').location)]",
       "dependsOn": [
       ],
+      
       "properties": {
         "applicationRuleCollections": [
           { 
