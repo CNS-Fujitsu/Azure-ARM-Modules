@@ -31,7 +31,7 @@
       "properties": {
         "applicationRuleCollections": [
           { 
-            "name": "[parameters('moduleUpdateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.name]",
+            "name": "[concat('Microsoft.Network/azureFirewalls/myfw01/applicationRuleCollections',parameters('moduleUpdateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.name]",
             "properties": {
                     
               "priority": "[parameters('moduleUpdateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.priority]",
