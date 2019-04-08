@@ -1,97 +1,86 @@
 {
-    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-    "contentVersion": "1.0.0.1",
-    "parameters": {
-      "moduleCreateFirewalls": {
-        "type": "object"
-      },
-      
-      "customTages": {
-        "type": "object"
-      },
-      "suffixes" : {
-        "type": "object"
-      }
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.1",
+  "parameters": {
+    "moduleCreateFirewalls": {
+      "type": "object"
     },
-    "variables": {
-        "defaultLocation": "[resourceGroup().location]"
+    
+    "customTages": {
+      "type": "object"
     },
-    "resources": [
-      {
-        "copy" : {
-          "name": "fws",
-          "count": "[length(parameters('moduleCreateFirewalls').fireWalls)]"
-        },
-        "apiVersion": "2018-11-01",
-        "type": "Microsoft.Network/azureFirewalls",
-        "comments": "Module to create a FW",
-        "name": "[concat(parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].fwName,parameters('suffixes').fwSuffix)]",
-        "tags": "[parameters('customTages')]",
-        "location": "[if(equals(parameters('moduleCreateFirewalls').location, json('null')), variables('defaultLocation'), parameters('moduleCreateFirewalls').location)]",
-        "dependsOn": [
-        ],
-        "properties": {
-          "ipConfigurations": [
-            {
-              "name": "[concat(parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].ipconfName)]",
-              "properties" : {
-                "subnet": {
-                  "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets',concat(parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].vnetName,parameters('suffixes').vnetSuffix),concat(parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].subnetName,parameters('suffixes').subnetSuffix))]"
-                },
-                "publicIPAddress": {
-                  "id": "[resourceId('Microsoft.Network/publicIPAddresses',concat(parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].pipName,parameters('suffixes').publicIPSuffix))]"
-                }
-              }
-            }
-          ]
-        }
-      }
-    ],
-    "resources": [
-      {
-        "copy" : {
-          "name": "fws",
-          "count": "[length(parameters('moduleCreateFirewalls').fireWalls)]"
-        },
-        "apiVersion": "2018-11-01",
-        "type": "[concat('Microsoft.Network/azureFirewalls/',parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].fwName,parameters('suffixes').fwSuffix)]",
-        "location": "[if(equals(parameters('moduleCreateFirewalls').location, json('null')), variables('defaultLocation'), parameters('moduleCreateFirewalls').location)]",
-        "dependsOn": [
-        ],         
-          "applicationRuleCollections": [
-            { 
-              "name": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.name]",
-              "properties": {
-                      
-                "priority": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.priority]",
-                "action": {"type": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.action]"},
-              
-                    "copy": [
-                        {
-                          "name": "rules",
-                          "count" :  "[length(parameters('moduleCreateFirewalls').firewalls[copyIndex('fws')].applicationRuleCollections.rules)]",
-                          "input" : { 
-                            "name": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.rules[copyIndex('rules')].name]",
-                            "protocols": [
-                                {
-                                  "port": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.rules[copyIndex('rules')].port]", 
-                                  "protocolType": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.rules[copyIndex('rules')].protocolType]"
-                                }
-                            ],
-                            "targetFqdns": [
-                              "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.rules[copyIndex('rules')].targetUrl]"
-                            ],
-                            "sourceAddresses": [
-                              "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.rules[copyIndex('rules')].sourceAddress]"
-                            ]
-                          }
-                        }
-                    ]
-              }
-            }
-          ]
-        }
-    ],
-    "outputs": {
+    "suffixes" : {
+      "type": "object"
     }
+  },
+  "variables": {
+      "defaultLocation": "[resourceGroup().location]"
+  },
+  "resources": [
+    {
+      "copy" : {
+        "name": "fws",
+        "count": "[length(parameters('moduleCreateFirewalls').fireWalls)]"
+      },
+      "apiVersion": "2018-11-01",
+      "type": "Microsoft.Network/azureFirewalls",
+      "comments": "Module to create a FW",
+      "name": "[concat(parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].fwName,parameters('suffixes').fwSuffix)]",
+      "tags": "[parameters('customTages')]",
+      "location": "[if(equals(parameters('moduleCreateFirewalls').location, json('null')), variables('defaultLocation'), parameters('moduleCreateFirewalls').location)]",
+      "dependsOn": [
+      ],
+      "properties": {
+        "ipConfigurations": [
+          {
+            "name": "[concat(parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].ipconfName)]",
+            "properties" : {
+              "subnet": {
+                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets',concat(parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].vnetName,parameters('suffixes').vnetSuffix),concat(parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].subnetName,parameters('suffixes').subnetSuffix))]"
+              },
+              "publicIPAddress": {
+                "id": "[resourceId('Microsoft.Network/publicIPAddresses',concat(parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].pipName,parameters('suffixes').publicIPSuffix))]"
+              }
+            }
+          }
+        ],
+        
+        "applicationRuleCollections": [
+          { 
+            "name": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.name]",
+            "properties": {
+                    
+              "priority": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.priority]",
+              "action": {"type": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.action]"},
+            
+                  "copy": [
+                      {
+                        "name": "rules",
+                        "count" : 2,
+                        "input" : { 
+                          "name": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.rules[copyIndex('rules')].name]",
+                          "protocols": [
+                              {
+                                "port": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.rules[copyIndex('rules')].port]", 
+                                "protocolType": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.rules[copyIndex('rules')].protocolType]"
+                              }
+                          ],
+                          "targetFqdns": [
+                            "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.rules[copyIndex('rules')].targetUrl]"
+                          ],
+                          "sourceAddresses": [
+                            "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.rules[copyIndex('rules')].sourceAddress]"
+                          ]
+                        }
+                      }
+                  ]
+
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "outputs": {
+  }
 }
