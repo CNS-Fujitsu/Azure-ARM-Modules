@@ -1,0 +1,68 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.1",
+  "parameters": {
+    "moduleUpdateFirewalls": {
+      "type": "object"
+    },
+    
+    "customTages": {
+      "type": "object"
+    },
+    "suffixes" : {
+      "type": "object"
+    }
+  },
+  "variables": {
+      "defaultLocation": "[resourceGroup().location]"
+  },
+  "resources": [
+    {
+      "copy" : {
+        "name": "fws",
+        "count": "[length(parameters('moduleUpdateFirewalls').fireWalls)]"
+      },
+      "apiVersion": "2018-11-01",
+      "type": "[concat('Microsoft.Network/azureFirewalls/',parameters('moduleUpdateFirewalls').fireWalls[copyIndex('fws')].fwName,parameters('suffixes').fwSuffix)]",
+      "location": "[if(equals(parameters('moduleUpdateFirewalls').location, json('null')), variables('defaultLocation'), parameters('moduleUpdateFirewalls').location)]",
+      "dependsOn": [
+      ],
+      "properties": {
+        "applicationRuleCollections": [
+          { 
+            "name": "[parameters('moduleUpdateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.name]",
+            "properties": {
+                    
+              "priority": "[parameters('moduleUpdateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.priority]",
+              "action": {"type": "[parameters('moduleUpdateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.action]"},
+            
+                  "copy": [
+                      {
+                        "name": "rules",
+                        "count" : 2,
+                        "input" : { 
+                          "name": "[parameters('moduleUpdateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.rules[copyIndex('rules')].name]",
+                          "protocols": [
+                              {
+                                "port": "[parameters('moduleUpdateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.rules[copyIndex('rules')].port]", 
+                                "protocolType": "[parameters('moduleUpdateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.rules[copyIndex('rules')].protocolType]"
+                              }
+                          ],
+                          "targetFqdns": [
+                            "[parameters('moduleUpdateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.rules[copyIndex('rules')].targetUrl]"
+                          ],
+                          "sourceAddresses": [
+                            "[parameters('moduleUpdateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.rules[copyIndex('rules')].sourceAddress]"
+                          ]
+                        }
+                      }
+                  ]
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "outputs": {
+  }
+}
