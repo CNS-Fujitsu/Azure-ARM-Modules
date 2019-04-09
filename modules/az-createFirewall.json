@@ -44,26 +44,26 @@
             }
           }
         ],
-        
-           
-        "copy" : [
-          {
-            "name": "applicationRuleCollections",
-            "count" :  2,
-            "input" : { 
+                  
+            "copy" : [
+              {
+                "name": "applicationRuleCollections",
+                "count" :  2,
+                "input" : { 
+              
+                  "name": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections[copyIndex('applicationRuleCollections')].name]",
+                  "properties": {
+                          
+                    "priority": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections[copyIndex('applicationRuleCollections')].priority]",
+                    "action": {"type": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections[copyIndex('applicationRuleCollections')].action]"}
+                  },
+                  "rules": [
+                  ]
+                }
+              }
+            ]
           
-              "name": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections[copyIndex('applicationRuleCollections')].name]",
-              "properties": {
-                      
-                "priority": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections[copyIndex('applicationRuleCollections')].priority]",
-                "action": {"type": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections[copyIndex('applicationRuleCollections')].action]"}
-              },
-              "rules": [
-              ]
-            }
-          }
-        ]
-          
+               
         
       }
     }
