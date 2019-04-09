@@ -55,9 +55,7 @@
                   "properties": {
                           
                     "priority": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections[copyIndex('applicationRuleCollections')].priority]",
-                    "action": {"type": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections[copyIndex('applicationRuleCollections')].action]"},
-                    "rules": [
-                    ]
+                    "action": {"type": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections[copyIndex('applicationRuleCollections')].action]"}
                   }
                 }
               }
