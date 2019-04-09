@@ -28,7 +28,7 @@
       "properties": {
         "applicationRuleCollections": [
           { 
-            "name": "[concat(parameters('moduleUpdateFirewalls').fwName,parameters('suffixes').fwSuffix,parameters('moduleUpdateFirewalls').applicationRuleCollections.name)]",
+            "name": "[concat(parameters('moduleUpdateFirewalls').fwName,parameters('suffixes').fwSuffix,parameters('moduleUpdateFirewalls').name)]",
             "properties": {
               "priority": "[parameters('moduleUpdateFirewalls').applicationRuleCollections.priority]",
               "action": {"type": "[parameters('moduleUpdateFirewalls').applicationRuleCollections.action]"},
