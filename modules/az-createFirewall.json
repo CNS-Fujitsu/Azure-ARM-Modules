@@ -58,18 +58,18 @@
                     "action": {"type": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections[copyIndex('applicationRuleCollections')].action]"},
                     "rules": [
                       {
-                        "name": "[parameters('moduleCreateFirewalls').applicationRuleCollections.rules.name]",
+                        "name": "[parameters('moduleCreateFirewalls').applicationRuleCollections[copyIndex('applicationRuleCollections')].rules.name]",
                         "protocols": [
                           {
-                            "port": "[parameters('moduleCreateFirewalls').applicationRuleCollections.rules.port]", 
-                            "protocolType": "[parameters('moduleCreateFirewalls').applicationRuleCollections.rules.protocolType]"
+                            "port": "[parameters('moduleCreateFirewalls').applicationRuleCollections[copyIndex('applicationRuleCollections')].rules.port]", 
+                            "protocolType": "[parameters('moduleCreateFirewalls').applicationRuleCollections[copyIndex('applicationRuleCollections')].rules.protocolType]"
                           }
                         ],
                         "targetFqdns": [
-                          "[parameters('moduleCreateFirewalls').applicationRuleCollections.rules.targetUrl]"
+                          "[parameters('moduleCreateFirewalls').applicationRuleCollections[copyIndex('applicationRuleCollections')].rules.targetUrl]"
                         ],
                         "sourceAddresses": [
-                          "[parameters('moduleCreateFirewalls').applicationRuleCollections.rules.sourceAddress]"
+                          "[parameters('moduleCreateFirewalls').applicationRuleCollections[copyIndex('applicationRuleCollections')].rules.sourceAddress]"
                         ]
                       }
                     ]
