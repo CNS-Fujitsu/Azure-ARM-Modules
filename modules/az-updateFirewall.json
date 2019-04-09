@@ -24,14 +24,14 @@
       },
       "apiVersion": "2018-11-01",
       "type": "Microsoft.Network/azureFirewalls",
-      "name": "[concat(parameters('moduleUpdateFirewalls').fwName,parameters('suffixes').fwSuffix)]",
+      "name": "[concat(parameters('moduleUpdateFirewalls').fireWalls[copyIndex('fws')].fwName,parameters('suffixes').fwSuffix)]",
       "location": "[if(equals(parameters('moduleUpdateFirewalls').location, json('null')), variables('defaultLocation'), parameters('moduleUpdateFirewalls').location)]",
       "dependsOn": [
       ],
       "properties": {
         "applicationRuleCollections": [
           { 
-            "name": "[concat(parameters('moduleUpdateFirewalls').fwName,parameters('suffixes').fwSuffix,parameters('moduleUpdateFirewalls').fireWalls[copyIndex('fws')].name)]",
+            "name": "[concat(parameters('moduleUpdateFirewalls').fireWalls[copyIndex('fws')].fwName,parameters('suffixes').fwSuffix,parameters('moduleUpdateFirewalls').fireWalls[copyIndex('fws')].name)]",
             "properties": {
               "priority": "[parameters('moduleUpdateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.priority]",
               "action": {"type": "[parameters('moduleUpdateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.action]"},
