@@ -58,18 +58,18 @@
                     "action": {"type": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections[copyIndex('applicationRuleCollections')].action]"},
                     "rules": [
                       {
-                        "name": "[parameters('moduleCreateFirewalls').applicationRuleCollections[copyIndex('applicationRuleCollections')].rules.name]",
+                        "name": "[parameters('moduleCreateFirewalls').applicationRuleCollections[copyIndex('applicationRuleCollections')].rules[0].name]",
                         "protocols": [
                           {
-                            "port": "[parameters('moduleCreateFirewalls').applicationRuleCollections[copyIndex('applicationRuleCollections')].rules.port]", 
-                            "protocolType": "[parameters('moduleCreateFirewalls').applicationRuleCollections[copyIndex('applicationRuleCollections')].rules.protocolType]"
+                            "port": "[parameters('moduleCreateFirewalls').applicationRuleCollections[copyIndex('applicationRuleCollections')].rules[0].port]", 
+                            "protocolType": "[parameters('moduleCreateFirewalls').applicationRuleCollections[copyIndex('applicationRuleCollections')].rules[0].protocolType]"
                           }
                         ],
                         "targetFqdns": [
-                          "[parameters('moduleCreateFirewalls').applicationRuleCollections[copyIndex('applicationRuleCollections')].rules.targetUrl]"
+                          "[parameters('moduleCreateFirewalls').applicationRuleCollections[copyIndex('applicationRuleCollections')].rules[0].targetUrl]"
                         ],
                         "sourceAddresses": [
-                          "[parameters('moduleCreateFirewalls').applicationRuleCollections[copyIndex('applicationRuleCollections')].rules.sourceAddress]"
+                          "[parameters('moduleCreateFirewalls').applicationRuleCollections[copyIndex('applicationRuleCollections')].rules[0].sourceAddress]"
                         ]
                       }
                     ]
