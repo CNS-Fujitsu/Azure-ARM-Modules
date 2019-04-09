@@ -49,15 +49,17 @@
             "copy" : [
               {
                 "name": "applicationRuleCollections",
-                "count" :  "[length(parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections)]",
+                "count" :  2,
                 "input" : { 
               
-                  "name": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections[copyIndex('applicationRuleCollections')].name]",
+                  "name": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections[copyIndex('appCollections')].name]",
                   "properties": {
                           
-                    "priority": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections[copyIndex('applicationRuleCollections')].priority]",
-                    "action": {"type": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections[copyIndex('applicationRuleCollections')].action]"}
-                  }
+                    "priority": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections[copyIndex('appCollections')].priority]",
+                    "action": {"type": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections[copyIndex('appCollections')].action]"}
+                  },
+                  "rules": [
+                  ]
                 }
               }
             ]
