@@ -44,13 +44,14 @@
             }
           }
         ],
-        "copy" : [
-          {
-            "name": "applicationRuleCollections",
-            "count" :  "[length(parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections)]",
-            "input" : { 
-              "applicationRuleCollections": [
-                { 
+        "applicationRuleCollections": [
+          { 
+            "copy" : [
+              {
+                "name": "applicationRuleCollections",
+                "count" :  "[length(parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections)]",
+                "input" : { 
+              
                   "name": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections[copyIndex('applicationRuleCollections')].name]",
                   "properties": {
                           
@@ -59,8 +60,8 @@
 
                   }
                 }
-              ]
-            }
+              }
+            ]
           }
         ]
       }
