@@ -24,7 +24,7 @@
       },
       "apiVersion": "2018-11-01",
       "type": "Microsoft.Network/azureFirewalls/myfw01fw",
-      "name": "[concat('azureFirewalls/',parameters('moduleUpdateFirewalls').fireWalls[copyIndex('fws')].fwName,parameters('suffixes').fwSuffix)]",
+      "name": "[concat(parameters('moduleUpdateFirewalls').fireWalls[copyIndex('fws')].fwName,parameters('suffixes').fwSuffix),'applicationRuleCollections']",
       "location": "[if(equals(parameters('moduleUpdateFirewalls').location, json('null')), variables('defaultLocation'), parameters('moduleUpdateFirewalls').location)]",
       "dependsOn": [
       ],
