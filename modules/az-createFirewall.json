@@ -45,14 +45,22 @@
           }
         ],
         
-        "applicationRuleCollections": [
-          { 
-            "name": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.name]",
-            "properties": {
-                    
-              "priority": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.priority]",
-              "action": {"type": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.action]"}
+        "copy" : [
+          {
+            "name": "appCollections",
+            "count" :  "[length(parameters('moduleCreateFirewalls').firewalls[copyIndex('fws')].applicationRuleCollections)]",
+            "input" : { 
+              "applicationRuleCollections": [
+                { 
+                  "name": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections[copyIndex('appCollections')].name]",
+                  "properties": {
+                          
+                    "priority": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections[copyIndex('appCollections')].priority]",
+                    "action": {"type": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections[copyIndex('appCollections')].action]"}
 
+                  }
+                }
+              ]
             }
           }
         ]
