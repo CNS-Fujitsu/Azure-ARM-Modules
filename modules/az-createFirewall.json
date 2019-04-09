@@ -58,18 +58,18 @@
                     "action": {"type": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections[copyIndex('applicationRuleCollections')].action]"},
                     "rules": [
                       {
-                        "name": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections[copyIndex('applicationRuleCollections')].rules.name]",
+                        "name": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections[copyIndex('applicationRuleCollections')].rules[1].name]",
                         "protocols": [
                           {
-                            "port": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections[copyIndex('applicationRuleCollections')].rules.port]", 
-                            "protocolType": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections[copyIndex('applicationRuleCollections')].rules.protocolType]"
+                            "port": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections[copyIndex('applicationRuleCollections')].rules[1].port]", 
+                            "protocolType": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections[copyIndex('applicationRuleCollections')].rules[1].protocolType]"
                           }
                         ],
                         "targetFqdns": [
-                          "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections[copyIndex('applicationRuleCollections')].rules.targetUrl]"
+                          "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections[copyIndex('applicationRuleCollections')].rules[1].targetUrl]"
                         ],
                         "sourceAddresses": [
-                          "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections[copyIndex('applicationRuleCollections')].rules.sourceAddress]"
+                          "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections[copyIndex('applicationRuleCollections')].rules[1].sourceAddress]"
                         ]
                       }
                     ]
