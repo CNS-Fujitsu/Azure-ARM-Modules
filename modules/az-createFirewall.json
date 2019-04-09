@@ -47,16 +47,16 @@
         
         "copy" : [
           {
-            "name": "appCollections",
+            "name": "applicationRuleCollections",
             "count" :  "[length(parameters('moduleCreateFirewalls').firewalls[copyIndex('fws')].applicationRuleCollections)]",
             "input" : { 
               "applicationRuleCollections": [
                 { 
-                  "name": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections[copyIndex('appCollections')].name]",
+                  "name": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections[copyIndex('applicationRuleCollections')].name]",
                   "properties": {
                           
-                    "priority": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections[copyIndex('appCollections')].priority]",
-                    "action": {"type": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections[copyIndex('appCollections')].action]"}
+                    "priority": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections[copyIndex('applicationRuleCollections')].priority]",
+                    "action": {"type": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections[copyIndex('applicationRuleCollections')].action]"}
 
                   }
                 }
