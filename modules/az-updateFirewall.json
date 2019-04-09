@@ -18,40 +18,36 @@
   },
   "resources": [
     {
-      "copy" : {
-        "name": "fws",
-        "count": "[length(parameters('moduleUpdateFirewalls').fireWalls)]"
-      },
       "apiVersion": "2018-11-01",
       "type": "Microsoft.Network/azureFirewalls",
-      "name": "[concat(parameters('moduleUpdateFirewalls').fireWalls[copyIndex('fws')].fwName,parameters('suffixes').fwSuffix)]",
+      "name": "[concat(parameters('moduleUpdateFirewalls').fwName,parameters('suffixes').fwSuffix,copyIndex('fws'))]",
       "location": "[if(equals(parameters('moduleUpdateFirewalls').location, json('null')), variables('defaultLocation'), parameters('moduleUpdateFirewalls').location)]",
       "dependsOn": [
       ],
       "properties": {
         "applicationRuleCollections": [
           { 
-            "name": "[parameters('moduleUpdateFirewalls').fireWalls[copyIndex('fws')].name]",
+            "collectionName": "[parameters('moduleUpdateFirewalls').collectionName]",
             "properties": {
-              "priority": "[parameters('moduleUpdateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.priority]",
-              "action": {"type": "[parameters('moduleUpdateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.action]"},
+              "priority": "[parameters('moduleUpdateFirewalls').applicationRuleCollections.priority]",
+              "action": {"type": "[parameters('moduleUpdateFirewalls').applicationRuleCollections.action]"},
               "copy": [
                   {
                     "name": "rules",
-                    "count": "[length(parameters('moduleUpdateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.rules)]",
+                    "count": "[length(parameters('moduleUpdateFirewalls').applicationRuleCollections.rules)]",
                     "input" : { 
-                      "name": "[parameters('moduleUpdateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.rules[copyIndex('rules')].name]",
+                      "name": "[parameters('moduleUpdateFirewalls').applicationRuleCollections.rules[copyIndex('rules')].name]",
                       "protocols": [
                           {
-                            "port": "[parameters('moduleUpdateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.rules[copyIndex('rules')].port]", 
-                            "protocolType": "[parameters('moduleUpdateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.rules[copyIndex('rules')].protocolType]"
+                            "port": "[parameters('moduleUpdateFirewalls').applicationRuleCollections.rules[copyIndex('rules')].port]", 
+                            "protocolType": "[parameters('moduleUpdateFirewalls').applicationRuleCollections.rules[copyIndex('rules')].protocolType]"
                           }
                       ],
                       "targetFqdns": [
-                        "[parameters('moduleUpdateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.rules[copyIndex('rules')].targetUrl]"
+                        "[parameters('moduleUpdateFirewalls').applicationRuleCollections.rules[copyIndex('rules')].targetUrl]"
                       ],
                       "sourceAddresses": [
-                        "[parameters('moduleUpdateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.rules[copyIndex('rules')].sourceAddress]"
+                        "[parameters('moduleUpdateFirewalls').applicationRuleCollections.rules[copyIndex('rules')].sourceAddress]"
                       ]
                     }
                   }
