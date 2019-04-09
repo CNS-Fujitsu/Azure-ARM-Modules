@@ -35,7 +35,6 @@
             "properties": {
               "priority": "[parameters('moduleUpdateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.priority]",
               "action": {"type": "[parameters('moduleUpdateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.action]"},
-            
               "copy": [
                   {
                     "name": "rules",
