@@ -97,8 +97,8 @@
                                 "destinationAddresses": [
                                     "[parameters('moduleCreateFirewallsMultiCollections').fireWalls[copyIndex('fws')].networkRuleCollections[copyIndex('networkRuleCollections')].rules[0].destinationAddresses]"
                                 ],
-                                "destinationPort": [
-                                    "[parameters('moduleCreateFirewallsMultiCollections').fireWalls[copyIndex('fws')].networkRuleCollections[copyIndex('networkRuleCollections')].rules[0].destinationPort]"
+                                "destinationPorts": [
+                                    "[parameters('moduleCreateFirewallsMultiCollections').fireWalls[copyIndex('fws')].networkRuleCollections[copyIndex('networkRuleCollections')].rules[0].destinationPorts]"
                                 ],
                                 "sourceAddresses": [
                                     "[parameters('moduleCreateFirewallsMultiCollections').fireWalls[copyIndex('fws')].networkRuleCollections[copyIndex('networkRuleCollections')].rules[0].sourceAddress]"
