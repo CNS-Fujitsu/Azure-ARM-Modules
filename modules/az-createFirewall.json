@@ -48,7 +48,7 @@
             "copy" : [
               {
                 "name": "applicationRuleCollections",
-                "count" :  "[length(parameters('moduleCreateFirewalls').applicationRuleCollections)]",
+                "count" :  "[length(parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections)]",
                 "input" : { 
               
                   "name": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections[copyIndex('applicationRuleCollections')].name]",
