@@ -97,7 +97,7 @@
                                 "destinationAddresses": [
                                     "[parameters('moduleCreateFirewallsMultiCollections').fireWalls[copyIndex('fws')].networkRuleCollections[copyIndex('networkRuleCollections')].rules[0].destinationAddresses]"
                                 ],
-                                "destinationPorts": [
+                                "destinationPort": [
                                     "[parameters('moduleCreateFirewallsMultiCollections').fireWalls[copyIndex('fws')].networkRuleCollections[copyIndex('networkRuleCollections')].rules[0].destinationPort]"
                                 ],
                                 "sourceAddresses": [
@@ -108,7 +108,39 @@
                     }
                 }
             }
-        ]
+        ],
+        "copy" : [
+            {
+                "name": "natRuleCollections",
+                "count" :  "[length(parameters('moduleCreateFirewallsMultiCollections').fireWalls[copyIndex('fws')].natRuleCollections)]",
+                "input" : { 
+                
+                    "name": "[parameters('moduleCreateFirewallsMultiCollections').fireWalls[copyIndex('fws')].natRuleCollections[copyIndex('natRuleCollections')].name]",
+                    "properties": {
+                            
+                        "priority": "[parameters('moduleCreateFirewallsMultiCollections').fireWalls[copyIndex('fws')].natRuleCollections[copyIndex('natRuleCollections')].priority]",
+                        "action": {"type": "[parameters('moduleCreateFirewallsMultiCollections').fireWalls[copyIndex('fws')].natRuleCollections[copyIndex('natRuleCollections')].action]"},
+                        "rules": [
+                            {
+                                "name": "[parameters('moduleCreateFirewallsMultiCollections').fireWalls[copyIndex('fws')].natRuleCollections[copyIndex('natRuleCollections')].rules[0].name]",
+                                "protocols": [
+                                    "[parameters('moduleCreateFirewallsMultiCollections').fireWalls[copyIndex('fws')].natRuleCollections[copyIndex('natRuleCollections')].rules[0].protocols]"
+                                ],
+                                "destinationAddresses": [
+                                    "[parameters('moduleCreateFirewallsMultiCollections').fireWalls[copyIndex('fws')].natRuleCollections[copyIndex('natRuleCollections')].rules[0].destinationAddresses]"
+                                ],
+                                "destinationPort": [
+                                    "[parameters('moduleCreateFirewallsMultiCollections').fireWalls[copyIndex('fws')].natRuleCollections[copyIndex('natRuleCollections')].rules[0].destinationPort]"
+                                ],
+                                "sourceAddresses": [
+                                    "[parameters('moduleCreateFirewallsMultiCollections').fireWalls[copyIndex('fws')].natRuleCollections[copyIndex('natRuleCollections')].rules[0].sourceAddress]"
+                                ]
+                            }
+                        ]
+                    }
+                }
+            }
+        ] 
       }
     }
   ],
