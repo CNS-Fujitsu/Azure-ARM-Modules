@@ -55,7 +55,24 @@
                   "properties": {
                           
                     "priority": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections[copyIndex('applicationRuleCollections')].priority]",
-                    "action": {"type": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections[copyIndex('applicationRuleCollections')].action]"}
+                    "action": {"type": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections[copyIndex('applicationRuleCollections')].action]"},
+                    "rules": [
+                      {
+                        "name": "[parameters('moduleCreateFirewalls').applicationRuleCollections.rules.name]",
+                        "protocols": [
+                          {
+                            "port": "[parameters('moduleCreateFirewalls').applicationRuleCollections.rules.port]", 
+                            "protocolType": "[parameters('moduleCreateFirewalls').applicationRuleCollections.rules.protocolType]"
+                          }
+                        ],
+                        "targetFqdns": [
+                          "[parameters('moduleCreateFirewalls').applicationRuleCollections.rules.targetUrl]"
+                        ],
+                        "sourceAddresses": [
+                          "[parameters('moduleCreateFirewalls').applicationRuleCollections.rules.sourceAddress]"
+                        ]
+                      }
+                    ]
                   }
                 }
               }
