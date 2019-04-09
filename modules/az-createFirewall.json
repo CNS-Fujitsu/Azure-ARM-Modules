@@ -48,7 +48,7 @@
             "copy" : [
               {
                 "name": "applicationRuleCollections",
-                "count" :  2,
+                "count" :  ,
                 "input" : { 
               
                   "name": "[parameters('moduleCreateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections[copyIndex('applicationRuleCollections')].name]",
