@@ -34,7 +34,6 @@
           { 
             "name": "[concat(parameters('moduleUpdateFirewalls').fireWalls[copyIndex('fws')].fwName,parameters('suffixes').fwSuffix,parameters('moduleUpdateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.name)]",
             "properties": {
-                    
               "priority": "[parameters('moduleUpdateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.priority]",
               "action": {"type": "[parameters('moduleUpdateFirewalls').fireWalls[copyIndex('fws')].applicationRuleCollections.action]"},
             
