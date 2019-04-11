@@ -43,8 +43,7 @@
               }
             }
           }
-        ],
-                  
+        ],      
         "copy" : [
             {
                 "name": "applicationRuleCollections",
