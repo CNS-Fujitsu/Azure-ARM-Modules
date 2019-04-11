@@ -24,6 +24,7 @@
       },
       "apiVersion": "2018-11-01",
       "type": "Microsoft.Network/azureFirewalls",
+      "mode": "Incremental",
       "comments": "Module to create a FW",
       "name": "[concat(parameters('moduleCreateFirewallsMultiCollections').fireWalls[copyIndex('fws')].fwName,parameters('suffixes').fwSuffix)]",
       "tags": "[parameters('customTages')]",
