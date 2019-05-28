@@ -41,16 +41,34 @@
                         "input" : { 
                             "name": "[if(equals(parameters('moduleCreateVNetsAndSubnets').vNets[copyIndex('vNets')].subnets[copyIndex('subnets')].name,'GatewaySubnet'),parameters('moduleCreateVNetsAndSubnets').vNets[copyIndex('vNets')].subnets[copyIndex('subnets')].name,concat(parameters('moduleCreateVNetsAndSubnets').vNets[copyIndex('vNets')].subnets[copyIndex('subnets')].name,parameters('suffixes').subnetSuffix))]",
                             "properties": {
-                                "addressPrefix": "[parameters('moduleCreateVNetsAndSubnets').vNets[copyIndex('vNets')].subnets[copyIndex('subnets')].addressPrefix]",
-                                "networkSecurityGroup": {
-                                    "id": "[resourceId('Microsoft.Network/networkSecurityGroups',concat(parameters('moduleCreateVNetsAndSubnets').vNets[copyIndex('vNets')].subnets[copyIndex('subnets')].nsgName,parameters('suffixes').nsgSuffix))]"
-                                }    
+                                "addressPrefix": "[parameters('moduleCreateVNetsAndSubnets').vNets[copyIndex('vNets')].subnets[copyIndex('subnets')].addressPrefix]"  
                             }
                         }
                     }
                 ]
             }
-        } 
+        },
+        {       
+            "copy" : {
+                "name": "subnetNSG",
+                "count": "[length(parameters('moduleCreateVNetsAndSubnets').subnetNSG)]",
+                "mode": "Serial"
+            },
+            "apiVersion": "2018-03-01",
+            "type": "Microsoft.Network/virtualNetworks/subnets",
+            "dependsOn": [
+                "[concat(parameters('moduleCreateVNetsAndSubnets').subnetNSG[copyIndex('subnetNSG')].vnetName, parameters('suffixes').vnetSuffix)]"
+            ],
+            "name": "[concat(parameters('moduleCreateVNetsAndSubnets').subnetNSG[copyIndex('subnetNSG')].vnetName, parameters('suffixes').vnetSuffix, '/', parameters('moduleCreateVNetsAndSubnets').subnetNSG[copyIndex('subnetNSG')].name, parameters('suffixes').subnetSuffix)]",
+            "location": "[resourceGroup().location]",
+            "comments": "Module to create multiple subnets for Vnets",
+            "properties": {
+                "addressPrefix": "[parameters('moduleCreateVNetsAndSubnets').subnetNSG[copyIndex('subnetNSG')].addressPrefix]",
+                "networkSecurityGroup": {
+                  "id": "[resourceId('Microsoft.Network/networkSecurityGroups',concat(parameters('moduleCreateVNetsAndSubnets').subnetNSG[copyIndex('subnetNSG')].nsgName,parameters('suffixes').nsgSuffix))]"
+                }
+            } 
+        }
     ],
     "outputs": {
     }
