@@ -50,7 +50,7 @@
                         "name": "[concat(parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].vmName,parameters('suffixes').osDiskSuffix)]",
                         "createOption": "[parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].osCreateOption]",
                         "caching": "[parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].osCaching]",
-                        "writeAcceleratorEnabled":"[parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].osWriteAcceleratorEnabled]",
+                        "writeAcceleratorEnabled":"[bool(parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].osWriteAcceleratorEnabled)]",
                     },
                     "copy": [
                         {
@@ -62,7 +62,7 @@
                                 "lun": "[copyIndex('dataDisks')]",
                                 "createOption": "[parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].otherDisks[copyIndex('dataDisks')].createOption]",
                                 "caching": "[parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].otherDisks[copyIndex('dataDisks')].caching]",
-                                "writeAcceleratorEnabled": "[parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].otherDisks[copyIndex('dataDisks')].writeAcceleratorEnabled]",
+                                "writeAcceleratorEnabled": "[bool(parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].otherDisks[copyIndex('dataDisks')].writeAcceleratorEnabled)]",
                             }
                         }    
                     ]
