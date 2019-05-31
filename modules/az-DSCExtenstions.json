@@ -1,0 +1,50 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.1",
+    "parameters": {
+      "moduleDSCExtenstions": {
+        "type": "object"
+      },
+      
+      "customTages": {
+        "type": "object"
+      },
+      "suffixes" : {
+        "type": "object"
+      }
+    },
+    "variables": {
+      "defaultLocation": "[resourceGroup().location]",
+      "vmExtensionName": "dscExtension"
+    },
+    "resources": [
+
+        {   
+          "copy" : {
+            "name": "DSC",
+            "count": "[length(parameters('moduleDSCExtenstions').vms)]"
+          },
+          
+          "type": "Microsoft.Compute/virtualMachines/extensions",
+          "name": "[concat(parameters('moduleDSCExtenstions').vms[copyIndex('DSC')].name,'/', variables('vmExtensionName'))]",
+          "apiVersion": "2019-03-01",
+          "location": "[if(equals(parameters('moduleDSCExtenstions').location, json('null')), variables('defaultLocation'), parameters('moduleDSCExtenstions').location)]",
+          "properties": {
+            "publisher": "Microsoft.Powershell",
+            "type": "DSC",
+            "typeHandlerVersion": "2.19",
+            "autoUpgradeMinorVersion": true,
+            "settings": {
+              "ModulesUrl": "[parameters('moduleDSCExtenstions').vms[copyIndex('DSC')].modulesUrl]",
+              "ConfigurationFunction": "[parameters('moduleDSCExtenstions').vms[copyIndex('DSC')].configurationFunction]",
+              "Properties": {
+                "MachineName": "[parameters('moduleDSCExtenstions').vms[copyIndex('DSC')].name]"
+              }
+            },
+              "protectedSettings": null
+            }
+        }
+    ], 
+    "outputs": {
+    }
+}
