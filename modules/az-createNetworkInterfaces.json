@@ -87,7 +87,6 @@
                             "subnet": {
                                 "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets',concat(parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].vnetName,parameters('suffixes').vnetSuffix),concat(parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].subnetName,parameters('suffixes').subnetSuffix))]"
                             },
-                            ,
                             "loadBalancerBackendAddressPools": [
                                 {
                                     "id": "[if(equals(parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].backendAddressPoolName,json('null')),parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].backendAddressPoolName,concat(resourceId('Microsoft.Network/loadBalancers',toLower(concat(parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].lbName,parameters('suffixes').extLoadbalancerSuffix))),'/backendAddressPools/',parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].backendAddressPoolName))]"
