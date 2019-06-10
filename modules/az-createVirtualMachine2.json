@@ -44,7 +44,7 @@
                         "version": "[parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].version]"
                     },
                     "osDisk": {
-                        "name": "[concat(parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].vmName,parameters('suffixes').osDiskSuffix)]",
+                        "name": "[parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].osDiskName]",
                         "createOption": "[parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].osCreateOption]",
                         "caching": "[parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].osCaching]",
                         "writeAcceleratorEnabled":"[parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].osWriteAcceleratorEnabled]",
