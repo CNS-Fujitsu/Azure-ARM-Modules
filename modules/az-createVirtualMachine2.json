@@ -27,7 +27,7 @@
             "name": "[concat(parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].vmName,parameters('suffixes').vmSuffix)]",
             "tags": "[parameters('customTages')]",
             "location": "[if(equals(parameters('moduleCreateVirtualMachinesPerVNet').location, json('null')), variables('defaultLocation'), parameters('moduleCreateVirtualMachinesPerVNet').location)]",
-            "properties": 
+            "properties": {
                 "hardwareProfile": {
                     "vmSize": "[parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].vmSize]"
                 },
