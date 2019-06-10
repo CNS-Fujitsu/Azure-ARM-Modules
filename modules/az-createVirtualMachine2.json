@@ -1,0 +1,85 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.1",
+    "parameters": {
+      "moduleCreateVirtualMachinesPerVNet": {
+        "type": "object"
+      },
+      "customTages": {
+        "type": "object"
+      },
+      "suffixes" : {
+        "type": "object"
+      }
+    },
+    "variables": {
+      "defaultLocation": "[resourceGroup().location]"
+    },
+    "resources": [
+        {
+            "copy" : {
+                    "name": "virtualMachines",
+                    "count": "[length(parameters('moduleCreateVirtualMachinesPerVNet').vms)]"
+            },
+            "type": "Microsoft.Compute/virtualMachines",
+            "comments": "Module to create one or more Virtual Machines",
+            "apiVersion": "2019-03-01",
+            "name": "[concat(parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].vmName,parameters('suffixes').vmSuffix)]",
+            "tags": "[parameters('customTages')]",
+            "location": "[if(equals(parameters('moduleCreateVirtualMachinesPerVNet').location, json('null')), variables('defaultLocation'), parameters('moduleCreateVirtualMachinesPerVNet').location)]",
+            "properties": 
+                "hardwareProfile": {
+                    "vmSize": "[parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].vmSize]"
+                },
+                "osProfile": {
+                    "computerName": "[parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].vmName]",
+                    "adminUsername": "[parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].adminUsername]",
+                    "adminPassword": "[parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].adminPassword]"
+                },
+                "storageProfile": {
+                    "imageReference": {
+                        "publisher": "[parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].publisher]",
+                        "offer": "[parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].offer]",
+                        "sku": "[parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].sku]",
+                        "version": "[parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].version]"
+                    },
+                    "osDisk": {
+                        "name": "[concat(parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].vmName,parameters('suffixes').osDiskSuffix)]",
+                        "createOption": "[parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].osCreateOption]",
+                        "caching": "[parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].osCaching]",
+                        "writeAcceleratorEnabled":"[parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].osWriteAcceleratorEnabled]",
+                    },
+                    "copy": [
+                        {
+                            "name": "dataDisks",
+                            "count": "[length(parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].otherDisks)]",
+                            "input": {
+                                "name": "[concat(parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].otherDisks[copyIndex('dataDisks')].name,parameters('suffixes').osDataDiskSuffix)]",
+                                "diskSizeGB": "[parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].otherDisks[copyIndex('dataDisks')].diskSizeGB]",
+                                "lun": "[copyIndex('dataDisks')]",
+                                "createOption": "[parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].otherDisks[copyIndex('dataDisks')].createOption]",
+                                "caching": "[parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].otherDisks[copyIndex('dataDisks')].caching]",
+                                "writeAcceleratorEnabled": "[parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].otherDisks[copyIndex('dataDisks')].writeAcceleratorEnabled]",
+                            }
+                        }    
+                    ]
+                },
+                "networkProfile": {
+                    "networkInterfaces": [
+                        {
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces',concat(parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].nicName,parameters('suffixes').nicSuffix))]"
+                        }
+                    ]
+                },
+                "diagnosticsProfile": {
+                    "bootDiagnostics": {
+                        "enabled": true,
+                        "storageUri": "[concat(reference(concat('Microsoft.Storage/storageAccounts/',concat(parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].diagnosticStorageAccountName,parameters('suffixes').storageAccountSuffix)), '2016-01-01').primaryEndpoints.blob)]"
+                    }
+                }
+            }
+        }
+    ], 
+    "outputs": {
+    }
+}
