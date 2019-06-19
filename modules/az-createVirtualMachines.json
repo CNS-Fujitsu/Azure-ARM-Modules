@@ -25,7 +25,7 @@
             "comments": "Module to create one or more Virtual Machines",
             "apiVersion": "2019-03-01",
             "name": "[concat(parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].vmName,parameters('suffixes').vmSuffix)]",
-            "zones": "[if(equals(parameters('moduleCreateVirtualMachinesPerVNet').zone, json('null')), json('null'), parameters('moduleCreateVirtualMachinesPerVNet').zone)]",
+            "zones": "[if(equals(parameters('moduleCreateVirtualMachinesPerVNet').zones, json('null')), json('null'), parameters('moduleCreateVirtualMachinesPerVNet').zones)]",
             "tags": "[parameters('customTages')]",
             "location": "[if(equals(parameters('moduleCreateVirtualMachinesPerVNet').location, json('null')), variables('defaultLocation'), parameters('moduleCreateVirtualMachinesPerVNet').location)]",
             "properties": {
