@@ -39,7 +39,7 @@
           "publicIPAllocationMethod": "[parameters('moduleCreatePublicIPAddresses').pips[copyIndex('publicIPAddresses')].publicIPAllocationMethod]"
         }    
       }
-    ]
+    ],
     "outputs": {
     }
 }
