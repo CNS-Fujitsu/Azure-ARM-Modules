@@ -26,6 +26,9 @@
         "apiVersion": "2018-06-01",
         "dependsOn": [
         ],
+        "zones": [
+          "[if(equals(parameters('moduleCreatePublicIPAddresses').pips[copyIndex('publicIPAddresses')].zones, json('null')), json('null'), parameters('moduleCreatePublicIPAddresses').pips[copyIndex('publicIPAddresses')].zones)]"
+        ],
         "tags": "[parameters('customTages')]",
         "location": "[if(equals(parameters('moduleCreatePublicIPAddresses').location, json('null')), variables('defaultLocation'), parameters('moduleCreatePublicIPAddresses').location)]",
         "properties": {

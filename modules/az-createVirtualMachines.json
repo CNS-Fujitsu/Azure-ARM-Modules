@@ -32,8 +32,8 @@
             "location": "[if(equals(parameters('moduleCreateVirtualMachinesPerVNet').location, json('null')), variables('defaultLocation'), parameters('moduleCreateVirtualMachinesPerVNet').location)]",
             "properties": {
                 "availabilitySet": {
-                      "id": "[resourceId('Microsoft.Compute/availabilitySets',concat(parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].availabilitySetName,parameters('suffixes').availabilitySetSuffix))]"
-                  },
+                      "id":  "[if(equals(parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].availabilitySetName, json('null')), json('null'), resourceId('Microsoft.Compute/availabilitySets',concat(parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].availabilitySetName,parameters('suffixes').availabilitySetSuffix)))]"
+                },
                 "hardwareProfile": {
                     "vmSize": "[parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].vmSize]"
                 },
@@ -65,7 +65,7 @@
                                 "lun": "[copyIndex('dataDisks')]",
                                 "createOption": "[parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].otherDisks[copyIndex('dataDisks')].createOption]",
                                 "caching": "[parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].otherDisks[copyIndex('dataDisks')].caching]",
-                                "writeAcceleratorEnabled": "[parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].otherDisks[copyIndex('dataDisks')].writeAcceleratorEnabled]",
+                                "writeAcceleratorEnabled": "[parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].otherDisks[copyIndex('dataDisks')].writeAcceleratorEnabled]"
                             }
                         }    
                     ]
