@@ -28,7 +28,7 @@
         "dependsOn": [
         ],
         "zones": [
-          "[if(equals(parameters('moduleCreatePublicIPAddresses').pips[copyIndex('publicIPAddresses')].zones, json('null')), json('null'), parameters('moduleCreatePublicIPAddresses').pips[copyIndex('publicIPAddresses')].zones)]"
+          "[parameters('moduleCreatePublicIPAddresses').pips[copyIndex('publicIPAddresses')].zones]"
         ],
         "tags": "[parameters('customTages')]",
         "sku": {
