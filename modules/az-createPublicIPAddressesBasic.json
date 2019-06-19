@@ -27,13 +27,9 @@
       
         "dependsOn": [
         ],
-        "zones": [
-          "[parameters('moduleCreatePublicIPAddresses').pips[copyIndex('publicIPAddresses')].zones]"
-        ],
+        
         "tags": "[parameters('customTages')]",
-        "sku": {
-          "name": "[parameters('moduleCreatePublicIPAddresses').pips[copyIndex('publicIPAddresses')].sku]"
-        },
+        
         "location": "[if(equals(parameters('moduleCreatePublicIPAddresses').location, json('null')), variables('defaultLocation'), parameters('moduleCreatePublicIPAddresses').location)]",
         "properties": {
           "publicIPAllocationMethod": "[parameters('moduleCreatePublicIPAddresses').pips[copyIndex('publicIPAddresses')].publicIPAllocationMethod]"
