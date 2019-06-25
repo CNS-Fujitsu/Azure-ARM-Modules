@@ -54,7 +54,7 @@
                         "name": "[concat(parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].vmName,parameters('suffixes').osDiskSuffix)]",
                         "createOption": "[parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].osCreateOption]",
                         "caching": "[parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].osCaching]",
-                        "writeAcceleratorEnabled":"[parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].osWriteAcceleratorEnabled]",
+                        "writeAcceleratorEnabled":"[parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].osWriteAcceleratorEnabled]"
                     },
                     "copy": [
                         {
@@ -123,7 +123,7 @@
                         "name": "[concat(parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].vmName,parameters('suffixes').osDiskSuffix)]",
                         "createOption": "[parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].osCreateOption]",
                         "caching": "[parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].osCaching]",
-                        "writeAcceleratorEnabled":"[parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].osWriteAcceleratorEnabled]",
+                        "writeAcceleratorEnabled":"[parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].osWriteAcceleratorEnabled]"
                     },
                     "copy": [
                         {
