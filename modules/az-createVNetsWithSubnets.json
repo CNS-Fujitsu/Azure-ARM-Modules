@@ -34,6 +34,9 @@
                         "[parameters('moduleCreateVNetsAndSubnets').vNets[copyIndex('vNets')].vnetCIDR]"
                     ]
                 },
+                "dhcpOptions": {
+                    "dnsServers": "[parameters('moduleCreateVNetsAndSubnets').vNets[copyIndex('vNets')].DNSServerAddress]"
+                },
                 "copy" : [
                     {
                         "name": "subnets",
