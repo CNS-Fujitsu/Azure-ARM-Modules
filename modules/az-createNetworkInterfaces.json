@@ -71,6 +71,42 @@
             "type": "Microsoft.Network/networkInterfaces",
             "comments": "Module to create one or more Network Interfaces",
             "apiVersion": "2018-08-01",
+            "condition" : "[and(not(equals(parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].aSGName,json('null'))),equals(parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].lbName,json('null')))]",
+            "name": "[concat(parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].nicName,parameters('suffixes').nicSuffix)]",
+            "tags": "[parameters('customTages')]",
+            "location": "[if(equals(parameters('moduleCreateNetworkInterfaces').location, json('null')), variables('defaultLocation'), parameters('moduleCreateNetworkInterfaces').location)]",
+            "properties": {
+                "ipConfigurations": [   
+                    { 
+                        "name": "[parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].ipConfigName]",
+                        "properties": {
+                            "privateIPAllocationMethod": "[parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].privateIPAllocationMethod]",
+                            "publicIPAddress": {
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses',concat(parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].pipName,parameters('suffixes').publicIPSuffix))]"
+                            },
+                            "subnet": {
+                                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets',concat(parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].vnetName,parameters('suffixes').vnetSuffix),concat(parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].subnetName,parameters('suffixes').subnetSuffix))]"
+                            },
+                            "applicationSecurityGroups": [
+                                {
+                                    "id": "[if(equals(parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].aSGName,json('null')), json('null'),resourceId('Microsoft.Network/applicationSecurityGroups',concat(parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].aSGName,parameters('suffixes').asgSuffix)))]"
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        }
+      ], 
+      "resources": [
+        {
+            "copy" : {
+                    "name": "networkInterfaces",
+                    "count": "[length(parameters('moduleCreateNetworkInterfaces').nics)]"
+            },
+            "type": "Microsoft.Network/networkInterfaces",
+            "comments": "Module to create one or more Network Interfaces",
+            "apiVersion": "2018-08-01",
             "condition" : "[equals(parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].aSGName,json('null'))]",
             "name": "[concat(parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].nicName,parameters('suffixes').nicSuffix)]",
             "tags": "[parameters('customTages')]",
@@ -98,6 +134,37 @@
                                     "id": "[if(equals(parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].inboundNatRulesname,json('null')),parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].inboundNatRulesname,concat(resourceId('Microsoft.Network/loadBalancers',toLower(concat(parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].lbName,parameters('suffixes').extLoadbalancerSuffix))),'/inboundNatRules/',parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].inboundNatRulesname))]"
                                 }
                             ]
+                        }
+                    }
+                ]
+            }
+        }
+      ],
+      "resources": [
+        {
+            "copy" : {
+                    "name": "networkInterfaces",
+                    "count": "[length(parameters('moduleCreateNetworkInterfaces').nics)]"
+            },
+            "type": "Microsoft.Network/networkInterfaces",
+            "comments": "Module to create one or more Network Interfaces",
+            "apiVersion": "2018-08-01",
+            "condition" : "[and(equals(parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].aSGName,json('null')),equals(parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].lbName,json('null')))]",
+            "name": "[concat(parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].nicName,parameters('suffixes').nicSuffix)]",
+            "tags": "[parameters('customTages')]",
+            "location": "[if(equals(parameters('moduleCreateNetworkInterfaces').location, json('null')), variables('defaultLocation'), parameters('moduleCreateNetworkInterfaces').location)]",
+            "properties": {
+                "ipConfigurations": [   
+                    { 
+                        "name": "[parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].ipConfigName]",
+                        "properties": {
+                            "privateIPAllocationMethod": "[parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].privateIPAllocationMethod]",
+                            "publicIPAddress": {
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses',concat(parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].pipName,parameters('suffixes').publicIPSuffix))]"
+                            },
+                            "subnet": {
+                                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets',concat(parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].vnetName,parameters('suffixes').vnetSuffix),concat(parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].subnetName,parameters('suffixes').subnetSuffix))]"
+                            }
                         }
                     }
                 ]

@@ -25,9 +25,15 @@
             "comments": "Module to create one or more Virtual Machines",
             "apiVersion": "2019-03-01",
             "name": "[concat(parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].vmName,parameters('suffixes').vmSuffix)]",
+            "zones": [
+                "[if(equals(parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].zones, json('null')), json('null'), parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].zones)]"
+            ],
             "tags": "[parameters('customTages')]",
             "location": "[if(equals(parameters('moduleCreateVirtualMachinesPerVNet').location, json('null')), variables('defaultLocation'), parameters('moduleCreateVirtualMachinesPerVNet').location)]",
             "properties": {
+                "availabilitySet": {
+                    "id":  "[if(equals(parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].availabilitySetName, json('null')), json('null'), resourceId('Microsoft.Compute/availabilitySets',concat(parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].availabilitySetName,parameters('suffixes').availabilitySetSuffix)))]"
+                },
                 "hardwareProfile": {
                     "vmSize": "[parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].vmSize]"
                 },
